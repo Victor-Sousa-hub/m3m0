@@ -1,19 +1,37 @@
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+
+import { getDatabase } from './src/db/database';
+import RootNavigator from './src/navigation/RootNavigator';
 
 export default function App() {
+  const [isDbReady, setIsDbReady] = useState(false);
+
+  useEffect(() => {
+    getDatabase().then(() => setIsDbReady(true));
+  }, []);
+
+  if (!isDbReady) {
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <SafeAreaProvider>
+      <RootNavigator />
       <StatusBar style="auto" />
-    </View>
+    </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  loading: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
