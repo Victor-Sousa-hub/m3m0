@@ -30,6 +30,9 @@ CREATE TABLE IF NOT EXISTS options (
 CREATE TABLE IF NOT EXISTS users (
   id INTEGER PRIMARY KEY NOT NULL,
   name TEXT NOT NULL,
+  current_streak INTEGER NOT NULL DEFAULT 0,
+  longest_streak INTEGER NOT NULL DEFAULT 0,
+  last_active_date TEXT,
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
@@ -39,6 +42,9 @@ CREATE TABLE IF NOT EXISTS quiz_attempts (
   deck_id INTEGER NOT NULL REFERENCES decks(id) ON DELETE CASCADE,
   score INTEGER NOT NULL,
   total_questions INTEGER NOT NULL,
+  duration_minutes INTEGER NOT NULL DEFAULT 0,
+  time_taken_seconds INTEGER NOT NULL DEFAULT 0,
+  points INTEGER NOT NULL DEFAULT 0,
   completed_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 

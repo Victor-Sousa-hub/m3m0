@@ -6,10 +6,13 @@ import type { User } from '../types/models';
  * getCurrentUser() returns that profile (the earliest created row) or null
  * before onboarding has run.
  */
+const USER_COLUMNS = `id, name, current_streak as currentStreak, longest_streak as longestStreak,
+       last_active_date as lastActiveDate, created_at as createdAt`;
+
 export async function getCurrentUser(): Promise<User | null> {
   const db = await getDatabase();
   const row = await db.getFirstAsync<User>(
-    'SELECT id, name, created_at as createdAt FROM users ORDER BY created_at ASC LIMIT 1'
+    `SELECT ${USER_COLUMNS} FROM users ORDER BY created_at ASC LIMIT 1`
   );
   return row ?? null;
 }
@@ -22,7 +25,7 @@ export async function createUser(name: string): Promise<User> {
   const db = await getDatabase();
   const result = await db.runAsync('INSERT INTO users (name) VALUES (?)', trimmed);
   const user = await db.getFirstAsync<User>(
-    'SELECT id, name, created_at as createdAt FROM users WHERE id = ?',
+    `SELECT ${USER_COLUMNS} FROM users WHERE id = ?`,
     result.lastInsertRowId
   );
   if (!user) {

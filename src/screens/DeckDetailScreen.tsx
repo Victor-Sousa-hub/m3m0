@@ -4,7 +4,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { getQuestionCountForDeck } from '../db/questions';
-import { getAttemptsForDeck } from '../db/scores';
+import { bestAttemptPerDuration, getAttemptsForDeck } from '../db/scores';
 import { useCurrentUser } from '../context/UserContext';
 import { useTheme } from '../theme/useTheme';
 import type { ThemeColors } from '../theme/colors';
@@ -30,6 +30,7 @@ export default function DeckDetailScreen({ route, navigation }: Props) {
   );
 
   const hasQuestions = (questionCount ?? 0) > 0;
+  const bestByDuration = useMemo(() => bestAttemptPerDuration(attempts), [attempts]);
 
   return (
     <View style={styles.container}>
@@ -48,6 +49,23 @@ export default function DeckDetailScreen({ route, navigation }: Props) {
         <Text style={styles.startButtonText}>Iniciar simulado</Text>
       </Pressable>
 
+      {bestByDuration.length > 0 && (
+        <>
+          <Text style={styles.historyTitle}>Recordes por tempo</Text>
+          <View style={styles.recordsRow}>
+            {bestByDuration.map((attempt) => (
+              <View key={attempt.durationMinutes} style={styles.recordCard}>
+                <Text style={styles.recordDuration}>{attempt.durationMinutes} min</Text>
+                <Text style={styles.recordPoints}>{attempt.points} pts</Text>
+                <Text style={styles.recordScore}>
+                  {attempt.score}/{attempt.totalQuestions}
+                </Text>
+              </View>
+            ))}
+          </View>
+        </>
+      )}
+
       <Text style={styles.historyTitle}>Suas pontuações</Text>
       <FlatList
         data={attempts}
@@ -56,7 +74,7 @@ export default function DeckDetailScreen({ route, navigation }: Props) {
         renderItem={({ item }) => (
           <View style={styles.attemptRow}>
             <Text style={styles.attemptScore}>
-              {item.score}/{item.totalQuestions}
+              {item.score}/{item.totalQuestions} · {item.points} pts · {item.durationMinutes} min
             </Text>
             <Text style={styles.attemptDate}>{item.completedAt}</Text>
           </View>
@@ -103,6 +121,37 @@ function createStyles(colors: ThemeColors) {
       fontWeight: '600',
       color: colors.text,
       marginBottom: 8,
+    },
+    recordsRow: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      gap: 10,
+      marginBottom: 24,
+    },
+    recordCard: {
+      borderWidth: 1,
+      borderColor: colors.border,
+      borderRadius: 10,
+      paddingHorizontal: 14,
+      paddingVertical: 10,
+      alignItems: 'center',
+      minWidth: 84,
+    },
+    recordDuration: {
+      fontSize: 12,
+      color: colors.textMuted,
+      fontWeight: '600',
+    },
+    recordPoints: {
+      fontSize: 17,
+      color: colors.primary,
+      fontWeight: '800',
+      marginTop: 2,
+    },
+    recordScore: {
+      fontSize: 12,
+      color: colors.textMuted,
+      marginTop: 2,
     },
     emptyText: {
       color: colors.textMuted,

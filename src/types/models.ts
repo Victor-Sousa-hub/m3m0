@@ -27,6 +27,9 @@ export interface Question {
 export interface User {
   id: number;
   name: string;
+  currentStreak: number;
+  longestStreak: number;
+  lastActiveDate: string | null;
   createdAt: string;
 }
 
@@ -36,5 +39,8 @@ export interface QuizAttempt {
   deckId: number;
   score: number;
   totalQuestions: number;
+  durationMinutes: number;
+  timeTakenSeconds: number;
+  points: number;
   completedAt: string;
 }

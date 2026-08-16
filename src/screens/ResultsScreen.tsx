@@ -9,10 +9,20 @@ import type { RootStackParamList } from '../navigation/types';
 type Props = NativeStackScreenProps<RootStackParamList, 'Results'>;
 
 export default function ResultsScreen({ route, navigation }: Props) {
-  const { deckName, score, total } = route.params;
+  const {
+    deckName,
+    score,
+    total,
+    points,
+    durationMinutes,
+    currentStreak,
+    longestStreak,
+    isNewStreakDay,
+  } = route.params;
   const { colors } = useTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
   const percentage = total > 0 ? Math.round((score / total) * 100) : 0;
+  const isStreakRecord = isNewStreakDay && currentStreak > 1 && currentStreak === longestStreak;
 
   return (
     <View style={styles.container}>
@@ -21,6 +31,14 @@ export default function ResultsScreen({ route, navigation }: Props) {
       <Text style={styles.scoreText}>
         {score} de {total} perguntas corretas
       </Text>
+      <Text style={styles.pointsText}>
+        {points} pts · simulado de {durationMinutes} min
+      </Text>
+
+      <View style={styles.streakBadge}>
+        <Text style={styles.streakText}>🔥 Sequência de {currentStreak} dia{currentStreak === 1 ? '' : 's'}</Text>
+        {isStreakRecord && <Text style={styles.streakRecordText}>Novo recorde pessoal!</Text>}
+      </View>
 
       <Pressable style={styles.button} onPress={() => navigation.popToTop()}>
         <Text style={styles.buttonText}>Voltar aos baralhos</Text>
@@ -52,7 +70,31 @@ function createStyles(colors: ThemeColors) {
       fontSize: 16,
       color: colors.text,
       marginTop: 8,
+    },
+    pointsText: {
+      fontSize: 14,
+      color: colors.textMuted,
+      marginTop: 4,
+      marginBottom: 24,
+    },
+    streakBadge: {
+      backgroundColor: colors.primarySoft,
+      borderRadius: 12,
+      paddingHorizontal: 20,
+      paddingVertical: 14,
+      alignItems: 'center',
       marginBottom: 32,
+    },
+    streakText: {
+      fontSize: 16,
+      fontWeight: '700',
+      color: colors.primary,
+    },
+    streakRecordText: {
+      fontSize: 13,
+      color: colors.success,
+      fontWeight: '600',
+      marginTop: 4,
     },
     button: {
       backgroundColor: colors.primary,

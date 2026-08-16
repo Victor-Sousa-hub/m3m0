@@ -4,8 +4,10 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { getQuestionsForDeck } from '../db/questions';
 import { saveQuizAttempt } from '../db/scores';
+import { recordDailyActivity } from '../db/streak';
 import { sampleQuestions } from '../quiz/sampleQuestions';
 import { QUIZ_QUESTION_COUNT } from '../quiz/config';
+import { computeQuestionPoints, timeBudgetPerQuestion } from '../quiz/scoring';
 import { useCurrentUser } from '../context/UserContext';
 import { useTheme } from '../theme/useTheme';
 import type { ThemeColors } from '../theme/colors';
@@ -31,10 +33,14 @@ export default function QuizScreen({ route, navigation }: Props) {
   const [selectedOptionIds, setSelectedOptionIds] = useState<Set<number>>(new Set());
   const [isAnswered, setIsAnswered] = useState(false);
   const [score, setScore] = useState(0);
+  const [points, setPoints] = useState(0);
   const [secondsLeft, setSecondsLeft] = useState(durationMinutes * 60);
 
   const scoreRef = useRef(0);
+  const pointsRef = useRef(0);
   const hasFinishedRef = useRef(false);
+  const questionStartedAtRef = useRef(Date.now());
+  const quizStartedAtRef = useRef<number | null>(null);
 
   useEffect(() => {
     getQuestionsForDeck(deckId).then((all) => {
@@ -44,19 +50,44 @@ export default function QuizScreen({ route, navigation }: Props) {
 
   const totalQuestions = questions?.length ?? 0;
 
+  useEffect(() => {
+    if (questions) {
+      questionStartedAtRef.current = Date.now();
+      if (quizStartedAtRef.current === null) {
+        quizStartedAtRef.current = Date.now();
+      }
+    }
+  }, [questions, currentIndex]);
+
   const finishQuiz = useCallback(
-    async (finalScore: number) => {
+    async (finalScore: number, finalPoints: number) => {
       if (hasFinishedRef.current) return;
       hasFinishedRef.current = true;
+      const startedAt = quizStartedAtRef.current ?? Date.now();
+      const timeTakenSeconds = Math.max(0, Math.round((Date.now() - startedAt) / 1000));
       await saveQuizAttempt({
         userId: user.id,
         deckId,
         score: finalScore,
         totalQuestions,
+        durationMinutes,
+        timeTakenSeconds,
+        points: finalPoints,
       });
-      navigation.replace('Results', { deckName, score: finalScore, total: totalQuestions });
+      const streak = await recordDailyActivity(user.id);
+      navigation.replace('Results', {
+        deckName,
+        score: finalScore,
+        total: totalQuestions,
+        points: finalPoints,
+        durationMinutes,
+        timeTakenSeconds,
+        currentStreak: streak.currentStreak,
+        longestStreak: streak.longestStreak,
+        isNewStreakDay: streak.isNewDay,
+      });
     },
-    [deckId, deckName, navigation, totalQuestions, user.id]
+    [deckId, deckName, durationMinutes, navigation, totalQuestions, user.id]
   );
 
   useEffect(() => {
@@ -66,7 +97,7 @@ export default function QuizScreen({ route, navigation }: Props) {
       setSecondsLeft((prev) => {
         if (prev <= 1) {
           clearInterval(interval);
-          finishQuiz(scoreRef.current);
+          finishQuiz(scoreRef.current, pointsRef.current);
           return 0;
         }
         return prev - 1;
@@ -133,11 +164,20 @@ export default function QuizScreen({ route, navigation }: Props) {
       scoreRef.current += 1;
       setScore(scoreRef.current);
     }
+    const timeTakenSeconds = (Date.now() - questionStartedAtRef.current) / 1000;
+    const timeBudgetSeconds = timeBudgetPerQuestion(durationMinutes, totalQuestions);
+    const questionPoints = computeQuestionPoints({
+      isCorrect: isCurrentAnswerCorrect,
+      timeTakenSeconds,
+      timeBudgetSeconds,
+    });
+    pointsRef.current += questionPoints;
+    setPoints(pointsRef.current);
   };
 
   const goToNext = async () => {
     if (isLastQuestion) {
-      await finishQuiz(scoreRef.current);
+      await finishQuiz(scoreRef.current, pointsRef.current);
       return;
     }
     setCurrentIndex((prev) => prev + 1);
@@ -156,7 +196,9 @@ export default function QuizScreen({ route, navigation }: Props) {
             {formatTime(secondsLeft)}
           </Text>
           <View style={styles.scoreBadge}>
-            <Text style={styles.scoreText}>Pontuação: {score}</Text>
+            <Text style={styles.scoreText}>
+              {score} acertos · {points} pts
+            </Text>
           </View>
         </View>
       </View>

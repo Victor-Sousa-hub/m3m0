@@ -4,6 +4,8 @@ import { useFocusEffect } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { getDatabase } from '../db/database';
+import { getUserStreak } from '../db/streak';
+import { useCurrentUser } from '../context/UserContext';
 import { useTheme } from '../theme/useTheme';
 import type { ThemeColors } from '../theme/colors';
 import type { Deck } from '../types/models';
@@ -12,11 +14,13 @@ import type { RootStackParamList } from '../navigation/types';
 type Props = NativeStackScreenProps<RootStackParamList, 'Decks'>;
 
 export default function DecksScreen({ navigation }: Props) {
+  const user = useCurrentUser();
   const { colors } = useTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
 
   const [decks, setDecks] = useState<Deck[]>([]);
   const [newDeckName, setNewDeckName] = useState('');
+  const [currentStreak, setCurrentStreak] = useState(0);
 
   const loadDecks = useCallback(async () => {
     const db = await getDatabase();
@@ -29,7 +33,8 @@ export default function DecksScreen({ navigation }: Props) {
   useFocusEffect(
     useCallback(() => {
       loadDecks();
-    }, [loadDecks])
+      getUserStreak(user.id).then((streak) => setCurrentStreak(streak.currentStreak));
+    }, [loadDecks, user.id])
   );
 
   const addDeck = async () => {
@@ -43,6 +48,14 @@ export default function DecksScreen({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
+      {currentStreak > 0 && (
+        <View style={styles.streakRow}>
+          <Text style={styles.streakText}>
+            🔥 Sequência de {currentStreak} dia{currentStreak === 1 ? '' : 's'}
+          </Text>
+        </View>
+      )}
+
       <View style={styles.addRow}>
         <TextInput
           style={styles.input}
@@ -84,6 +97,19 @@ function createStyles(colors: ThemeColors) {
       flex: 1,
       backgroundColor: colors.background,
       padding: 16,
+    },
+    streakRow: {
+      alignSelf: 'flex-start',
+      backgroundColor: colors.primarySoft,
+      borderRadius: 999,
+      paddingHorizontal: 14,
+      paddingVertical: 6,
+      marginBottom: 16,
+    },
+    streakText: {
+      color: colors.primary,
+      fontWeight: '700',
+      fontSize: 13,
     },
     addRow: {
       flexDirection: 'row',
