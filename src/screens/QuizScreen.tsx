@@ -1,31 +1,82 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { getQuestionsForDeck } from '../db/questions';
 import { saveQuizAttempt } from '../db/scores';
+import { sampleQuestions } from '../quiz/sampleQuestions';
+import { QUIZ_QUESTION_COUNT } from '../quiz/config';
 import { useCurrentUser } from '../context/UserContext';
+import { useTheme } from '../theme/useTheme';
+import type { ThemeColors } from '../theme/colors';
 import type { RootStackParamList } from '../navigation/types';
 import type { Question } from '../types/models';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Quiz'>;
 
+function formatTime(totalSeconds: number): string {
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes}:${String(seconds).padStart(2, '0')}`;
+}
+
 export default function QuizScreen({ route, navigation }: Props) {
-  const { deckId, deckName } = route.params;
+  const { deckId, deckName, durationMinutes } = route.params;
   const user = useCurrentUser();
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
 
   const [questions, setQuestions] = useState<Question[] | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOptionIds, setSelectedOptionIds] = useState<Set<number>>(new Set());
   const [isAnswered, setIsAnswered] = useState(false);
   const [score, setScore] = useState(0);
+  const [secondsLeft, setSecondsLeft] = useState(durationMinutes * 60);
+
+  const scoreRef = useRef(0);
+  const hasFinishedRef = useRef(false);
 
   useEffect(() => {
-    getQuestionsForDeck(deckId).then(setQuestions);
+    getQuestionsForDeck(deckId).then((all) => {
+      setQuestions(sampleQuestions(all, QUIZ_QUESTION_COUNT));
+    });
   }, [deckId]);
 
-  const currentQuestion = questions?.[currentIndex] ?? null;
   const totalQuestions = questions?.length ?? 0;
+
+  const finishQuiz = useCallback(
+    async (finalScore: number) => {
+      if (hasFinishedRef.current) return;
+      hasFinishedRef.current = true;
+      await saveQuizAttempt({
+        userId: user.id,
+        deckId,
+        score: finalScore,
+        totalQuestions,
+      });
+      navigation.replace('Results', { deckName, score: finalScore, total: totalQuestions });
+    },
+    [deckId, deckName, navigation, totalQuestions, user.id]
+  );
+
+  useEffect(() => {
+    if (!questions || totalQuestions === 0) return;
+
+    const interval = setInterval(() => {
+      setSecondsLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          finishQuiz(scoreRef.current);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [questions, totalQuestions, finishQuiz]);
+
+  const currentQuestion = questions?.[currentIndex] ?? null;
   const isLastQuestion = currentIndex === totalQuestions - 1;
 
   const correctOptionIds = useMemo(
@@ -44,7 +95,7 @@ export default function QuizScreen({ route, navigation }: Props) {
   if (!questions) {
     return (
       <View style={styles.loading}>
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" color={colors.primary} />
       </View>
     );
   }
@@ -79,19 +130,14 @@ export default function QuizScreen({ route, navigation }: Props) {
     if (selectedOptionIds.size === 0) return;
     setIsAnswered(true);
     if (isCurrentAnswerCorrect) {
-      setScore((prev) => prev + 1);
+      scoreRef.current += 1;
+      setScore(scoreRef.current);
     }
   };
 
   const goToNext = async () => {
     if (isLastQuestion) {
-      await saveQuizAttempt({
-        userId: user.id,
-        deckId,
-        score,
-        totalQuestions,
-      });
-      navigation.replace('Results', { deckName, score, total: totalQuestions });
+      await finishQuiz(scoreRef.current);
       return;
     }
     setCurrentIndex((prev) => prev + 1);
@@ -105,8 +151,13 @@ export default function QuizScreen({ route, navigation }: Props) {
         <Text style={styles.progress}>
           Pergunta {currentIndex + 1} de {totalQuestions}
         </Text>
-        <View style={styles.scoreBadge}>
-          <Text style={styles.scoreText}>Pontuação: {score}</Text>
+        <View style={styles.headerBadges}>
+          <Text style={[styles.timerText, secondsLeft <= 10 && styles.timerTextUrgent]}>
+            {formatTime(secondsLeft)}
+          </Text>
+          <View style={styles.scoreBadge}>
+            <Text style={styles.scoreText}>Pontuação: {score}</Text>
+          </View>
         </View>
       </View>
 
@@ -172,111 +223,131 @@ export default function QuizScreen({ route, navigation }: Props) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  content: {
-    padding: 16,
-  },
-  loading: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 24,
-  },
-  emptyText: {
-    color: '#888',
-    textAlign: 'center',
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  progress: {
-    color: '#666',
-    fontSize: 14,
-  },
-  scoreBadge: {
-    backgroundColor: '#2f6feb',
-    borderRadius: 999,
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-  },
-  scoreText: {
-    color: '#fff',
-    fontWeight: '600',
-    fontSize: 13,
-  },
-  questionText: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 4,
-  },
-  hint: {
-    color: '#888',
-    fontSize: 13,
-    marginBottom: 12,
-  },
-  options: {
-    marginTop: 16,
-    gap: 10,
-  },
-  option: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-  },
-  optionSelected: {
-    borderColor: '#2f6feb',
-    backgroundColor: '#eaf1fd',
-  },
-  optionCorrect: {
-    borderColor: '#2e9e5b',
-    backgroundColor: '#e6f6ec',
-  },
-  optionIncorrect: {
-    borderColor: '#c0392b',
-    backgroundColor: '#fbeaea',
-  },
-  optionText: {
-    fontSize: 15,
-  },
-  feedback: {
-    marginTop: 16,
-  },
-  feedbackCorrect: {
-    color: '#2e9e5b',
-    fontWeight: '700',
-    fontSize: 15,
-  },
-  feedbackIncorrect: {
-    color: '#c0392b',
-    fontWeight: '700',
-    fontSize: 15,
-  },
-  explanation: {
-    marginTop: 6,
-    color: '#555',
-    fontSize: 14,
-  },
-  button: {
-    backgroundColor: '#2f6feb',
-    borderRadius: 8,
-    paddingVertical: 12,
-    alignItems: 'center',
-    marginTop: 24,
-  },
-  buttonDisabled: {
-    opacity: 0.5,
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: '600',
-    fontSize: 16,
-  },
-});
+function createStyles(colors: ThemeColors) {
+  return StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.background,
+    },
+    content: {
+      padding: 16,
+    },
+    loading: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 24,
+      backgroundColor: colors.background,
+    },
+    emptyText: {
+      color: colors.textMuted,
+      textAlign: 'center',
+    },
+    header: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: 16,
+    },
+    progress: {
+      color: colors.textMuted,
+      fontSize: 14,
+    },
+    headerBadges: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+    },
+    timerText: {
+      color: colors.text,
+      fontVariant: ['tabular-nums'],
+      fontWeight: '600',
+      fontSize: 14,
+    },
+    timerTextUrgent: {
+      color: colors.danger,
+    },
+    scoreBadge: {
+      backgroundColor: colors.primary,
+      borderRadius: 999,
+      paddingHorizontal: 12,
+      paddingVertical: 4,
+    },
+    scoreText: {
+      color: colors.primaryText,
+      fontWeight: '600',
+      fontSize: 13,
+    },
+    questionText: {
+      fontSize: 18,
+      fontWeight: '600',
+      color: colors.text,
+      marginBottom: 4,
+    },
+    hint: {
+      color: colors.textMuted,
+      fontSize: 13,
+      marginBottom: 12,
+    },
+    options: {
+      marginTop: 16,
+      gap: 10,
+    },
+    option: {
+      borderWidth: 1,
+      borderColor: colors.border,
+      borderRadius: 8,
+      paddingHorizontal: 14,
+      paddingVertical: 12,
+    },
+    optionSelected: {
+      borderColor: colors.primary,
+      backgroundColor: colors.primarySoft,
+    },
+    optionCorrect: {
+      borderColor: colors.success,
+      backgroundColor: colors.successSoft,
+    },
+    optionIncorrect: {
+      borderColor: colors.danger,
+      backgroundColor: colors.dangerSoft,
+    },
+    optionText: {
+      fontSize: 15,
+      color: colors.text,
+    },
+    feedback: {
+      marginTop: 16,
+    },
+    feedbackCorrect: {
+      color: colors.success,
+      fontWeight: '700',
+      fontSize: 15,
+    },
+    feedbackIncorrect: {
+      color: colors.danger,
+      fontWeight: '700',
+      fontSize: 15,
+    },
+    explanation: {
+      marginTop: 6,
+      color: colors.textMuted,
+      fontSize: 14,
+    },
+    button: {
+      backgroundColor: colors.primary,
+      borderRadius: 8,
+      paddingVertical: 12,
+      alignItems: 'center',
+      marginTop: 24,
+    },
+    buttonDisabled: {
+      opacity: 0.5,
+    },
+    buttonText: {
+      color: colors.primaryText,
+      fontWeight: '600',
+      fontSize: 16,
+    },
+  });
+}

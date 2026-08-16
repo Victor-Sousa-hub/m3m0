@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import { getDatabase } from './src/db/database';
 import { getCurrentUser } from './src/db/users';
 import { UserProvider } from './src/context/UserContext';
+import { useTheme } from './src/theme/useTheme';
 import RootNavigator from './src/navigation/RootNavigator';
 import CreateProfileScreen from './src/screens/CreateProfileScreen';
 import type { User } from './src/types/models';
@@ -13,6 +14,7 @@ import type { User } from './src/types/models';
 export default function App() {
   const [isDbReady, setIsDbReady] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+  const { colors, isDark } = useTheme();
 
   useEffect(() => {
     getDatabase()
@@ -29,8 +31,8 @@ export default function App() {
 
   if (!isDbReady) {
     return (
-      <View style={styles.loading}>
-        <ActivityIndicator size="large" />
+      <View style={[styles.loading, { backgroundColor: colors.background }]}>
+        <ActivityIndicator size="large" color={colors.primary} />
       </View>
     );
   }
@@ -39,7 +41,7 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <CreateProfileScreen onProfileCreated={handleProfileCreated} />
-        <StatusBar style="auto" />
+        <StatusBar style={isDark ? 'light' : 'dark'} />
       </SafeAreaProvider>
     );
   }
@@ -49,7 +51,7 @@ export default function App() {
       <UserProvider value={user}>
         <RootNavigator />
       </UserProvider>
-      <StatusBar style="auto" />
+      <StatusBar style={isDark ? 'light' : 'dark'} />
     </SafeAreaProvider>
   );
 }

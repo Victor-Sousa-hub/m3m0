@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -6,6 +6,8 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { getQuestionCountForDeck } from '../db/questions';
 import { getAttemptsForDeck } from '../db/scores';
 import { useCurrentUser } from '../context/UserContext';
+import { useTheme } from '../theme/useTheme';
+import type { ThemeColors } from '../theme/colors';
 import type { RootStackParamList } from '../navigation/types';
 import type { QuizAttempt } from '../types/models';
 
@@ -14,6 +16,8 @@ type Props = NativeStackScreenProps<RootStackParamList, 'DeckDetail'>;
 export default function DeckDetailScreen({ route, navigation }: Props) {
   const { deckId, deckName } = route.params;
   const user = useCurrentUser();
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
 
   const [questionCount, setQuestionCount] = useState<number | null>(null);
   const [attempts, setAttempts] = useState<QuizAttempt[]>([]);
@@ -38,7 +42,7 @@ export default function DeckDetailScreen({ route, navigation }: Props) {
 
       <Pressable
         style={[styles.startButton, !hasQuestions && styles.startButtonDisabled]}
-        onPress={() => navigation.navigate('Quiz', { deckId, deckName })}
+        onPress={() => navigation.navigate('Preparation', { deckId, deckName })}
         disabled={!hasQuestions}
       >
         <Text style={styles.startButtonText}>Iniciar simulado</Text>
@@ -62,56 +66,62 @@ export default function DeckDetailScreen({ route, navigation }: Props) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: '700',
-    marginBottom: 4,
-  },
-  subtitle: {
-    color: '#888',
-    marginBottom: 16,
-  },
-  startButton: {
-    backgroundColor: '#2f6feb',
-    borderRadius: 8,
-    paddingVertical: 14,
-    alignItems: 'center',
-    marginBottom: 24,
-  },
-  startButtonDisabled: {
-    opacity: 0.5,
-  },
-  startButtonText: {
-    color: '#fff',
-    fontWeight: '600',
-    fontSize: 16,
-  },
-  historyTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 8,
-  },
-  emptyText: {
-    color: '#888',
-  },
-  attemptRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-  },
-  attemptScore: {
-    fontSize: 15,
-    fontWeight: '600',
-  },
-  attemptDate: {
-    fontSize: 13,
-    color: '#888',
-  },
-});
+function createStyles(colors: ThemeColors) {
+  return StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.background,
+      padding: 16,
+    },
+    title: {
+      fontSize: 22,
+      fontWeight: '700',
+      color: colors.text,
+      marginBottom: 4,
+    },
+    subtitle: {
+      color: colors.textMuted,
+      marginBottom: 16,
+    },
+    startButton: {
+      backgroundColor: colors.primary,
+      borderRadius: 8,
+      paddingVertical: 14,
+      alignItems: 'center',
+      marginBottom: 24,
+    },
+    startButtonDisabled: {
+      opacity: 0.5,
+    },
+    startButtonText: {
+      color: colors.primaryText,
+      fontWeight: '600',
+      fontSize: 16,
+    },
+    historyTitle: {
+      fontSize: 16,
+      fontWeight: '600',
+      color: colors.text,
+      marginBottom: 8,
+    },
+    emptyText: {
+      color: colors.textMuted,
+    },
+    attemptRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      paddingVertical: 10,
+      borderBottomWidth: 1,
+      borderBottomColor: colors.border,
+    },
+    attemptScore: {
+      fontSize: 15,
+      fontWeight: '600',
+      color: colors.text,
+    },
+    attemptDate: {
+      fontSize: 13,
+      color: colors.textMuted,
+    },
+  });
+}
