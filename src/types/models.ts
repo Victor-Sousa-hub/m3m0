@@ -23,3 +23,18 @@ export interface Question {
   createdAt: string;
   options: QuestionOption[];
 }
+
+export interface User {
+  id: number;
+  name: string;
+  createdAt: string;
+}
+
+export interface QuizAttempt {
+  id: number;
+  userId: number;
+  deckId: number;
+  score: number;
+  totalQuestions: number;
+  completedAt: string;
+}

@@ -1,16 +1,30 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 
 import { getDatabase } from './src/db/database';
+import { getCurrentUser } from './src/db/users';
+import { UserProvider } from './src/context/UserContext';
 import RootNavigator from './src/navigation/RootNavigator';
+import CreateProfileScreen from './src/screens/CreateProfileScreen';
+import type { User } from './src/types/models';
 
 export default function App() {
   const [isDbReady, setIsDbReady] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    getDatabase().then(() => setIsDbReady(true));
+    getDatabase()
+      .then(() => getCurrentUser())
+      .then((existingUser) => {
+        setUser(existingUser);
+        setIsDbReady(true);
+      });
+  }, []);
+
+  const handleProfileCreated = useCallback((createdUser: User) => {
+    setUser(createdUser);
   }, []);
 
   if (!isDbReady) {
@@ -21,9 +35,20 @@ export default function App() {
     );
   }
 
+  if (!user) {
+    return (
+      <SafeAreaProvider>
+        <CreateProfileScreen onProfileCreated={handleProfileCreated} />
+        <StatusBar style="auto" />
+      </SafeAreaProvider>
+    );
+  }
+
   return (
     <SafeAreaProvider>
-      <RootNavigator />
+      <UserProvider value={user}>
+        <RootNavigator />
+      </UserProvider>
       <StatusBar style="auto" />
     </SafeAreaProvider>
   );
