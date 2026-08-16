@@ -1,0 +1,668 @@
+{
+  "deck": { "name": "AWS MLA-C01 - Practice Test 2", "examCode": "MLA-C01" },
+  "questions": [
+    {
+      "text": "A data scientist at a predictive analytics company is training a deep learning model with Amazon SageMaker to predict customer churn on a large dataset (millions of records). Training is taking longer than expected: batch size 256, epochs 50, learning rate 0.01. The team wants to balance training time while ensuring the model converges effectively.\n\nWhich of the following adjustments is MOST LIKELY to reduce the training time without compromising model performance?",
+      "explanation": "Increasing batch size lets more data be processed in parallel (fewer weight updates per epoch), and decreasing the number of epochs compensates to avoid overfitting, together cutting training time while preserving convergence quality.",
+      "options": [
+        { "text": "Increase the batch size and decrease the number of epochs", "isCorrect": true },
+        { "text": "Decrease the batch size and increase the number of epochs", "isCorrect": false },
+        { "text": "Increase the number of epochs and maintain the batch size", "isCorrect": false },
+        { "text": "Decrease the learning rate and increase the batch size", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "You are deploying a machine learning model on AWS SageMaker for a real-time prediction application requiring low latency and high throughput, currently on a single ml.m5.large instance with default endpoint configuration, and response time/throughput are not meeting requirements.\n\nWhich of the following changes is MOST LIKELY to improve the model's response time and throughput?",
+      "explanation": "Enabling Auto Scaling with a target metric (e.g. instance utilization or invocations per instance) lets the endpoint dynamically add capacity during peak demand and scale back during quiet periods, directly improving both latency and throughput without over-provisioning.",
+      "options": [
+        { "text": "Change the instance type to ml.p2.xlarge and add multi-model support", "isCorrect": false },
+        { "text": "Increase the instance count to two and enable asynchronous inference", "isCorrect": false },
+        { "text": "Switch to an ml.m5.2xlarge instance type and use multi-AZ deployment", "isCorrect": false },
+        { "text": "Enable Auto Scaling with a target metric for the instance utilization", "isCorrect": true }
+      ]
+    },
+    {
+      "text": "A healthcare data scientist is evaluating algorithms in SageMaker for a diagnostic model, balancing high interpretability (needed for regulatory and medical trust reasons) against the accuracy of a deep neural network.\n\nWhich of the following approaches is MOST APPROPRIATE for achieving both interpretability and acceptable performance?",
+      "explanation": "XGBoost, being tree-based, naturally exposes feature importance, giving a strong balance between predictive accuracy and interpretability — better suited to this healthcare context than a black-box DNN or a low-accuracy logistic regression.",
+      "options": [
+        { "text": "Select a deep neural network (DNN) model and use SHAP (SHapley Additive exPlanations) to provide interpretability", "isCorrect": false },
+        { "text": "Use a tree-based algorithm like XGBoost, which offers a balance between accuracy and interpretability with feature importance", "isCorrect": true },
+        { "text": "Choose a logistic regression model due to its high interpretability and supplement it with additional data preprocessing to improve accuracy", "isCorrect": false },
+        { "text": "Deploy an ensemble of models including a complex model for accuracy and a simpler model for interpretability, using model stacking in SageMaker", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "An e-commerce company wants personalized product recommendations that scale to millions of users with real-time recommendations based on user interaction data (clicks, purchases, reviews), and needs the right built-in SageMaker algorithm.\n\nGiven the requirements, which of the following Amazon SageMaker built-in algorithms is the MOST SUITABLE for this use case?",
+      "explanation": "Factorization Machines excel at modeling sparse user-item interactions at scale, capturing latent factors to power personalized, collaborative-filtering-style recommendations.",
+      "options": [
+        { "text": "XGBoost Algorithm to rank the products based on user behavior and demographic features", "isCorrect": false },
+        { "text": "BlazingText Algorithm to analyze the text in user reviews and identify product similarities", "isCorrect": false },
+        { "text": "Factorization Machines Algorithm to model user-item interactions for collaborative filtering", "isCorrect": true },
+        { "text": "K-Means Algorithm to cluster users into segments and recommend products based on these segments", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A healthcare organization is developing a deep learning model on SageMaker and wants to optimize hyperparameters to minimize validation loss with the least computational effort.\n\nWhich hyperparameter tuning strategy should the organization use to achieve this goal with the least computational effort?",
+      "explanation": "Hyperband dynamically reallocates resources, using intermediate results to re-allocate epochs to promising configurations and automatically stopping underperforming ones, significantly reducing total compute compared to grid search.",
+      "options": [
+        { "text": "Grid search", "isCorrect": false },
+        { "text": "Gradient descent", "isCorrect": false },
+        { "text": "Random Forest", "isCorrect": false },
+        { "text": "Hyperband", "isCorrect": true }
+      ]
+    },
+    {
+      "text": "A machine learning engineer training a deep learning image classification model for an autonomous vehicle project on a massive dataset finds that single-GPU training on SageMaker is too slow and expensive, and needs to reduce training time without significantly compromising performance.\n\nWhich of the following approaches is the MOST LIKELY to effectively reduce the training time while maintaining model performance?",
+      "explanation": "Distributed training across multiple GPU instances parallelizes the workload, processing more data simultaneously and significantly reducing overall training time — a better fit than early stopping alone, downsizing instances, or shrinking the dataset.",
+      "options": [
+        { "text": "Enable early stopping to halt training when the model's performance on the validation set stops improving, thereby avoiding overfitting", "isCorrect": false },
+        { "text": "Switch to a smaller instance type to reduce computational costs, accepting a longer training time as a trade-off", "isCorrect": false },
+        { "text": "Implement distributed training using multiple GPU instances to parallelize the training process, reducing the overall time", "isCorrect": true },
+        { "text": "Reduce the size of the training dataset to speed up training, even if it means using fewer examples per class", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A healthcare organization enabled SageMaker Model Monitor for data quality on a production model, and after a recent model update, a data scientist observes data quality issues flagged by Model Monitor checks.\n\nWhat steps should the data scientist take to address the data quality issues identified by Model Monitor?",
+      "explanation": "Generating a new baseline from the latest dataset and configuring Model Monitor to use this updated baseline reflects the current expected data distribution for future drift evaluations.",
+      "options": [
+        { "text": "Generate a new baseline using the latest dataset and configure Model Monitor to use this updated baseline for future evaluations", "isCorrect": true },
+        { "text": "Modify the model's hyperparameters and redeploy the updated version to production", "isCorrect": false },
+        { "text": "Ingest Ground Truth labels and use these as an updated baseline for future evaluations", "isCorrect": false },
+        { "text": "The constraint_violations.json file lists the violations detected in the current dataset. Manually correct the data issues and rerun the model", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A machine learning engineer building a recommendation system on TensorFlow wants to train on a large S3 dataset using SageMaker script mode, taking advantage of SageMaker's managed services while customizing the training process.\n\nWhich of the following actions is the MOST LIKELY to help you successfully train the model using SageMaker script mode with TensorFlow?",
+      "explanation": "Writing a training script that follows TensorFlow's Estimator API, uploading it to S3, and using SageMaker script mode with the built-in TensorFlow container lets SageMaker run the custom script in a managed environment while handling data loading and distributed training.",
+      "options": [
+        { "text": "Create a custom Docker container with TensorFlow installed and push it to Amazon ECR, then use SageMaker script mode to launch the training job", "isCorrect": false },
+        { "text": "Package your TensorFlow model as a .tar.gz file, upload it to Amazon S3, and use SageMaker script mode to directly deploy the model for training", "isCorrect": false },
+        { "text": "Use SageMaker script mode to automatically convert your Python script into a SageMaker Estimator object without specifying the TensorFlow framework version", "isCorrect": false },
+        { "text": "Write a training script in Python that adheres to TensorFlow's Estimator API, upload it to an S3 bucket, and use SageMaker script mode with the built-in TensorFlow container to execute the script", "isCorrect": true }
+      ]
+    },
+    {
+      "text": "A recommendation model at an e-commerce company degrades over time as new data is added (catastrophic forgetting) and also shows signs of overfitting during retraining on updated datasets.\n\nWhich of the following strategies is the MOST LIKELY to help prevent overfitting and catastrophic forgetting while maintaining model accuracy?",
+      "explanation": "Early stopping curbs overfitting, incremental transfer learning on new data mitigates catastrophic forgetting by retaining prior knowledge, and L1 regularization performs useful feature selection — together addressing both problems.",
+      "options": [
+        { "text": "Apply L2 regularization to reduce overfitting, use dropout to prevent underfitting, and retrain the model on the entire dataset periodically to avoid catastrophic forgetting", "isCorrect": false },
+        { "text": "Use early stopping during training to prevent overfitting, incorporate new data incrementally through transfer learning to mitigate catastrophic forgetting, and apply L1 regularization to ensure feature selection", "isCorrect": true },
+        { "text": "Reduce the model complexity by decreasing the number of features, apply data augmentation to handle underfitting, and leverage L1 regularization to address catastrophic forgetting", "isCorrect": false },
+        { "text": "Regularly update the training dataset with new data, apply L2 regularization to manage overfitting, and use an ensemble of models to prevent catastrophic forgetting", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A data scientist at an e-commerce company finds that collaborative filtering, content-based filtering, and a deep learning model each excel in different customer scenarios, and wants to combine them for more accurate, personalized recommendations across all segments.\n\nWhich of the following strategies is the MOST LIKELY to achieve this goal?",
+      "explanation": "A hybrid model combining predictions from all three approaches via a weighted average, with weights based on performance per customer segment, leverages each model's strengths where it performs best — better than simple voting, boosting mismatched model types, or naively stacking into a single meta-model.",
+      "options": [
+        { "text": "Use a bagging approach to train multiple instances of the deep learning model on different subsets of the data and average their predictions to improve overall performance", "isCorrect": false },
+        { "text": "Apply boosting by sequentially training the collaborative filtering, content-based filtering, and deep learning models, where each model corrects the errors of the previous one", "isCorrect": false },
+        { "text": "Implement a hybrid model that combines the predictions of collaborative filtering, content-based filtering, and deep learning using a weighted average, where weights are based on model performance for different customer segments", "isCorrect": true },
+        { "text": "Use stacking, where the predictions from the collaborative filtering and content-based filtering models are fed into a deep learning model as inputs, allowing the deep learning model to make the final recommendation", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A machine learning engineer needs to deploy an object detection model to a mobile device, but it's too large for the device's memory and compute constraints, and needs to shrink it while maintaining acceptable accuracy.\n\nWhich combination of techniques is the MOST LIKELY to effectively reduce the model's size while maintaining acceptable performance?",
+      "explanation": "Pruning removes redundant neurons/layers with little impact on accuracy, and quantization reduces weight precision (e.g. 32-bit to 8-bit), together substantially shrinking model size while preserving performance.",
+      "options": [
+        { "text": "Prune the model by removing less important neurons and layers, and apply quantization to reduce the precision of the model's weights from 32-bit to 8-bit", "isCorrect": true },
+        { "text": "Apply dimensionality reduction using PCA on the input data, and use model ensembling to combine smaller models, which collectively match the performance of the original model", "isCorrect": false },
+        { "text": "Use feature selection to reduce the number of input features, compress the model by converting the model weights from floating-point to integer format", "isCorrect": false },
+        { "text": "Reduce the size of the training dataset, use dropout to decrease model complexity, thereby shrinking the deployed model size", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A predictive maintenance model performs well on training data but poorly on new sensor data (limited dataset size, complex model). The data scientist wants to distinguish overfitting from underfitting.\n\nWhich of the following strategies is the MOST EFFECTIVE for identifying overfitting and underfitting in your model?",
+      "explanation": "Comparing training vs. validation loss curves directly reveals overfitting: if validation loss is much higher than training loss, the model has memorized training data rather than generalizing.",
+      "options": [
+        { "text": "Reduce the number of features in the model; if performance improves, the model was previously overfitting", "isCorrect": false },
+        { "text": "Perform cross-validation with different subsets of the data; if the model's performance varies significantly across folds, the model is underfitting", "isCorrect": false },
+        { "text": "Analyze the model's performance on a separate test set; if the model performs well on both the training and test sets, it is neither overfitting nor underfitting", "isCorrect": false },
+        { "text": "Compare the training and validation loss curves over time; if the validation loss is much higher than the training loss, the model is likely overfitting", "isCorrect": true }
+      ]
+    },
+    {
+      "text": "A healthcare company's binary classification model predicts disease risk, where false negatives (missing a disease case) are far more costly than false positives (extra follow-up tests).\n\nWhich combination of evaluation metrics should you prioritize to minimize both false positives and false negatives while ensuring that the model is reliable for deployment? (Select two)",
+      "explanation": "F1 score balances precision and recall for a single overall metric, and prioritizing recall specifically minimizes false negatives — critical when missing a true positive case has severe consequences.",
+      "options": [
+        { "text": "Prioritize accuracy, as it provides a general sense of how well the model is performing across all predictions", "isCorrect": false },
+        { "text": "Use the F1 score to balance the trade-off between precision and recall, ensuring that both false positives and false negatives are considered", "isCorrect": true },
+        { "text": "Focus on precision to reduce the number of false positives, thus avoiding unnecessary follow-up tests for patients who do not have the disease", "isCorrect": false },
+        { "text": "Prioritize recall to reduce the number of false negatives, ensuring that as many patients with the disease as possible are correctly identified", "isCorrect": true },
+        { "text": "Evaluate the model using the Area Under the ROC Curve (AUC) to understand its performance across different classification thresholds", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A publishing company wants to automatically identify and extract meaningful, unique keywords from a large collection of documents on AWS, with minimal operational overhead.\n\nWhat solution should the ML engineer implement to achieve this goal with minimal operational overhead?",
+      "explanation": "Amazon Comprehend's custom entity recognition and key phrase extraction are purpose-built for extracting relevant keywords from documents, requiring no custom search-engine development.",
+      "options": [
+        { "text": "Leverage Amazon Comprehend custom entity recognition and key phrase extraction to identify and extract relevant keywords", "isCorrect": true },
+        { "text": "Leverage Amazon Textract to gather insights about the entities and Key phrases present in the documents", "isCorrect": false },
+        { "text": "Leverage Amazon Kendra to search and extract meaningful, unique keywords present in the documents", "isCorrect": false },
+        { "text": "Leverage Amazon Rekognition to search and extract insights about the entities and Key phrases present in the documents", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A data scientist wants a quick, simple baseline model in SageMaker to predict customer lifetime value (CLV), using key features like customer age, purchase frequency, and average order value, before trying a complex deep neural network.\n\nWhich of the following approaches is the MOST EFFECTIVE for creating a performance baseline using Amazon SageMaker?",
+      "explanation": "A basic SageMaker Linear Learner model trained on the key relevant features is quick, interpretable, and gives a clear performance benchmark for comparing more complex models later.",
+      "options": [
+        { "text": "Use SageMaker JumpStart to deploy a pre-trained model for customer segmentation, which can serve as a baseline for your CLV prediction model", "isCorrect": false },
+        { "text": "Train a basic linear learner model using Amazon SageMaker, focusing on key features like customer age, purchase frequency, and average order value, to establish a baseline for CLV prediction", "isCorrect": true },
+        { "text": "Implement SageMaker Autopilot to automatically explore various models and select the best one as the baseline, allowing you to skip manual model selection", "isCorrect": false },
+        { "text": "Deploy a SageMaker BlazingText model to create word embeddings from customer reviews, which can be used as a baseline for evaluating CLV predictions", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "An ML engineer developing a credit card fraud model on a highly imbalanced dataset needs to split the data into training, validation, and test sets while avoiding overfitting and ensuring accurate performance measurement.\n\nWhich of the following strategies should you employ to effectively utilize the training, validation, and test sets to develop a robust and reliable machine learning model, given the imbalanced nature of the dataset? (Select two)",
+      "explanation": "Standard training/validation/test splitting prevents overfitting and enables unbiased evaluation, and a stratified split ensures each set has a representative proportion of fraud vs. non-fraud cases given the class imbalance.",
+      "options": [
+        { "text": "Split the dataset into three sets: a training set for model learning, a validation set for hyperparameter tuning, and a test set for final performance evaluation on unseen data", "isCorrect": true },
+        { "text": "Use a stratified split to ensure that the training, validation, and test sets each contain a representative distribution of fraudulent and non-fraudulent transactions", "isCorrect": true },
+        { "text": "Use the entire dataset for training to maximize the amount of data the model learns from, and evaluate the model's performance using cross-validation", "isCorrect": false },
+        { "text": "Randomly shuffle the data and split it into training, validation, and test sets without considering the class distribution to avoid any bias", "isCorrect": false },
+        { "text": "Combine the validation and test sets into a single evaluation set to simplify the process and reduce the number of data splits", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A retail company's demand forecasting model on SageMaker must be highly accurate, but the team must balance training time and cost due to budget limitations, considering instance types and spot instances.\n\nWhich of the following strategies should you consider when balancing model performance, training time, and cost in this scenario using Amazon SageMaker? (Select two)",
+      "explanation": "SageMaker automatic hyperparameter tuning improves performance efficiently, and combining it with spot instances reduces cost; distributed training across multiple smaller instances further balances training time and cost while keeping performance intact.",
+      "options": [
+        { "text": "Optimize hyperparameters using Amazon SageMaker's automatic model tuning (hyperparameter optimization) to improve performance, while using spot instances to reduce cost", "isCorrect": true },
+        { "text": "Use the largest available instance type to minimize training time, regardless of cost, ensuring that the model is trained as quickly as possible", "isCorrect": false },
+        { "text": "Implement distributed training across multiple smaller instances to balance training time and cost while maintaining model performance", "isCorrect": true },
+        { "text": "Use a smaller instance type to save on costs, and accept longer training times, as model accuracy is not the highest priority", "isCorrect": false },
+        { "text": "Deploy multiple models with different instance types simultaneously, choosing the one that completes training first, regardless of performance or cost", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A telecommunications company's customer churn model is critical for retention efforts; the ML engineer must deploy a new model version with a quick, safe rollback option in case of issues.\n\nWhich of the following approaches BEST exemplifies deployment best practices in this scenario?",
+      "explanation": "A blue/green deployment provisions the new model version in parallel with the old, gradually shifts traffic, and can auto-rollback via CloudWatch alarms if issues arise — minimizing risk far better than a direct replace or fully manual rollback.",
+      "options": [
+        { "text": "Deploy the new model version directly to production, replacing the existing model, and monitor its performance closely. If issues arise, retrain the model immediately and redeploy", "isCorrect": false },
+        { "text": "Use a blue/green deployment strategy to deploy the new model version in parallel with the existing version, allowing you to switch traffic to the new model gradually and roll back if necessary", "isCorrect": true },
+        { "text": "Deploy the new model version to a staging environment, test it thoroughly, and then manually replace the existing production model. If any issues occur, update the model in staging and redeploy", "isCorrect": false },
+        { "text": "Version the model by tagging the new version, deploy it to production, and use weighted traffic splitting to send a small percentage of traffic to the new model. If no issues are detected, gradually increase traffic to the new version", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A media company needs low-latency, high-throughput access to tens of millions of small image files and several terabytes of large video files stored in S3 for SageMaker training, keeping up with a dynamic content pipeline.\n\nGiven the characteristics of your data and the requirements for low-latency, high-throughput access, which approach is the MOST APPROPRIATE for this scenario?",
+      "explanation": "FSx for Lustre linked to the S3 folder handles the many small image files with high IOPS, while Fast File mode handles the large video files by streaming directly from S3 — combining the strengths of both approaches for the two very different file profiles.",
+      "options": [
+        { "text": "Use Amazon FSx for Lustre to mount the entire dataset as a high-performance file system, providing consistently low-latency access to both the small image files and the large video files", "isCorrect": false },
+        { "text": "Use Fast File mode with Amazon S3 to stream the small image files directly to the training instances on-demand, minimizing the time required to start training", "isCorrect": false },
+        { "text": "Use Fast File mode with Amazon S3 for the large video files, enabling on-demand streaming of data, and store the small image files locally on the training instances to reduce I/O latency", "isCorrect": false },
+        { "text": "Create an FSx for Lustre file system linked with the relevant Amazon S3 bucket folder having the training data for the small image files and apply Fast File mode to the relevant Amazon S3 bucket folder to access the video files, thereby combining the strengths of both approaches", "isCorrect": true }
+      ]
+    },
+    {
+      "text": "A financial services company needs compute resources for both a real-time fraud detection production environment (low latency) and a separate testing/experimentation environment for model fine-tuning, balancing performance and cost for each.\n\nWhich of the following strategies should you implement to effectively provision compute resources for both the production environment and the test environment using Amazon SageMaker, considering the different requirements for each environment? (Select two)",
+      "explanation": "CPU-based instances are sufficient and cheaper for the test/experimentation environment, while AWS Inferentia accelerators meet the low-latency, high-throughput needs of production inference cost-effectively.",
+      "options": [
+        { "text": "Use CPU-based instances in the test environment to save on costs during experimentation", "isCorrect": true },
+        { "text": "Use GPU-based instances in both production and test environments to ensure that the model inference and testing are both performed at maximum speed, regardless of cost", "isCorrect": false },
+        { "text": "Provision CPU-based instances in both production and test environments to reduce costs, as CPU instances are generally cheaper than GPU instances", "isCorrect": false },
+        { "text": "Leverage AWS Inferentia accelerators in the production environment to meet high throughput and low latency requirements", "isCorrect": true },
+        { "text": "Provision identical instances in both production and test environments to ensure consistent performance between the two, eliminating the risk of discrepancies during deployment", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A healthcare company's binary classification model predicts patient risk in production, and a new model version is being developed to improve accuracy by maximizing correct predictions for both risk categories.\n\nWhich metric should the ML engineer use for recalibrating the model?",
+      "explanation": "Accuracy is the ratio of correctly classified items to all items, directly reflecting the goal of maximizing correct predictions across both positive and negative labels.",
+      "options": [
+        { "text": "Precision", "isCorrect": false },
+        { "text": "Root mean squared error (RMSE)", "isCorrect": false },
+        { "text": "Accuracy", "isCorrect": true },
+        { "text": "Recall", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A logistics company deploys multiple ML models on Amazon SageMaker for optimizing delivery routes, predicting maintenance, and forecasting demand, sharing the same infrastructure to minimize costs, with varying update frequencies.\n\nGiven these requirements, which deployment strategy is MOST SUITABLE for managing these diverse models?",
+      "explanation": "A multi-model deployment on a single SageMaker endpoint dynamically loads and serves multiple models on shared resources, reducing costs and complexity compared to separate endpoints or containers per model.",
+      "options": [
+        { "text": "Use a multi-model deployment on a single SageMaker endpoint to host all models together, allowing you to dynamically load and serve models as needed without needing separate endpoints", "isCorrect": true },
+        { "text": "Deploy each model individually using separate SageMaker endpoints, ensuring each model has dedicated resources and can be scaled independently", "isCorrect": false },
+        { "text": "Implement a multi-container deployment strategy on a single SageMaker endpoint, where each model runs in its own container, allowing you to manage resource allocation more precisely across models", "isCorrect": false },
+        { "text": "Use a hybrid approach where frequently updated models are deployed using multi-model endpoints and more complex models are deployed using multi-container endpoints, balancing flexibility and resource management", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A fintech company has separate ML models for fraud detection (real-time, low latency, quick scaling), credit scoring (computationally intensive but tolerant of batch processing), and personalized marketing (event-driven, no need for constant availability).\n\nGiven these varying requirements, which deployment target is the MOST SUITABLE for each model?",
+      "explanation": "SageMaker endpoints deliver low-latency real-time inference for fraud detection, Amazon ECS handles batch processing efficiently for credit scoring, and AWS Lambda's event-driven, on-demand execution fits the marketing model's intermittent trigger pattern.",
+      "options": [
+        { "text": "Deploy the fraud detection model using AWS Lambda for serverless, on-demand execution, deploy the credit scoring model on Amazon EKS for scalable batch processing, and deploy the personalized marketing model on SageMaker endpoints to handle event-driven inference", "isCorrect": false },
+        { "text": "Deploy the fraud detection model using SageMaker endpoints for low-latency, real-time predictions, deploy the credit scoring model on Amazon ECS for batch processing, and deploy the personalized marketing model using AWS Lambda for event-driven execution", "isCorrect": true },
+        { "text": "Deploy all three models on a single Amazon EKS cluster to take advantage of Kubernetes orchestration, ensuring consistent management and scaling across different use cases", "isCorrect": false },
+        { "text": "Deploy the fraud detection model on Amazon ECS for auto-scaling based on demand, deploy the credit scoring model using SageMaker endpoints for real-time scoring, and deploy the personalized marketing model on Amazon EKS for event-driven processing", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A large technology company runs continuous real-time predictions, weekly scheduled batch retraining, and small-scale hyperparameter tuning experiments that can tolerate interruptions.\n\nWhich of the following strategies represents the best use of spot instances, on-demand instances, and reserved instances for different machine learning workloads, considering the requirements for cost optimization, reliability, and performance? (Select two)",
+      "explanation": "Spot instances are ideal for interruption-tolerant hyperparameter tuning jobs, offering the biggest cost savings, while reserved instances are best for real-time prediction workloads requiring guaranteed, continuous availability.",
+      "options": [
+        { "text": "Use spot instances for hyperparameter tuning jobs where interruptions can be tolerated", "isCorrect": true },
+        { "text": "Use reserved instances for real-time predictions that require high availability", "isCorrect": true },
+        { "text": "Use on-demand instances for real-time predictions that require high availability", "isCorrect": false },
+        { "text": "Use on-demand instances for hyperparameter tuning jobs where interruptions can be tolerated", "isCorrect": false },
+        { "text": "Use reserved instances for scheduled batch processing for model retraining", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A retail company uses SageMaker to train product-demand models, storing training data per product category in a single S3 bucket in one AWS account. Data scientists are each assigned to one category and must access only their category's data, with centralized resource management.\n\nWhich solution will meet these requirements?",
+      "explanation": "IAM policies with resource-based conditions (S3 prefixes), attached to the IAM roles used by SageMaker notebook instances, give fine-grained per-category access without the overhead of separate buckets, Glue pipelines, or separate AWS accounts.",
+      "options": [
+        { "text": "Create separate S3 buckets for each product category. Use bucket policies to grant access to individual buckets based on each data scientist's IAM role", "isCorrect": false },
+        { "text": "Create a preprocessing pipeline using AWS Glue to separate training data for each product category into individual S3 buckets. Use bucket policies to grant access to these buckets", "isCorrect": false },
+        { "text": "Use IAM policies with resource-based conditions to grant each data scientist access to specific S3 bucket prefixes that correspond to their assigned product category. Attach these policies to the IAM roles used by SageMaker notebook instances", "isCorrect": true },
+        { "text": "Set up separate AWS accounts for each product category under an AWS Organizations structure. Restrict each data scientist's access to their assigned account", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A global logistics company needs a maintainable, scalable, cost-effective ML infrastructure across multiple regions, supporting increasing data volumes and evolving model requirements, for delivery routing, demand forecasting, and anomaly detection.\n\nWhich of the following strategies should you implement to create a maintainable, scalable, and cost-effective ML infrastructure for your company using AWS services? (Select three)",
+      "explanation": "A microservices architecture on SageMaker endpoints isolates scaling and updates per model, infrastructure as code with CloudFormation enables consistent, repeatable, multi-region deployment, and versioned S3 storage of model artifacts allows safe rollbacks.",
+      "options": [
+        { "text": "Implement a microservices-based architecture with Amazon SageMaker endpoints, where each model is deployed independently, allowing for isolated scaling and updates", "isCorrect": true },
+        { "text": "Utilize infrastructure as code (IaC) with AWS CloudFormation to automate the deployment and management of ML resources, making it easy to replicate and scale infrastructure across regions", "isCorrect": true },
+        { "text": "Store all model artifacts and data in Amazon S3, and use versioning to manage changes over time, ensuring that models can be easily rolled back if needed", "isCorrect": true },
+        { "text": "Use a monolithic architecture to manage all machine learning models in a single environment, simplifying management and reducing overhead", "isCorrect": false },
+        { "text": "Provision fixed resources for each model to avoid unexpected costs, ensuring that the infrastructure is always available for each model", "isCorrect": false },
+        { "text": "Store all model artifacts and data in Amazon CodeCommit for version control and managing changes over time", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A financial services company needs to deploy a lightweight creditworthiness model with real-time, minimal-latency predictions, unpredictable traffic with occasional spikes, and prefers a cost-conscious serverless architecture.\n\nWhich approach is the MOST SUITABLE for deploying this solution, and why?",
+      "explanation": "Deploying the model directly inside an AWS Lambda function behind API Gateway scales automatically with traffic and is fully pay-per-use — ideal for a lightweight model with unpredictable, sporadic traffic.",
+      "options": [
+        { "text": "Deploy the model as a SageMaker endpoint for real-time inference, and configure AWS Lambda to preprocess incoming requests before sending them to the SageMaker endpoint for prediction", "isCorrect": false },
+        { "text": "Deploy the model directly within AWS Lambda as a function, and expose it through an API Gateway endpoint, allowing the function to scale automatically with traffic and provide real-time predictions", "isCorrect": true },
+        { "text": "Use an Amazon EC2 instance to host the model, with AWS Lambda functions handling the communication between the API Gateway and the EC2 instance for prediction requests", "isCorrect": false },
+        { "text": "Deploy the model using Amazon ECS (Elastic Container Service) and configure an AWS Lambda to trigger the ECS service on-demand, ensuring that the model is only running during peak traffic periods", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A healthcare company must containerize an ML model for predicting patient outcomes from wearable device data for deployment across dev/test/prod, with efficient, secure, consistent container image management.\n\nGiven these requirements, which combination of AWS services is the MOST SUITABLE for building, storing, deploying, and maintaining the containerized ML solution?",
+      "explanation": "Amazon ECR securely stores container images with tight integration to Amazon EKS for orchestration, and AWS CodePipeline automates the CI/CD process so new model versions are built, tested, and deployed consistently and automatically.",
+      "options": [
+        { "text": "Use Amazon ECR to store the container images, Amazon EKS for orchestrating the containers, and AWS CodePipeline for automating the CI/CD pipeline, ensuring that updates to the model are seamlessly deployed", "isCorrect": true },
+        { "text": "Use Amazon ECS to manage and deploy the containerized model, Amazon S3 to store container images, and manually push updates to the containers using the AWS CLI", "isCorrect": false },
+        { "text": "Use Amazon ECR to store container images, manually deploy containers on Amazon EC2 instances, and use AWS CloudFormation to manage the infrastructure configuration", "isCorrect": false },
+        { "text": "Use Docker Hub to store the container images, Amazon EKS for orchestrating the containers, and AWS Lambda to trigger updates to the containers when new images are pushed", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "An e-commerce platform's product recommendation model has declined in accuracy, particularly for new customers, suggesting model drift from changing customer preferences and market trends. A strategy is needed for detecting and managing drift using SageMaker.\n\nWhich of the following strategies should you implement to effectively detect and manage model drift in your product recommendation model using Amazon SageMaker? (Select two)",
+      "explanation": "SageMaker Model Monitor detects data-quality/data-drift and can alert automatically when input distribution shifts significantly, and retraining the model on new data keeps it aligned with current customer preferences.",
+      "options": [
+        { "text": "Deploy multiple versions of the model simultaneously using Amazon SageMaker multi-model endpoints, and switch between them based on performance metrics", "isCorrect": false },
+        { "text": "Use Amazon SageMaker Model Monitor to set up monitoring for data quality and data drift, enabling you to receive alerts and initiate model retraining when the distribution of input data changes significantly from the training data", "isCorrect": true },
+        { "text": "Manually review model performance every quarter and initiate retraining only if a significant drop in accuracy is observed, minimizing unnecessary retraining costs", "isCorrect": false },
+        { "text": "Use Amazon SageMaker Clarify to continuously monitor and mitigate bias in the model, and initiate model retraining due to changes in data distribution", "isCorrect": false },
+        { "text": "Retrain the model with the new training data, ensuring that the model remains up to date with new customer preferences", "isCorrect": true }
+      ]
+    },
+    {
+      "text": "A healthcare company's patient readmission prediction model shows less accurate predictions after months in production, raising concerns about data quality and model performance, requiring continuous monitoring.\n\nWhich of the following approaches is the MOST EFFECTIVE for monitoring data quality and model performance in this scenario?",
+      "explanation": "Implementing data validation rules for missing values, outliers, and distribution changes upstream, combined with tracking performance metrics like accuracy and F1 score, catches both data issues and model degradation proactively — better than dashboards alone, manual sampling, or blind periodic retraining.",
+      "options": [
+        { "text": "Implement data validation rules to check for missing values, outliers, and distribution changes in the input data before feeding it to the model, and use model performance metrics such as accuracy and F1 score to monitor the model's output", "isCorrect": true },
+        { "text": "Perform manual checks on a sample of the input data each week to ensure data quality and manually track model performance metrics in a spreadsheet for analysis", "isCorrect": false },
+        { "text": "Set up a dashboard that tracks model performance metrics, such as precision, recall, and AUC, and use version control to monitor changes in the model's code and training data over time", "isCorrect": false },
+        { "text": "Schedule periodic retraining of the model on the latest data to ensure it remains accurate, without additional monitoring of data quality or performance metrics", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A continuous, near-real-time fraud-detection ML pipeline (data ingestion, preprocessing, model inference, result storage) shows some transactions being incorrectly classified as non-fraudulent, and there's a concern about anomalies in data processing or inference.\n\nGiven the critical nature of the pipeline, which approach is the MOST EFFECTIVE for addressing these issues?",
+      "explanation": "SageMaker Model Monitor tracks input feature distributions and model predictions over time, alerting on deviations from expected patterns — directly targeting data drift and inference anomalies, unlike resource-usage alarms, periodic manual reviews, or exhaustive per-transaction logging.",
+      "options": [
+        { "text": "Set up Amazon CloudWatch alarms to monitor CPU and memory usage across the pipeline's compute resources, and trigger notifications if these metrics exceed predefined thresholds", "isCorrect": false },
+        { "text": "Schedule periodic manual reviews of a random sample of processed transactions to check for anomalies or errors, documenting any issues for further investigation", "isCorrect": false },
+        { "text": "Use AWS Lambda functions to log and audit every transaction processed by the pipeline, storing detailed logs in Amazon S3 for manual analysis when anomalies are suspected", "isCorrect": false },
+        { "text": "Implement Amazon SageMaker Model Monitor to track the distribution of input data features and model predictions over time, alerting you when deviations from expected patterns occur", "isCorrect": true }
+      ]
+    },
+    {
+      "text": "An insurance company's risk assessment model, trained on historical data, might be affected by shifts in demographic characteristics as the company expands to new regions, potentially causing biased or inaccurate predictions. The company wants to use SageMaker Clarify to detect distribution shifts.\n\nWhich of the following actions is the MOST EFFECTIVE for detecting changes in data distribution using SageMaker Clarify and mitigating their impact on model performance?",
+      "explanation": "A continuous SageMaker Clarify monitoring job tracks feature distribution over time and alerts on significant feature attribution drift, letting the team investigate and retrain proactively rather than relying on manual reviews or one-time analysis.",
+      "options": [
+        { "text": "Use SageMaker Clarify's bias detection capabilities to analyze the model's output and identify any disparities between different demographic groups, retraining the model only if significant bias is detected", "isCorrect": false },
+        { "text": "Set up a continuous monitoring job with SageMaker Clarify to track changes in feature distribution over time and alert you when a significant feature attribution drift is detected, allowing you to investigate and potentially retrain the model", "isCorrect": true },
+        { "text": "Implement a random sampling process to manually review a subset of incoming data each month, comparing it with the original training data to check for distribution changes", "isCorrect": false },
+        { "text": "Use SageMaker Clarify to perform a one-time bias analysis during model training, ensuring that the model is initially fair and accurate, and manually monitor future data distribution changes", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A tech company's recommendation engine has a new candidate model developed with additional features, and before fully replacing the current production model, the team wants to A/B test it based on real-world business outcomes.\n\nWhich of the following approaches is the MOST EFFECTIVE for conducting A/B testing for this use case?",
+      "explanation": "Randomly assigning users to each model and measuring real engagement metrics (click-through rate, session duration) aggregated via CloudWatch gives an objective, data-driven comparison of business outcomes — better than only tracking technical metrics, manual comparisons, or a full risky rollout.",
+      "options": [
+        { "text": "Deploy both models behind separate endpoints and use Amazon SageMaker Model Monitor to track key performance metrics like accuracy and latency, choosing the better model based on these metrics", "isCorrect": false },
+        { "text": "Deploy the new model as the primary endpoint and keep the current model as a fallback. Use AWS Lambda to route a percentage of traffic to the new model and compare the predictions manually to decide which model to keep", "isCorrect": false },
+        { "text": "Randomly assign a percentage of users to each model and measure engagement metrics, such as click-through rates and session duration, using Amazon CloudWatch to aggregate the results and determine the winning model", "isCorrect": true },
+        { "text": "Fully deploy the new model and observe its performance over time. If it performs worse than the old model, revert to the previous model and analyze the differences", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A financial services company is building a fraud detection model with a 40 MB Apache Parquet input file that has several unneeded correlated columns, and needs to drop them with minimal effort while remaining SageMaker-compatible.\n\nWhat should the ML engineer do?",
+      "explanation": "SageMaker Data Wrangler can import the Parquet file directly, drop unnecessary columns via its visual interface, and save the transformed data — much less effort than custom pandas scripts, manual CSV editing, or a full Glue job.",
+      "options": [
+        { "text": "Write a custom Python script using pandas to load the Parquet file, drop the unnecessary columns, and save it back as a Parquet file", "isCorrect": false },
+        { "text": "Use SageMaker Data Wrangler to import the Parquet file, drop the unnecessary columns, and save the transformed data", "isCorrect": true },
+        { "text": "Convert the Parquet file to CSV, manually edit the file to remove the columns, and re-upload the file to SageMaker", "isCorrect": false },
+        { "text": "Use AWS Glue to transform the Parquet file and drop the unnecessary columns before importing it into SageMaker", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A serverless ML application on AWS Lambda has increased latency during peak usage, and a DevOps engineer needs to quickly identify the root cause and resolve performance issues.\n\nWhich combination of monitoring and observability tools is the MOST EFFECTIVE for troubleshooting the latency and performance issues in this serverless application?",
+      "explanation": "AWS X-Ray traces requests end-to-end to pinpoint bottlenecks across the entire call chain, and CloudWatch Lambda Insights adds detailed memory/CPU/invocation metrics for the Lambda function itself — together giving the deepest, most actionable diagnostic picture.",
+      "options": [
+        { "text": "Enable detailed monitoring in Amazon CloudWatch to track Lambda invocations, errors, and throttles, and manually inspect the Lambda code to identify performance bottlenecks", "isCorrect": false },
+        { "text": "Deploy Amazon CloudWatch Logs Insights to query and analyze the application logs for errors, and use AWS Config to review recent changes to the infrastructure that might have introduced latency", "isCorrect": false },
+        { "text": "Use AWS X-Ray to trace requests across the entire application, identify bottlenecks, and visualize the end-to-end latency for each request. Combine this with Amazon CloudWatch Lambda Insights to monitor the Lambda function's memory usage, CPU usage, and invocation times", "isCorrect": true },
+        { "text": "Use Amazon CloudWatch Alarms to set thresholds for Lambda duration and error rates, and configure AWS X-Ray to periodically sample traces from the application for analysis", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A fraud detection model on SageMaker needs periodic retraining as data shifts, and the company requires all re-training activities (data access, model updates) to be logged/monitored for compliance, with security-team notifications on unauthorized retraining attempts.\n\nHow can you use AWS CloudTrail to meet these guidelines?",
+      "explanation": "AWS CloudTrail logs all SageMaker API calls (like CreateTrainingJob, UpdateEndpoint), giving full traceability, and CloudWatch alarms on suspicious API activity notify the security team automatically.",
+      "options": [
+        { "text": "Configure AWS CloudTrail to log only the data access events that trigger re-training, and manually trigger model re-training when changes in the data are detected through these logs", "isCorrect": false },
+        { "text": "Enable detailed monitoring in Amazon CloudWatch to track all SageMaker activities, and use CloudWatch Logs to store and analyze the logs for any suspicious activity related to re-training", "isCorrect": false },
+        { "text": "Enable AWS CloudWatch to log all API calls related to SageMaker, including CreateTrainingJob and UpdateEndpoint, and configure CloudWatch Alarms to notify the security team if unauthorized API calls are detected", "isCorrect": false },
+        { "text": "Enable AWS CloudTrail to log all API calls related to SageMaker, including CreateTrainingJob and UpdateEndpoint, and configure CloudWatch Alarms to notify the security team if unauthorized API calls are detected", "isCorrect": true }
+      ]
+    },
+    {
+      "text": "A SaaS company's management wants to reduce overall AWS spending while keeping critical applications highly available, using AWS cost analysis tools to monitor spending and identify cost-saving opportunities.\n\nWhich of the following actions can you perform using the appropriate AWS cost analysis tools to achieve your goal of reducing costs and optimizing AWS resource utilization? (Select two)",
+      "explanation": "AWS Cost Explorer analyzes historical spending trends and forecasts future costs, and AWS Trusted Advisor gives actionable cost-optimization recommendations like identifying idle/underutilized resources and reserved instance opportunities.",
+      "options": [
+        { "text": "Use AWS Cost Explorer to analyze historical spending patterns, identify cost trends, and forecast future costs to help with budgeting and planning", "isCorrect": true },
+        { "text": "Leverage AWS Trusted Advisor to receive recommendations for cost optimization, such as identifying underutilized or idle resources, and reserved instance purchasing opportunities", "isCorrect": true },
+        { "text": "Use AWS Cost Explorer to set custom budgets for cost and usage to govern costs across your organization and receive alerts when costs exceed your defined thresholds", "isCorrect": false },
+        { "text": "Use AWS Cost Explorer to automatically delete unused resources across your AWS environment, ensuring that no unnecessary costs are incurred", "isCorrect": false },
+        { "text": "Leverage AWS Trusted Advisor to directly modify and reconfigure resources based on cost optimization recommendations without manual intervention", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A global e-commerce company runs multiple ML projects (recommendations, fraud detection, demand forecasting) with a tightly monitored cloud budget, needing detailed cost tracking and allocation per project/team.\n\nWhich of the following approaches is the MOST EFFECTIVE for tracking and allocating costs across your ML projects using AWS services?",
+      "explanation": "Tagging all AWS resources (SageMaker instances, S3 buckets, Lambda functions) by project/team/environment and filtering via AWS Cost Explorer gives automated, granular cost reporting — more scalable and less manual than separate accounts, manual CloudWatch calculations, or reactive budget alerts alone.",
+      "options": [
+        { "text": "Create separate AWS accounts for each ML project, allowing costs to be isolated and tracked at the account level. Manually aggregate the costs for reporting purposes using monthly billing statements", "isCorrect": false },
+        { "text": "Use Amazon CloudWatch to monitor usage metrics for each resource and manually calculate the associated costs based on the metrics. Allocate costs by assigning each resource to a specific project or team", "isCorrect": false },
+        { "text": "Set up AWS Budgets for each project and rely on the alerts when the budget threshold is exceeded. Use these alerts to monitor costs and manually adjust resource usage as needed", "isCorrect": false },
+        { "text": "Implement resource tagging across all AWS resources used by your ML projects, including SageMaker instances, S3 buckets, and Lambda functions. Use AWS Cost Explorer to filter costs by tags such as project, team, and environment to generate detailed cost reports", "isCorrect": true }
+      ]
+    },
+    {
+      "text": "A fraud detection model previously deployed with SageMaker Asynchronous Inference now performs poorly for a new real-time banking fraud detection use case, and the company also wants notifications on model quality deviations.\n\nAs an AWS Certified Machine Learning Engineer Associate, what do you recommend?",
+      "explanation": "SageMaker Real-Time Inference is designed for low-latency use cases (unlike Asynchronous Inference), and SageMaker Model Monitor's model quality monitoring can send CloudWatch-based notifications on quality deviations.",
+      "options": [
+        { "text": "Increase the instance size and response timeout settings for SageMaker Asynchronous Inference and use Amazon SNS for quality deviation notifications", "isCorrect": false },
+        { "text": "Use SageMaker Batch Transform for inference and set up a monitoring system with SageMaker Model Monitor to send notifications for quality deviations", "isCorrect": false },
+        { "text": "Retain SageMaker Asynchronous Inference and enable autoscaling for the endpoint to improve performance, while using Amazon SQS for notifications", "isCorrect": false },
+        { "text": "Switch to SageMaker Real-Time Inference for the deployment and use SageMaker Model Monitor for model quality deviations", "isCorrect": true }
+      ]
+    },
+    {
+      "text": "A pre-trained AI model for a customer-facing application has fluctuating demand throughout the day, and a cloud architect needs a solution that scales automatically for high traffic while minimizing cost during idle periods, with minimal management overhead.\n\nWhich solution will fulfill these requirements with minimal management overhead?",
+      "explanation": "A SageMaker endpoint with auto scaling policies based on CloudWatch metrics dynamically adjusts instance count to match demand, offering the lowest management overhead compared to ECS/EKS-managed EC2 fleets or serverless provisioned concurrency (better suited to predictable bursts).",
+      "options": [
+        { "text": "Deploy the model to an Amazon SageMaker endpoint. Create SageMaker endpoint auto scaling policies based on Amazon CloudWatch metrics to adjust the number of instances dynamically", "isCorrect": true },
+        { "text": "Deploy the model to a group of Amazon Elastic Container Service (Amazon ECS) managed EC2 instances and set up an Application Load Balancer (ALB) in front of the ECS fleet to distribute incoming traffic", "isCorrect": false },
+        { "text": "Deploy the model by using Amazon Elastic Container Service (Amazon ECS) on AWS Fargate. Use Amazon EventBridge to trigger auto scaling", "isCorrect": false },
+        { "text": "Deploy the model to an Amazon SageMaker endpoint using Provisioned Concurrency with Serverless Inference to cater to dynamically changing traffic patterns", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A machine learning engineer needs to rightsize a SageMaker real-time endpoint's instance type for an e-commerce platform, balancing cost and low-latency performance requirements.\n\nWhich approach is the MOST EFFECTIVE for rightsizing the instance family and size for your SageMaker endpoint?",
+      "explanation": "SageMaker Inference Recommender runs load tests across multiple instance types/configurations and compares cost vs. performance directly for your specific model — a more precise, automated approach than general-purpose Compute Optimizer, manual experimentation, or cost-only selection.",
+      "options": [
+        { "text": "Use SageMaker Inference Recommender to run load tests across various instance types and configurations, compare the performance and cost of each, and select the instance type that offers the best balance between cost and performance", "isCorrect": true },
+        { "text": "Use AWS Compute Optimizer to analyze the current instance's CPU and memory usage, and automatically switch to the smallest recommended instance type that matches the utilization metrics", "isCorrect": false },
+        { "text": "Manually review the performance metrics from Amazon CloudWatch for the current instance and experiment with different instance types by redeploying the model on each until you find the optimal one", "isCorrect": false },
+        { "text": "Use SageMaker Inference Recommender to select the lowest-cost instance type, regardless of performance, and configure autoscaling to handle any additional load during peak times", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A telecommunications company wants to assess whether an ML model can accurately predict customer churn from Athena-queried S3 data, with a churn indicator target variable.\n\nWhich solution will provide this information with the LEAST development effort?",
+      "explanation": "SageMaker Autopilot fully automates preprocessing, model generation, and evaluation, letting you quickly assess predictive feasibility with minimal manual development compared to custom AutoML libraries or building a workflow in SageMaker Studio.",
+      "options": [
+        { "text": "Use Amazon Bedrock with a pre-trained foundation model to directly analyze the dataset and predict churn without training a custom model", "isCorrect": false },
+        { "text": "Use Amazon SageMaker Autopilot to automatically analyze the dataset, generate candidate models, and evaluate their ability to predict customer churn", "isCorrect": true },
+        { "text": "Download the dataset locally, preprocess the data manually, and use a third-party AutoML library to train and evaluate models", "isCorrect": false },
+        { "text": "Leverage Amazon SageMaker Studio to build a custom workflow for preprocessing, feature engineering, training, and evaluation of predictive models", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A healthcare startup's SageMaker diagnostic endpoint sees latency spikes and occasional timeouts during growth-driven traffic surges, on a tight budget.\n\nWhich approach is the MOST EFFECTIVE for troubleshooting and resolving the capacity concerns while balancing cost and performance?",
+      "explanation": "Auto-scaling the endpoint dynamically matches capacity to demand, and an AWS Budgets alert monitors cost as scaling occurs — balancing performance and budget better than fixed larger instances, provisioned-concurrency Lambda, or reactive service quota increases alone.",
+      "options": [
+        { "text": "Increase the instance size for the SageMaker endpoint to handle more requests per instance, and manually monitor performance and costs using Amazon CloudWatch metrics", "isCorrect": false },
+        { "text": "Enable auto-scaling for the SageMaker endpoint to automatically adjust the number of instances based on request load, and set a budget alert in AWS Budgets to monitor cost increases as traffic scales", "isCorrect": true },
+        { "text": "Use AWS Lambda with provisioned concurrency to handle the requests, ensuring that the function is always ready to serve traffic. Configure Lambda to auto-scale based on traffic but limit the maximum concurrency to control costs", "isCorrect": false },
+        { "text": "Request a service quota increase for the SageMaker endpoint to allow for more instances during peak traffic, and set up a CloudWatch Alarm to notify you when utilization exceeds 80% of the current quota", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A fashion retailer wants to predict clothing design popularity, with a categorical 'primary fabric type' feature (Cotton, Polyester, Silk) that needs preprocessing for a neural network.\n\nWhich technique should the ML engineer use for feature engineering?",
+      "explanation": "One-hot encoding converts each fabric type category into an independent binary vector, avoiding false ordinal relationships that label encoding would introduce, and is appropriate for categorical (not numerical) data.",
+      "options": [
+        { "text": "Use label encoding to assign unique integer values to each fabric type and input these integers directly into the neural network", "isCorrect": false },
+        { "text": "Perform min-max normalization on the categorical fabric type data to scale the values between 0 and 1 for compatibility with the model", "isCorrect": false },
+        { "text": "Apply one-hot encoding to convert the categorical fabric type data into binary vectors that the neural network can process", "isCorrect": true },
+        { "text": "Use PCA (Principal Component Analysis) to reduce the dimensionality of the categorical fabric type data before feeding it into the neural network", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A media analytics company needs scalable data ingestion pipelines for raw video metadata in S3, plus ML model deployment pipelines to predict audience engagement, integrated seamlessly.\n\nWhich solution will meet these requirements?",
+      "explanation": "AWS Glue provides serverless, scalable ETL for ingesting and transforming raw S3 metadata, and SageMaker Studio Classic offers an integrated environment for building, training, deploying, and monitoring the ML models — a cleaner separation of concerns than Kinesis Firehose+Lambda or manual deployment scripts.",
+      "options": [
+        { "text": "Use AWS Glue to create data ingestion pipelines for scalable data processing and SageMaker Studio Classic to manage ML model deployment pipelines", "isCorrect": true },
+        { "text": "Use Kinesis Data Firehose to stream video metadata from Amazon S3 into the ingestion pipeline and deploy models using AWS Lambda", "isCorrect": false },
+        { "text": "Use AWS Glue to preprocess raw video metadata in Amazon S3 and create a custom script to deploy models manually using SageMaker endpoints", "isCorrect": false },
+        { "text": "Use SageMaker Studio Classic for both data ingestion pipelines and ML model deployment pipelines to simplify the process", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A global e-commerce company collects multilingual video/audio/text customer feedback and wants to generate English-language summaries and sentiment insights with minimal operational effort, including handling German audio.",
+      "explanation": "Amazon Transcribe converts the audio/video feedback to text, Amazon Translate converts it to English, and Amazon Comprehend analyzes sentiment and summarizes — three fully managed services chained together, avoiding custom preprocessing pipelines.",
+      "options": [
+        { "text": "Use Amazon Rekognition to extract metadata from video and audio feedback and combine it with audio data transcription to summarize using Amazon Comprehend", "isCorrect": false },
+        { "text": "Manually preprocess all data formats into plain text and use a custom-trained SageMaker model for summarization in English", "isCorrect": false },
+        { "text": "Use Amazon Transcribe to convert video/audio feedback into German text, Amazon Translate to translate the German text into English, and Amazon Comprehend to analyze sentiment and summarize the feedback in English", "isCorrect": true },
+        { "text": "Use Amazon Transcribe to directly summarize the audio and video feedback from German to English text and use Amazon Comprehend to analyze customer sentiment", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Which of the following are examples of supervised learning? (Select two)",
+      "explanation": "Linear regression and neural networks are trained on labeled input/output pairs, the defining characteristic of supervised learning, unlike clustering or association rule mining, which are unsupervised.",
+      "options": [
+        { "text": "Linear regression", "isCorrect": true },
+        { "text": "Document classification", "isCorrect": false },
+        { "text": "Association rule learning", "isCorrect": false },
+        { "text": "Neural network", "isCorrect": true },
+        { "text": "Clustering", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "You are preparing a dataset for a machine learning model using SageMaker Data Wrangler, and need to perform a transformation that removes outliers from your dataset.\n\nWhich of the following actions in SageMaker Data Wrangler would you use to accomplish this task?",
+      "explanation": "The Filter transform lets you exclude values outside a specified range across one or more columns, which is how you remove outliers in Data Wrangler.",
+      "options": [
+        { "text": "Impute", "isCorrect": false },
+        { "text": "One-hot Encode", "isCorrect": false },
+        { "text": "Filter", "isCorrect": true },
+        { "text": "Format string", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A telecommunications company receives thousands of JSON network-performance records per second from devices, and needs a scalable AWS solution to monitor metrics and detect anomalies in real time with the least operational overhead.\n\nWhich solution will meet these requirements?",
+      "explanation": "Amazon Kinesis Data Streams ingests the high-throughput real-time data, and Apache Flink (via Kinesis Data Analytics) processes it in real time with a built-in RANDOM_CUT_FOREST algorithm for anomaly detection, minimizing custom code and operational overhead.",
+      "options": [
+        { "text": "Use Amazon Kinesis Firehose for real-time streaming of the network metrics data into an Amazon S3 bucket, then periodically run an AWS Glue ETL job to detect anomalies using a custom Python script", "isCorrect": false },
+        { "text": "Ingest the data using Amazon Kinesis Data Streams, analyze the network metrics using Amazon Comprehend, and identify anomalies with a SageMaker model", "isCorrect": false },
+        { "text": "Use AWS Lambda to process the network metrics streams in real time and write a custom function to detect anomalies directly from the data", "isCorrect": false },
+        { "text": "Use Amazon Kinesis Data Streams to ingest the data, process it with Apache Flink to analyze the streams in real time, and apply the RANDOM_CUT_FOREST algorithm to detect anomalies", "isCorrect": true }
+      ]
+    },
+    {
+      "text": "A company uses EC2 instances to ingest streaming on-premises JSON data at up to 1 MB/s, and loses in-flight data on instance reboot. The data science team wants near-real-time querying of ingested data.\n\nWhich solution provides near-real-time data querying that is scalable with minimal data loss?",
+      "explanation": "Publishing data to Kinesis Data Streams and using Kinesis Data Analytics to query it directly provides scalable, durable, near-real-time SQL querying over the stream — unlike temporary EC2 instance storage or EBS-based solutions, which aren't suited to streaming ingestion.",
+      "options": [
+        { "text": "Store ingested data in an EC2 instance store. Publish data to Amazon Kinesis Data Firehose with Amazon S3 as the destination. Use Amazon Athena to query the data", "isCorrect": false },
+        { "text": "Store ingested data in an Amazon Elastic Block Store (Amazon EBS) volume. Publish data to Amazon ElastiCache for Redis. Subscribe to the Redis channel to query the data", "isCorrect": false },
+        { "text": "Store ingested data in an Amazon Elastic Block Store (Amazon EBS) volume. Write to Amazon S3 bucket and use Amazon Redshift Spectrum to query the data", "isCorrect": false },
+        { "text": "Publish data to Amazon Kinesis Data Streams, use Kinesis Data Analytics to query the data", "isCorrect": true }
+      ]
+    },
+    {
+      "text": "Which of the following is correct regarding the techniques used to improve the performance of a Foundation Model (FM)?",
+      "explanation": "Fine-tuning further trains the model, updating its weights; Retrieval-Augmented Generation (RAG) instead retrieves external knowledge at inference time without altering the model's weights at all.",
+      "options": [
+        { "text": "Neither Fine-tuning nor Retrieval-augmented generation (RAG) changes the weights of the FM", "isCorrect": false },
+        { "text": "Both Fine-tuning and Retrieval-augmented generation (RAG) change the weights of the FM", "isCorrect": false },
+        { "text": "Fine-tuning changes the weights of the FM whereas Retrieval-augmented generation (RAG) does not change the weights of the FM", "isCorrect": true },
+        { "text": "Fine-tuning does not change the weights of the FM whereas Retrieval-augmented generation (RAG) changes the weights of the FM", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A travel agency wants to evaluate customer feedback recordings from support calls to identify positive/negative sentiment about a new vacation package, in the least amount of time.\n\nWhich action should the ML engineer take?",
+      "explanation": "Amazon Transcribe converts the audio recordings to text, and Amazon Comprehend then performs sentiment analysis directly on that text — a fully managed pipeline requiring no custom model training or manual transcription.",
+      "options": [
+        { "text": "Use Amazon Transcribe to convert the customer feedback recordings into text, and then use Amazon Comprehend to analyze the text for sentiment", "isCorrect": true },
+        { "text": "Build a custom sentiment analysis model using Amazon SageMaker and train it with labeled customer feedback data", "isCorrect": false },
+        { "text": "Manually transcribe the recordings, convert them to English using Amazon Translate, and run a custom script to analyze sentiment", "isCorrect": false },
+        { "text": "Use AWS Glue to preprocess the feedback recordings and implement a sentiment analysis solution using open-source libraries", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Which of the following highlights the differences between model parameters and hyperparameters in the context of generative AI?",
+      "explanation": "Model parameters (weights, biases) define the model's behavior in interpreting input and generating output; hyperparameters are external settings you adjust before/during training to control the training process itself.",
+      "options": [
+        { "text": "Both Hyperparameters and model parameters are values that can be adjusted for model customization to control the training process", "isCorrect": false },
+        { "text": "Both Hyperparameters and model parameters are values that define a model and its behavior in interpreting input and generating responses", "isCorrect": false },
+        { "text": "Hyperparameters are values that define a model and its behavior in interpreting input and generating responses. Model parameters are values that can be adjusted for model customization to control the training process", "isCorrect": false },
+        { "text": "Model parameters are values that define a model and its behavior in interpreting input and generating responses. Hyperparameters are values that can be adjusted for model customization to control the training process", "isCorrect": true }
+      ]
+    },
+    {
+      "text": "Which of the following summarizes the differences between a token and an embedding in the context of generative AI?",
+      "explanation": "A token is a discrete unit of text (word, subword, punctuation) that the model interprets/predicts, while an embedding is a numerical vector representing condensed semantic information about that input.",
+      "options": [
+        { "text": "Both token and embedding refer to a sequence of characters that a model can interpret or predict as a single unit of meaning", "isCorrect": false },
+        { "text": "An embedding is a sequence of characters that a model can interpret or predict as a single unit of meaning, whereas, a token is a vector of numerical values that represents condensed information obtained by transforming input into that vector", "isCorrect": false },
+        { "text": "A token is a sequence of characters that a model can interpret or predict as a single unit of meaning, whereas, an embedding is a vector of numerical values that represents condensed information obtained by transforming input into that vector", "isCorrect": true },
+        { "text": "Both token and embedding refer to a vector of numerical values that represents condensed information obtained by transforming input into that vector", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A healthcare company streams patient monitoring data via Kinesis Data Firehose (60-second buffer interval) into OpenSearch, powering a real-time health-alert dashboard, and needs sub-second latency for critical patient events.\n\nWhat do you recommend as the most optimal solution?",
+      "explanation": "Setting the Kinesis Data Firehose buffering hint interval to zero seconds delivers data to OpenSearch essentially as soon as it's ingested, directly eliminating the batching delay causing the latency problem.",
+      "options": [
+        { "text": "Enable caching on the OpenSearch dashboard to reduce latency by serving previously ingested data for alert generation", "isCorrect": false },
+        { "text": "Replace the Firehose stream with Amazon Kinesis Data Streams and use AWS Lambda to write the data to OpenSearch Service with lower latency", "isCorrect": false },
+        { "text": "Reduce the Kinesis Data Firehose buffer interval to zero seconds by leveraging 'buffering hints', thereby enabling immediate data delivery to OpenSearch Service", "isCorrect": true },
+        { "text": "Switch from Kinesis Data Firehose to Apache Spark Streaming to preprocess patient monitoring data and load it into OpenSearch Service in real time", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A fintech company wants to make its own fine-tuned Hugging Face LLM available through Amazon Bedrock so an internal agentic AI platform can invoke it via standard Bedrock APIs.\n\nWhich combination of steps will satisfy these requirements? (Select two)",
+      "explanation": "Importing the model into Amazon Bedrock On-Demand inference lets applications call it through standard Bedrock APIs, and Bedrock's model import requires the model artifacts' full S3 URI, with the S3 bucket owned by the same account starting the import job.",
+      "options": [
+        { "text": "Configure an automatic scaling policy for the imported model during the import workflow so that Amazon Bedrock adjusts capacity before the application sends inference requests", "isCorrect": false },
+        { "text": "Import the custom model by using Amazon Bedrock On-Demand inference so that the application can invoke the model through Amazon Bedrock APIs", "isCorrect": true },
+        { "text": "Create an Amazon ECR repository, package the Hugging Face model as a container image, register the image with Amazon Bedrock, and then reference the container image from the agentic AI application instead of supplying model artifacts in Amazon S3", "isCorrect": false },
+        { "text": "Transform the model into a quantized version before import because Amazon Bedrock accepts only quantized custom models", "isCorrect": false },
+        { "text": "Specify the full Amazon S3 URI that contains the Hugging Face model artifacts, and ensure that the S3 bucket belongs to the same AWS account that starts the Amazon Bedrock import job", "isCorrect": true }
+      ]
+    },
+    {
+      "text": "A team of business analysts (more comfortable with visual tools than code) needs to combine, transform, and clean large datasets efficiently using a SageMaker no-code interface.\n\nWhich SageMaker tool(s) would best suit the team's requirements for preparing and analyzing data without writing code?",
+      "explanation": "SageMaker Data Wrangler within SageMaker Canvas provides a point-and-click, no-code interface for importing, transforming, and analyzing data, purpose-built for non-technical users.",
+      "options": [
+        { "text": "Use Amazon SageMaker Data Wrangler within Amazon SageMaker Canvas", "isCorrect": true },
+        { "text": "Prepare data using Amazon EMR in Studio", "isCorrect": false },
+        { "text": "Use Amazon SageMaker Data Wrangler within Amazon SageMaker JumpStart", "isCorrect": false },
+        { "text": "Prepare data with SQL in Amazon SageMaker Studio. The SQL extension connections to Amazon Athena for working with datasets", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "An Amazon EMR cluster processes batch log data, storing results in S3, and needs to ensure no data loss during processing while being as cost-effective as possible.\n\nWhich instance purchasing option will meet these requirements?",
+      "explanation": "On-Demand instances for the primary and core nodes (which hold HDFS data and cluster state, needing reliability) combined with Spot instances for task nodes (stateless, safe to interrupt) balances fault tolerance and cost.",
+      "options": [
+        { "text": "Use an On-Demand instance for the primary node along with the core nodes, and Spot instances for task nodes to reduce costs while ensuring fault tolerance", "isCorrect": true },
+        { "text": "Use Spot instances for all primary, core, and task nodes to minimize costs and automatically handle failures by replacing interrupted nodes", "isCorrect": false },
+        { "text": "Use Spot instances for primary and core nodes, and On-Demand instances for task nodes to balance cost and availability", "isCorrect": false },
+        { "text": "Use an On-Demand instance for the primary node and Spot instances for the core nodes as well as the task nodes to reduce costs while ensuring fault tolerance", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Which of the following is correct regarding the training set, validation set, and test set used in the context of machine learning? (Select two)",
+      "explanation": "Validation sets are optional (used for hyperparameter tuning during training), while the test set is used to measure how well the final model generalizes to unseen data.",
+      "options": [
+        { "text": "Test set is used for hyperparameter tuning", "isCorrect": false },
+        { "text": "Test sets are optional", "isCorrect": false },
+        { "text": "Validation sets are optional", "isCorrect": true },
+        { "text": "Validation set is used to determine how well the model generalizes", "isCorrect": false },
+        { "text": "Test set is used to determine how well the model generalizes", "isCorrect": true }
+      ]
+    },
+    {
+      "text": "What is Feature Engineering in the context of machine learning?",
+      "explanation": "Feature Engineering is the process of selecting, modifying, or creating features from raw data to improve model performance, significantly enhancing accuracy and efficiency by giving the model better data representations.",
+      "options": [
+        { "text": "Feature Engineering involves selecting, modifying, or creating features from raw data to improve the performance of machine learning models, and it is important because it can significantly enhance model accuracy and efficiency", "isCorrect": true },
+        { "text": "Feature Engineering is the process of collecting raw data, and it is important because it ensures the availability of data for model training", "isCorrect": false },
+        { "text": "Feature Engineering is the process of tuning hyperparameters in a machine learning model, and it is important because it optimizes the model's performance", "isCorrect": false },
+        { "text": "Feature Engineering refers to the visualization of data to understand patterns, and it is important because it helps in identifying trends in the dataset", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A healthcare company automating deployment of a patient-health-risk model with CloudFormation needs the resource that defines the ML model itself for hosting on a SageMaker endpoint.\n\nWhich resource should the ML engineer create in the CloudFormation template to address this requirement?",
+      "explanation": "AWS::SageMaker::Model is the CloudFormation resource specifically for defining the model artifacts, inference container, and IAM role — the foundation an endpoint depends on.",
+      "options": [
+        { "text": "Use AWS::SageMaker::EndpointConfig to define the configuration for the SageMaker endpoint without specifying the model", "isCorrect": false },
+        { "text": "Use AWS::SageMaker::Endpoint to define the SageMaker endpoint that will host the model and serve inference requests", "isCorrect": false },
+        { "text": "Use AWS::SageMaker::Model to specify the ML model, including the model artifacts and the inference container configuration for hosting", "isCorrect": true },
+        { "text": "Use AWS::EC2::Instance to host the ML model manually and handle inference requests", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A financial services company uses SageMaker Canvas on complex, nested, multi-type-column transactional data in S3, needing a file format that optimizes processing performance and load time.\n\nWhich file format will meet these requirements?",
+      "explanation": "Apache Parquet's columnar format with compression and support for nested structures is optimized for large-scale, complex datasets, minimizing data processed and load time compared to CSV, JSON, or XML.",
+      "options": [
+        { "text": "Apache Parquet", "isCorrect": true },
+        { "text": "JSON", "isCorrect": false },
+        { "text": "CSV", "isCorrect": false },
+        { "text": "XML", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A robotics company training a deep learning model in SageMaker Studio has hit vanishing gradients, underutilized GPUs, and overfitting in past runs, and needs real-time detection, automatic reaction, and comprehensive metrics with the LEAST operational overhead.\n\nWhat do you suggest?",
+      "explanation": "SageMaker Debugger's built-in rules (VanishingGradient, LowGPUUtilization, Overfit) detect these specific issues in real time and can trigger automated reactions, without needing custom scripts or manual log analysis.",
+      "options": [
+        { "text": "Leverage Amazon CloudWatch Logs to monitor GPU usage and manually analyze logs to identify vanishing gradients and overfitting during training", "isCorrect": false },
+        { "text": "Use Amazon SageMaker Experiments to log training metrics and manually evaluate them for signs of vanishing gradients, GPU inefficiency, and overfitting", "isCorrect": false },
+        { "text": "Develop custom Python scripts to track training metrics and set up logic to monitor for issues like vanishing gradients and overfitting in real time", "isCorrect": false },
+        { "text": "Use Amazon SageMaker Debugger with built-in rules to detect vanishing gradients, GPU underutilization, and overfitting. Configure Debugger to automatically react based on predefined thresholds", "isCorrect": true }
+      ]
+    },
+    {
+      "text": "Which AWS services are specifically designed to aid in monitoring machine learning models and incorporating human review processes? (Select two)",
+      "explanation": "SageMaker Model Monitor continuously monitors deployed model quality and drift, and Amazon Augmented AI (A2I) implements human review workflows to add human judgment into ML predictions — together covering monitoring plus human-in-the-loop review.",
+      "options": [
+        { "text": "Amazon SageMaker Data Wrangler", "isCorrect": false },
+        { "text": "Amazon SageMaker Model Monitor", "isCorrect": true },
+        { "text": "Amazon Augmented AI (Amazon A2I)", "isCorrect": true },
+        { "text": "Amazon SageMaker Feature Store", "isCorrect": false },
+        { "text": "Amazon SageMaker Ground Truth", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "A retail company's recommendation model on a SageMaker endpoint has a new candidate version, and the company needs to test it against live customer data without affecting the production model before switching over.\n\nWhat do you recommend?",
+      "explanation": "SageMaker shadow testing routes a copy of live traffic to the new model in parallel with production, letting you compare predictions side-by-side under real conditions without impacting end users — safer and more automated than custom traffic-splitting, direct replacement, or manual multi-model log comparison.",
+      "options": [
+        { "text": "Use Amazon SageMaker shadow testing to route a copy of live customer data to the new model for evaluation while maintaining the production model's operation. Compare predictions from both models to assess performance", "isCorrect": true },
+        { "text": "Deploy the new model to a separate Amazon SageMaker endpoint and use a custom application to split live traffic between the endpoints for evaluation purposes", "isCorrect": false },
+        { "text": "Replace the current production model with the new model on the existing SageMaker endpoint, monitor its performance, and roll back if issues are detected", "isCorrect": false },
+        { "text": "Use Amazon SageMaker multi-model endpoints to deploy both the current and new models simultaneously and manually analyze the logs for prediction comparisons", "isCorrect": false }
+      ]
+    }
+  ]
+}

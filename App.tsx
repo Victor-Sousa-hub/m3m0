@@ -4,6 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 
 import { getDatabase } from './src/db/database';
+import { importSeedQuestionSets } from './src/db/importSeedData';
 import { getCurrentUser } from './src/db/users';
 import { UserProvider } from './src/context/UserContext';
 import { useTheme } from './src/theme/useTheme';
@@ -18,7 +19,10 @@ export default function App() {
 
   useEffect(() => {
     getDatabase()
-      .then(() => getCurrentUser())
+      .then(async (db) => {
+        await importSeedQuestionSets(db);
+        return getCurrentUser();
+      })
       .then((existingUser) => {
         setUser(existingUser);
         setIsDbReady(true);
