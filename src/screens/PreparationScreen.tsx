@@ -31,10 +31,6 @@ export default function PreparationScreen({ route, navigation }: Props) {
   const effectiveMaxQuestions = Math.min(mode.maxQuestions, deckTotal);
   const effectiveMinQuestions = Math.min(mode.minQuestions, effectiveMaxQuestions);
 
-  const questionPresets = useMemo(
-    () => presetOptions(effectiveMinQuestions, Math.max(effectiveMinQuestions, effectiveMaxQuestions)),
-    [effectiveMinQuestions, effectiveMaxQuestions]
-  );
   const durationPresets = useMemo(
     () => presetOptions(mode.minDurationMinutes, mode.maxDurationMinutes),
     [mode.minDurationMinutes, mode.maxDurationMinutes]
@@ -48,10 +44,14 @@ export default function PreparationScreen({ route, navigation }: Props) {
   };
 
   const finalQuestionCount = mode.customizable
-    ? Math.min(selectedQuestions, effectiveMaxQuestions)
+    ? Math.min(Math.max(selectedQuestions, effectiveMinQuestions), effectiveMaxQuestions)
     : effectiveMaxQuestions;
   const finalDurationMinutes = mode.customizable ? durationMinutes : mode.maxDurationMinutes;
   const canStart = finalQuestionCount > 0;
+
+  const adjustQuestionCount = (delta: number) => {
+    setSelectedQuestions(Math.min(Math.max(finalQuestionCount + delta, effectiveMinQuestions), effectiveMaxQuestions));
+  };
 
   return (
     <View style={styles.container}>
@@ -81,20 +81,42 @@ export default function PreparationScreen({ route, navigation }: Props) {
       {mode.customizable ? (
         <>
           <Text style={styles.sectionLabel}>Número de perguntas</Text>
-          <View style={styles.pillRow}>
-            {questionPresets.map((count) => {
-              const isSelected = count === finalQuestionCount;
-              return (
-                <Pressable
-                  key={count}
-                  style={[styles.pill, isSelected && styles.pillSelected]}
-                  onPress={() => setSelectedQuestions(count)}
-                >
-                  <Text style={[styles.pillText, isSelected && styles.pillTextSelected]}>{count}</Text>
-                </Pressable>
-              );
-            })}
+          <View style={styles.stepperRow}>
+            <Pressable
+              style={[styles.stepperButton, finalQuestionCount <= effectiveMinQuestions && styles.stepperButtonDisabled]}
+              onPress={() => adjustQuestionCount(-5)}
+              disabled={finalQuestionCount <= effectiveMinQuestions}
+            >
+              <Text style={styles.stepperButtonText}>-5</Text>
+            </Pressable>
+            <Pressable
+              style={[styles.stepperButton, finalQuestionCount <= effectiveMinQuestions && styles.stepperButtonDisabled]}
+              onPress={() => adjustQuestionCount(-1)}
+              disabled={finalQuestionCount <= effectiveMinQuestions}
+            >
+              <Text style={styles.stepperButtonText}>-1</Text>
+            </Pressable>
+            <View style={styles.stepperValueBox}>
+              <Text style={styles.stepperValue}>{finalQuestionCount}</Text>
+            </View>
+            <Pressable
+              style={[styles.stepperButton, finalQuestionCount >= effectiveMaxQuestions && styles.stepperButtonDisabled]}
+              onPress={() => adjustQuestionCount(1)}
+              disabled={finalQuestionCount >= effectiveMaxQuestions}
+            >
+              <Text style={styles.stepperButtonText}>+1</Text>
+            </Pressable>
+            <Pressable
+              style={[styles.stepperButton, finalQuestionCount >= effectiveMaxQuestions && styles.stepperButtonDisabled]}
+              onPress={() => adjustQuestionCount(5)}
+              disabled={finalQuestionCount >= effectiveMaxQuestions}
+            >
+              <Text style={styles.stepperButtonText}>+5</Text>
+            </Pressable>
           </View>
+          <Text style={styles.rangeHint}>
+            De {effectiveMinQuestions} até {effectiveMaxQuestions} perguntas.
+          </Text>
 
           <Text style={styles.sectionLabel}>Tempo para responder</Text>
           <View style={styles.pillRow}>
@@ -193,6 +215,40 @@ function createStyles(colors: ThemeColors) {
       fontSize: 12,
       color: colors.textMuted,
       marginTop: 4,
+    },
+    stepperRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+      marginBottom: 6,
+    },
+    stepperButton: {
+      borderWidth: 1,
+      borderColor: colors.border,
+      borderRadius: 8,
+      paddingHorizontal: 14,
+      paddingVertical: 10,
+    },
+    stepperButtonDisabled: {
+      opacity: 0.4,
+    },
+    stepperButtonText: {
+      color: colors.text,
+      fontWeight: '700',
+    },
+    stepperValueBox: {
+      flex: 1,
+      alignItems: 'center',
+    },
+    stepperValue: {
+      fontSize: 22,
+      fontWeight: '800',
+      color: colors.primary,
+    },
+    rangeHint: {
+      fontSize: 12,
+      color: colors.textMuted,
+      marginBottom: 24,
     },
     pillRow: {
       flexDirection: 'row',
