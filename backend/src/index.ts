@@ -37,6 +37,19 @@ interface AttemptInput {
 
 type AttemptRecord = AttemptInput;
 
+const VALID_GAME_MODES = new Set(['blitz', 'thinking', 'simulado']);
+
+/**
+ * A push can come from a client that predates game modes (or is mid
+ * hot-reload) and omit gameMode entirely — D1's `.bind()` throws on
+ * `undefined`, which would otherwise crash the whole batch (including
+ * unrelated attempts/active days in the same push). Same "never trust shape
+ * at the boundary" rationale as the frontend's normalizeGameMode.
+ */
+function normalizeGameMode(value: unknown): string {
+  return typeof value === 'string' && VALID_GAME_MODES.has(value) ? value : 'thinking';
+}
+
 async function authenticate(request: Request, env: Env): Promise<string | null> {
   const auth = request.headers.get('Authorization');
   if (!auth?.startsWith('Bearer ')) return null;
@@ -131,7 +144,7 @@ async function handleSyncPush(request: Request, env: Env, accountId: string): Pr
         attempt.timeTakenSeconds,
         attempt.points,
         attempt.completedAt,
-        attempt.gameMode
+        normalizeGameMode(attempt.gameMode)
       )
     ),
   ];
