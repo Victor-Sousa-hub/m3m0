@@ -86,6 +86,24 @@ async function handlePairStart(env: Env): Promise<Response> {
   return json({ accountId, syncSecret: secret, pairingCode, expiresAt });
 }
 
+/**
+ * Lets an already-paired device mint a fresh code to add a 3rd+ device to
+ * its own account. Without this, the only way to "pair" from a device that
+ * doesn't already have a code in hand is /pair/start, which creates a brand
+ * new, disconnected account — exactly the trap that split one real account
+ * into two and needed a manual DB merge to fix.
+ */
+async function handlePairInvite(env: Env, accountId: string): Promise<Response> {
+  const pairingCode = generatePairingCode();
+  const expiresAt = new Date(Date.now() + PAIRING_CODE_TTL_MS).toISOString();
+
+  await env.DB.prepare('UPDATE accounts SET pairing_code = ?, pairing_code_expires_at = ? WHERE id = ?')
+    .bind(pairingCode, expiresAt, accountId)
+    .run();
+
+  return json({ pairingCode, expiresAt });
+}
+
 async function handlePairJoin(request: Request, env: Env): Promise<Response> {
   const body = await request.json<{ code?: string }>().catch(() => null);
   const code = body?.code?.trim().toUpperCase();
@@ -189,7 +207,7 @@ export default {
       return handlePairJoin(request, env);
     }
 
-    if (url.pathname === '/sync/push' || url.pathname === '/sync/pull') {
+    if (url.pathname === '/sync/push' || url.pathname === '/sync/pull' || url.pathname === '/pair/invite') {
       const accountId = await authenticate(request, env);
       if (!accountId) return error('Não autenticado', 401);
 
@@ -198,6 +216,9 @@ export default {
       }
       if (request.method === 'GET' && url.pathname === '/sync/pull') {
         return handleSyncPull(env, accountId);
+      }
+      if (request.method === 'POST' && url.pathname === '/pair/invite') {
+        return handlePairInvite(env, accountId);
       }
     }
 

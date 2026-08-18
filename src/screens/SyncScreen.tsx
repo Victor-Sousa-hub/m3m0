@@ -73,6 +73,19 @@ export default function SyncScreen({ onPaired }: Props = {}) {
     }
   };
 
+  const handleInviteDevice = async () => {
+    setIsBusy(true);
+    setError(null);
+    try {
+      const result = await pairing.inviteNewDevice();
+      setPairingResult(result);
+    } catch {
+      setError('Não foi possível gerar o código. Verifique sua conexão.');
+    } finally {
+      setIsBusy(false);
+    }
+  };
+
   const handleSyncNow = async () => {
     setIsBusy(true);
     setError(null);
@@ -138,6 +151,14 @@ export default function SyncScreen({ onPaired }: Props = {}) {
 
         <Pressable style={[styles.button, isBusy && styles.buttonDisabled]} onPress={handleSyncNow} disabled={isBusy}>
           <Text style={styles.buttonText}>{isBusy ? 'Sincronizando...' : 'Sincronizar agora'}</Text>
+        </Pressable>
+
+        <Pressable
+          style={[styles.secondaryButton, isBusy && styles.buttonDisabled]}
+          onPress={handleInviteDevice}
+          disabled={isBusy}
+        >
+          <Text style={styles.secondaryButtonText}>Adicionar outro dispositivo</Text>
         </Pressable>
       </View>
     );
@@ -231,6 +252,19 @@ function createStyles(colors: ThemeColors) {
     },
     buttonDisabled: {
       opacity: 0.6,
+    },
+    secondaryButton: {
+      borderWidth: 1,
+      borderColor: colors.border,
+      borderRadius: 8,
+      paddingVertical: 14,
+      alignItems: 'center',
+      marginTop: 12,
+    },
+    secondaryButtonText: {
+      color: colors.text,
+      fontWeight: '600',
+      fontSize: 16,
     },
     buttonText: {
       color: colors.primaryText,

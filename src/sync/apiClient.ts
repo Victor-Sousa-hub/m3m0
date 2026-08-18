@@ -30,6 +30,11 @@ export interface PairJoinResponse {
   syncSecret: string;
 }
 
+export interface PairInviteResponse {
+  pairingCode: string;
+  expiresAt: string;
+}
+
 function getApiBaseUrl(): string {
   const url = Constants.expoConfig?.extra?.syncApiUrl;
   if (typeof url !== 'string' || !url) {
@@ -65,6 +70,10 @@ export function pairStart(): Promise<PairStartResponse> {
 
 export function pairJoin(code: string): Promise<PairJoinResponse> {
   return request('/pair/join', { method: 'POST', body: { code } });
+}
+
+export function pairInvite(secret: string): Promise<PairInviteResponse> {
+  return request('/pair/invite', { method: 'POST', secret });
 }
 
 export function syncPush(
