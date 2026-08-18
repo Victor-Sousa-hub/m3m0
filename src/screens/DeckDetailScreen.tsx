@@ -3,13 +3,14 @@ import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import { getQuestionCountForDeck } from '../db/questions';
-import { bestAttemptPerDuration, getAttemptsForDeck } from '../db/scores';
+import * as deckRepository from '../data/deckRepository';
+import * as attemptRepository from '../data/attemptRepository';
+import { bestAttemptPerDuration } from '../data/attemptRecord';
 import { useCurrentUser } from '../context/UserContext';
 import { useTheme } from '../theme/useTheme';
 import type { ThemeColors } from '../theme/colors';
 import type { RootStackParamList } from '../navigation/types';
-import type { QuizAttempt } from '../types/models';
+import type { AttemptRecord } from '../data/attemptRecord';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'DeckDetail'>;
 
@@ -20,13 +21,13 @@ export default function DeckDetailScreen({ route, navigation }: Props) {
   const styles = useMemo(() => createStyles(colors), [colors]);
 
   const [questionCount, setQuestionCount] = useState<number | null>(null);
-  const [attempts, setAttempts] = useState<QuizAttempt[]>([]);
+  const [attempts, setAttempts] = useState<AttemptRecord[]>([]);
 
   useFocusEffect(
     useCallback(() => {
-      getQuestionCountForDeck(deckId).then(setQuestionCount);
-      getAttemptsForDeck(user.id, deckId).then(setAttempts);
-    }, [deckId, user.id])
+      deckRepository.getQuestionCountForDeck(deckId).then(setQuestionCount);
+      attemptRepository.getAttemptsForDeck(user.id, deckId, deckName).then(setAttempts);
+    }, [deckId, deckName, user.id])
   );
 
   const hasQuestions = (questionCount ?? 0) > 0;
@@ -69,7 +70,7 @@ export default function DeckDetailScreen({ route, navigation }: Props) {
       <Text style={styles.historyTitle}>Suas pontuações</Text>
       <FlatList
         data={attempts}
-        keyExtractor={(item) => String(item.id)}
+        keyExtractor={(item, index) => item.clientId ?? `${item.completedAt}-${index}`}
         ListEmptyComponent={<Text style={styles.emptyText}>Nenhum simulado feito ainda.</Text>}
         renderItem={({ item }) => (
           <View style={styles.attemptRow}>

@@ -6,6 +6,8 @@ import DeckDetailScreen from '../screens/DeckDetailScreen';
 import PreparationScreen from '../screens/PreparationScreen';
 import QuizScreen from '../screens/QuizScreen';
 import ResultsScreen from '../screens/ResultsScreen';
+import StatsScreen from '../screens/StatsScreen';
+import SyncScreen from '../screens/SyncScreen';
 import { useTheme } from '../theme/useTheme';
 import type { RootStackParamList } from './types';
 
@@ -30,6 +32,8 @@ export default function RootNavigator() {
     <NavigationContainer theme={navigationTheme}>
       <Stack.Navigator initialRouteName="Decks">
         <Stack.Screen name="Decks" component={DecksScreen} options={{ title: 'm3m0' }} />
+        <Stack.Screen name="Stats" component={StatsScreen} options={{ title: 'Estatísticas' }} />
+        <Stack.Screen name="Sync" component={SyncScreen} options={{ title: 'Sincronização' }} />
         <Stack.Screen
           name="DeckDetail"
           component={DeckDetailScreen}

@@ -2,9 +2,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import { getQuestionsForDeck } from '../db/questions';
-import { saveQuizAttempt } from '../db/scores';
-import { recordDailyActivity } from '../db/streak';
+import * as deckRepository from '../data/deckRepository';
+import * as attemptRepository from '../data/attemptRepository';
+import * as streakRepository from '../data/streakRepository';
 import { sampleQuestions } from '../quiz/sampleQuestions';
 import { QUIZ_QUESTION_COUNT } from '../quiz/config';
 import { computeQuestionPoints, timeBudgetPerQuestion } from '../quiz/scoring';
@@ -43,7 +43,7 @@ export default function QuizScreen({ route, navigation }: Props) {
   const quizStartedAtRef = useRef<number | null>(null);
 
   useEffect(() => {
-    getQuestionsForDeck(deckId).then((all) => {
+    deckRepository.getQuestionsForDeck(deckId).then((all) => {
       setQuestions(sampleQuestions(all, QUIZ_QUESTION_COUNT));
     });
   }, [deckId]);
@@ -65,16 +65,17 @@ export default function QuizScreen({ route, navigation }: Props) {
       hasFinishedRef.current = true;
       const startedAt = quizStartedAtRef.current ?? Date.now();
       const timeTakenSeconds = Math.max(0, Math.round((Date.now() - startedAt) / 1000));
-      await saveQuizAttempt({
+      await attemptRepository.saveAttempt({
         userId: user.id,
         deckId,
+        deckName,
         score: finalScore,
         totalQuestions,
         durationMinutes,
         timeTakenSeconds,
         points: finalPoints,
       });
-      const streak = await recordDailyActivity(user.id);
+      const streak = await streakRepository.recordDailyActivity(user.id);
       navigation.replace('Results', {
         deckName,
         score: finalScore,

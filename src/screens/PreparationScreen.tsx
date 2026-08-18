@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import { getQuestionCountForDeck } from '../db/questions';
+import * as deckRepository from '../data/deckRepository';
 import { QUIZ_QUESTION_COUNT } from '../quiz/config';
 import { useTheme } from '../theme/useTheme';
 import type { ThemeColors } from '../theme/colors';
@@ -21,7 +21,7 @@ export default function PreparationScreen({ route, navigation }: Props) {
   const [durationMinutes, setDurationMinutes] = useState(5);
 
   useEffect(() => {
-    getQuestionCountForDeck(deckId).then(setQuestionCount);
+    deckRepository.getQuestionCountForDeck(deckId).then(setQuestionCount);
   }, [deckId]);
 
   const questionsInQuiz =

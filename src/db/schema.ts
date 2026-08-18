@@ -45,7 +45,24 @@ CREATE TABLE IF NOT EXISTS quiz_attempts (
   duration_minutes INTEGER NOT NULL DEFAULT 0,
   time_taken_seconds INTEGER NOT NULL DEFAULT 0,
   points INTEGER NOT NULL DEFAULT 0,
-  completed_at TEXT NOT NULL DEFAULT (datetime('now'))
+  completed_at TEXT NOT NULL DEFAULT (datetime('now')),
+  client_id TEXT,
+  synced INTEGER NOT NULL DEFAULT 0
+);
+
+/** Every locally-active calendar date, the source of truth streaks are computed from (see src/sync/streakMath.ts). */
+CREATE TABLE IF NOT EXISTS active_days (
+  date TEXT PRIMARY KEY NOT NULL,
+  synced INTEGER NOT NULL DEFAULT 0
+);
+
+/** Singleton (id always 1): the device's pairing state with the sync backend. */
+CREATE TABLE IF NOT EXISTS sync_state (
+  id INTEGER PRIMARY KEY NOT NULL CHECK (id = 1),
+  account_id TEXT,
+  sync_secret TEXT,
+  paired_at TEXT,
+  last_synced_at TEXT
 );
 
 CREATE INDEX IF NOT EXISTS idx_questions_deck_id ON questions(deck_id);

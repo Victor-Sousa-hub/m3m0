@@ -3,8 +3,8 @@ import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from 'react-na
 import { useFocusEffect } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-import { getDatabase } from '../db/database';
-import { getUserStreak } from '../db/streak';
+import * as deckRepository from '../data/deckRepository';
+import * as streakRepository from '../data/streakRepository';
 import { useCurrentUser } from '../context/UserContext';
 import { useTheme } from '../theme/useTheme';
 import type { ThemeColors } from '../theme/colors';
@@ -23,31 +23,35 @@ export default function DecksScreen({ navigation }: Props) {
   const [currentStreak, setCurrentStreak] = useState(0);
 
   const loadDecks = useCallback(async () => {
-    const db = await getDatabase();
-    const rows = await db.getAllAsync<Deck>(
-      'SELECT id, name, exam_code as examCode, created_at as createdAt FROM decks ORDER BY created_at DESC'
-    );
-    setDecks(rows);
+    setDecks(await deckRepository.listDecks());
   }, []);
 
   useFocusEffect(
     useCallback(() => {
       loadDecks();
-      getUserStreak(user.id).then((streak) => setCurrentStreak(streak.currentStreak));
+      streakRepository.getStreak(user.id).then((streak) => setCurrentStreak(streak.currentStreak));
     }, [loadDecks, user.id])
   );
 
   const addDeck = async () => {
     const name = newDeckName.trim();
     if (!name) return;
-    const db = await getDatabase();
-    await db.runAsync('INSERT INTO decks (name) VALUES (?)', name);
+    await deckRepository.createDeck(name);
     setNewDeckName('');
     loadDecks();
   };
 
   return (
     <View style={styles.container}>
+      <View style={styles.navRow}>
+        <Pressable style={styles.navButton} onPress={() => navigation.navigate('Stats')}>
+          <Text style={styles.navButtonText}>📊 Estatísticas</Text>
+        </Pressable>
+        <Pressable style={styles.navButton} onPress={() => navigation.navigate('Sync')}>
+          <Text style={styles.navButtonText}>🔗 Sincronização</Text>
+        </Pressable>
+      </View>
+
       {currentStreak > 0 && (
         <View style={styles.streakRow}>
           <Text style={styles.streakText}>
@@ -56,20 +60,22 @@ export default function DecksScreen({ navigation }: Props) {
         </View>
       )}
 
-      <View style={styles.addRow}>
-        <TextInput
-          style={styles.input}
-          placeholder="Nome do baralho"
-          placeholderTextColor={colors.placeholder}
-          value={newDeckName}
-          onChangeText={setNewDeckName}
-          onSubmitEditing={addDeck}
-          returnKeyType="done"
-        />
-        <Pressable style={styles.addButton} onPress={addDeck}>
-          <Text style={styles.addButtonText}>Adicionar</Text>
-        </Pressable>
-      </View>
+      {deckRepository.supportsCustomDecks && (
+        <View style={styles.addRow}>
+          <TextInput
+            style={styles.input}
+            placeholder="Nome do baralho"
+            placeholderTextColor={colors.placeholder}
+            value={newDeckName}
+            onChangeText={setNewDeckName}
+            onSubmitEditing={addDeck}
+            returnKeyType="done"
+          />
+          <Pressable style={styles.addButton} onPress={addDeck}>
+            <Text style={styles.addButtonText}>Adicionar</Text>
+          </Pressable>
+        </View>
+      )}
 
       <FlatList
         data={decks}
@@ -97,6 +103,23 @@ function createStyles(colors: ThemeColors) {
       flex: 1,
       backgroundColor: colors.background,
       padding: 16,
+    },
+    navRow: {
+      flexDirection: 'row',
+      gap: 8,
+      marginBottom: 12,
+    },
+    navButton: {
+      borderWidth: 1,
+      borderColor: colors.border,
+      borderRadius: 999,
+      paddingHorizontal: 14,
+      paddingVertical: 8,
+    },
+    navButtonText: {
+      color: colors.text,
+      fontSize: 13,
+      fontWeight: '600',
     },
     streakRow: {
       alignSelf: 'flex-start',
