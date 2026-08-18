@@ -15,8 +15,6 @@ import type { StreakInfo } from '../sync/streakMath';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Stats'>;
 
-const SCOREBOARD_SIZE = 10;
-
 function formatHours(totalSeconds: number): string {
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.round((totalSeconds % 3600) / 60);
@@ -37,21 +35,16 @@ export default function StatsScreen({}: Props) {
 
   const [attempts, setAttempts] = useState<AttemptRecord[]>([]);
   const [streak, setStreak] = useState<StreakInfo | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
   const [scoreboardFilter, setScoreboardFilter] = useState<GameMode | 'all'>('all');
 
   useFocusEffect(
     useCallback(() => {
       let cancelled = false;
-      setIsLoading(true);
       Promise.all([attemptRepository.getAllAttempts(user.id), streakRepository.getStreak(user.id)])
         .then(([allAttempts, streakInfo]) => {
           if (cancelled) return;
           setAttempts(allAttempts);
           setStreak(streakInfo);
-        })
-        .finally(() => {
-          if (!cancelled) setIsLoading(false);
         });
       return () => {
         cancelled = true;
@@ -66,7 +59,7 @@ export default function StatsScreen({}: Props) {
   const scoreboard = useMemo(() => {
     const filtered =
       scoreboardFilter === 'all' ? attempts : attempts.filter((a) => a.gameMode === scoreboardFilter);
-    return [...filtered].sort((a, b) => b.points - a.points).slice(0, SCOREBOARD_SIZE);
+    return [...filtered].sort((a, b) => b.points - a.points);
   }, [attempts, scoreboardFilter]);
 
   return (
@@ -91,7 +84,7 @@ export default function StatsScreen({}: Props) {
       </View>
 
       <FlatList
-        data={attempts}
+        data={scoreboard}
         keyExtractor={(item, index) => item.clientId ?? `${item.completedAt}-${index}`}
         ListHeaderComponent={
           <>
@@ -113,39 +106,20 @@ export default function StatsScreen({}: Props) {
                 );
               })}
             </View>
-            {scoreboard.length === 0 ? (
-              <Text style={styles.emptyText}>Nenhuma partida ainda.</Text>
-            ) : (
-              scoreboard.map((attempt, index) => (
-                <View key={attempt.clientId ?? index} style={styles.scoreRow}>
-                  <Text style={styles.scoreRank}>#{index + 1}</Text>
-                  <View style={styles.scoreInfo}>
-                    <Text style={styles.scoreDeck}>{attempt.deckName}</Text>
-                    <Text style={styles.scoreMeta}>
-                      {GAME_MODES[attempt.gameMode].label} · {attempt.score}/{attempt.totalQuestions} ·{' '}
-                      {attempt.durationMinutes} min · {formatDate(attempt.completedAt)}
-                    </Text>
-                  </View>
-                  <Text style={styles.scorePoints}>{attempt.points} pts</Text>
-                </View>
-              ))
-            )}
-
-            <Text style={styles.sectionTitle}>Histórico</Text>
-            {!isLoading && attempts.length === 0 && (
-              <Text style={styles.emptyText}>Nenhuma partida feita ainda.</Text>
-            )}
           </>
         }
-        renderItem={({ item }) => (
-          <View style={styles.historyRow}>
+        ListEmptyComponent={<Text style={styles.emptyText}>Nenhuma partida ainda.</Text>}
+        renderItem={({ item, index }) => (
+          <View style={styles.scoreRow}>
+            <Text style={styles.scoreRank}>#{index + 1}</Text>
             <View style={styles.scoreInfo}>
               <Text style={styles.scoreDeck}>{item.deckName}</Text>
               <Text style={styles.scoreMeta}>
-                {GAME_MODES[item.gameMode].label} · {item.score}/{item.totalQuestions} · {item.points} pts
+                {GAME_MODES[item.gameMode].label} · {item.score}/{item.totalQuestions} ·{' '}
+                {item.durationMinutes} min · {formatDate(item.completedAt)}
               </Text>
             </View>
-            <Text style={styles.historyDate}>{formatDate(item.completedAt)}</Text>
+            <Text style={styles.scorePoints}>{item.points} pts</Text>
           </View>
         )}
       />
@@ -250,18 +224,6 @@ function createStyles(colors: ThemeColors) {
       fontSize: 15,
       fontWeight: '800',
       color: colors.primary,
-    },
-    historyRow: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      paddingVertical: 10,
-      borderBottomWidth: 1,
-      borderBottomColor: colors.border,
-    },
-    historyDate: {
-      fontSize: 12,
-      color: colors.textMuted,
     },
   });
 }
