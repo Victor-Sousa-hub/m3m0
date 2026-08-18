@@ -1,66 +1,137 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import * as deckRepository from '../data/deckRepository';
-import { QUIZ_QUESTION_COUNT } from '../quiz/config';
+import { GAME_MODE_ORDER, GAME_MODES, presetOptions, type GameMode } from '../quiz/gameModes';
 import { useTheme } from '../theme/useTheme';
 import type { ThemeColors } from '../theme/colors';
 import type { RootStackParamList } from '../navigation/types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Preparation'>;
 
-const DURATION_OPTIONS = [1, 5, 10, 15];
-
 export default function PreparationScreen({ route, navigation }: Props) {
   const { deckId, deckName } = route.params;
   const { colors } = useTheme();
-  const styles = createStyles(colors);
+  const styles = useMemo(() => createStyles(colors), [colors]);
 
   const [questionCount, setQuestionCount] = useState<number | null>(null);
-  const [durationMinutes, setDurationMinutes] = useState(5);
+  const [gameMode, setGameMode] = useState<GameMode>('blitz');
+  const [selectedQuestions, setSelectedQuestions] = useState(GAME_MODES.blitz.minQuestions);
+  const [durationMinutes, setDurationMinutes] = useState(GAME_MODES.blitz.minDurationMinutes);
 
   useEffect(() => {
     deckRepository.getQuestionCountForDeck(deckId).then(setQuestionCount);
   }, [deckId]);
 
-  const questionsInQuiz =
-    questionCount === null ? null : Math.min(QUIZ_QUESTION_COUNT, questionCount);
-  const canStart = (questionsInQuiz ?? 0) > 0;
+  const mode = GAME_MODES[gameMode];
+  const deckTotal = questionCount ?? 0;
+
+  // Bounds clamped to what the deck actually has available.
+  const effectiveMaxQuestions = Math.min(mode.maxQuestions, deckTotal);
+  const effectiveMinQuestions = Math.min(mode.minQuestions, effectiveMaxQuestions);
+
+  const questionPresets = useMemo(
+    () => presetOptions(effectiveMinQuestions, Math.max(effectiveMinQuestions, effectiveMaxQuestions)),
+    [effectiveMinQuestions, effectiveMaxQuestions]
+  );
+  const durationPresets = useMemo(
+    () => presetOptions(mode.minDurationMinutes, mode.maxDurationMinutes),
+    [mode.minDurationMinutes, mode.maxDurationMinutes]
+  );
+
+  const selectMode = (nextMode: GameMode) => {
+    setGameMode(nextMode);
+    const config = GAME_MODES[nextMode];
+    setSelectedQuestions(Math.min(config.minQuestions, deckTotal || config.minQuestions));
+    setDurationMinutes(config.minDurationMinutes);
+  };
+
+  const finalQuestionCount = mode.customizable
+    ? Math.min(selectedQuestions, effectiveMaxQuestions)
+    : effectiveMaxQuestions;
+  const finalDurationMinutes = mode.customizable ? durationMinutes : mode.maxDurationMinutes;
+  const canStart = finalQuestionCount > 0;
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{deckName}</Text>
       <Text style={styles.description}>
-        {questionsInQuiz === null
-          ? 'Carregando...'
-          : `${questionsInQuiz} pergunta${questionsInQuiz === 1 ? '' : 's'} aleatória${questionsInQuiz === 1 ? '' : 's'} deste simulado.`}
+        {questionCount === null ? 'Carregando...' : `${deckTotal} pergunta${deckTotal === 1 ? '' : 's'} disponível${deckTotal === 1 ? '' : 'eis'} neste baralho.`}
       </Text>
 
-      <Text style={styles.sectionLabel}>Tempo para responder</Text>
-      <View style={styles.durationRow}>
-        {DURATION_OPTIONS.map((minutes) => {
-          const isSelected = minutes === durationMinutes;
+      <Text style={styles.sectionLabel}>Estilo de jogo</Text>
+      <View style={styles.modeRow}>
+        {GAME_MODE_ORDER.map((id) => {
+          const config = GAME_MODES[id];
+          const isSelected = id === gameMode;
           return (
             <Pressable
-              key={minutes}
-              style={[styles.durationOption, isSelected && styles.durationOptionSelected]}
-              onPress={() => setDurationMinutes(minutes)}
+              key={id}
+              style={[styles.modeCard, isSelected && styles.modeCardSelected]}
+              onPress={() => selectMode(id)}
             >
-              <Text
-                style={[styles.durationText, isSelected && styles.durationTextSelected]}
-              >
-                {minutes} min
-              </Text>
+              <Text style={[styles.modeLabel, isSelected && styles.modeLabelSelected]}>{config.label}</Text>
+              <Text style={styles.modeDescription}>{config.description}</Text>
             </Pressable>
           );
         })}
       </View>
 
+      {mode.customizable ? (
+        <>
+          <Text style={styles.sectionLabel}>Número de perguntas</Text>
+          <View style={styles.pillRow}>
+            {questionPresets.map((count) => {
+              const isSelected = count === finalQuestionCount;
+              return (
+                <Pressable
+                  key={count}
+                  style={[styles.pill, isSelected && styles.pillSelected]}
+                  onPress={() => setSelectedQuestions(count)}
+                >
+                  <Text style={[styles.pillText, isSelected && styles.pillTextSelected]}>{count}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+
+          <Text style={styles.sectionLabel}>Tempo para responder</Text>
+          <View style={styles.pillRow}>
+            {durationPresets.map((minutes) => {
+              const isSelected = minutes === durationMinutes;
+              return (
+                <Pressable
+                  key={minutes}
+                  style={[styles.pill, isSelected && styles.pillSelected]}
+                  onPress={() => setDurationMinutes(minutes)}
+                >
+                  <Text style={[styles.pillText, isSelected && styles.pillTextSelected]}>{minutes} min</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+        </>
+      ) : (
+        <View style={styles.fixedInfo}>
+          <Text style={styles.fixedInfoText}>
+            {finalQuestionCount} pergunta{finalQuestionCount === 1 ? '' : 's'} · {finalDurationMinutes} min
+          </Text>
+        </View>
+      )}
+
       <Pressable
         style={[styles.startButton, !canStart && styles.startButtonDisabled]}
         disabled={!canStart}
-        onPress={() => navigation.navigate('Quiz', { deckId, deckName, durationMinutes })}
+        onPress={() =>
+          navigation.navigate('Quiz', {
+            deckId,
+            deckName,
+            gameMode,
+            questionCount: finalQuestionCount,
+            durationMinutes: finalDurationMinutes,
+          })
+        }
       >
         <Text style={styles.startButtonText}>Iniciar</Text>
       </Pressable>
@@ -91,29 +162,75 @@ function createStyles(colors: ThemeColors) {
       color: colors.text,
       marginBottom: 10,
     },
-    durationRow: {
+    modeRow: {
       flexDirection: 'row',
       flexWrap: 'wrap',
       gap: 10,
-      marginBottom: 32,
+      marginBottom: 24,
     },
-    durationOption: {
+    modeCard: {
+      flexGrow: 1,
+      flexBasis: '30%',
+      borderWidth: 1,
+      borderColor: colors.border,
+      borderRadius: 10,
+      paddingHorizontal: 14,
+      paddingVertical: 12,
+    },
+    modeCardSelected: {
+      borderColor: colors.primary,
+      backgroundColor: colors.primarySoft,
+    },
+    modeLabel: {
+      fontSize: 15,
+      fontWeight: '700',
+      color: colors.text,
+    },
+    modeLabelSelected: {
+      color: colors.primary,
+    },
+    modeDescription: {
+      fontSize: 12,
+      color: colors.textMuted,
+      marginTop: 4,
+    },
+    pillRow: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      gap: 10,
+      marginBottom: 24,
+    },
+    pill: {
       borderWidth: 1,
       borderColor: colors.border,
       borderRadius: 999,
       paddingHorizontal: 18,
       paddingVertical: 10,
     },
-    durationOptionSelected: {
+    pillSelected: {
       borderColor: colors.primary,
       backgroundColor: colors.primarySoft,
     },
-    durationText: {
+    pillText: {
       color: colors.text,
       fontWeight: '600',
     },
-    durationTextSelected: {
+    pillTextSelected: {
       color: colors.primary,
+    },
+    fixedInfo: {
+      borderWidth: 1,
+      borderColor: colors.border,
+      borderRadius: 10,
+      paddingHorizontal: 16,
+      paddingVertical: 14,
+      marginBottom: 24,
+      alignItems: 'center',
+    },
+    fixedInfoText: {
+      color: colors.text,
+      fontWeight: '600',
+      fontSize: 15,
     },
     startButton: {
       backgroundColor: colors.primary,

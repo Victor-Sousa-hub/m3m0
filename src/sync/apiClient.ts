@@ -1,4 +1,5 @@
 import Constants from 'expo-constants';
+import type { GameMode } from '../quiz/gameModes';
 
 export interface AttemptPayload {
   clientId: string;
@@ -9,6 +10,7 @@ export interface AttemptPayload {
   timeTakenSeconds: number;
   points: number;
   completedAt: string;
+  gameMode: GameMode;
 }
 
 export interface PullResponse {

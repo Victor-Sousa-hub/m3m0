@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
+import { GAME_MODES } from '../quiz/gameModes';
 import { useTheme } from '../theme/useTheme';
 import type { ThemeColors } from '../theme/colors';
 import type { RootStackParamList } from '../navigation/types';
@@ -11,6 +12,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Results'>;
 export default function ResultsScreen({ route, navigation }: Props) {
   const {
     deckName,
+    gameMode,
     score,
     total,
     points,
@@ -32,7 +34,7 @@ export default function ResultsScreen({ route, navigation }: Props) {
         {score} de {total} perguntas corretas
       </Text>
       <Text style={styles.pointsText}>
-        {points} pts · simulado de {durationMinutes} min
+        {points} pts (pontuação final) · {GAME_MODES[gameMode].label} · {durationMinutes} min
       </Text>
 
       <View style={styles.streakBadge}>

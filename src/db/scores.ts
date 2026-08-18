@@ -1,9 +1,10 @@
 import { getDatabase } from './database';
 import type { QuizAttempt } from '../types/models';
+import type { GameMode } from '../quiz/gameModes';
 
 const ATTEMPT_COLUMNS = `id, user_id as userId, deck_id as deckId, score, total_questions as totalQuestions,
        duration_minutes as durationMinutes, time_taken_seconds as timeTakenSeconds, points,
-       completed_at as completedAt`;
+       completed_at as completedAt, game_mode as gameMode`;
 
 export interface QuizAttemptWithDeck extends QuizAttempt {
   deckName: string;
@@ -18,19 +19,21 @@ export async function saveQuizAttempt(params: {
   durationMinutes: number;
   timeTakenSeconds: number;
   points: number;
+  gameMode: GameMode;
 }): Promise<QuizAttempt> {
   const db = await getDatabase();
   const result = await db.runAsync(
     `INSERT INTO quiz_attempts
-       (user_id, deck_id, score, total_questions, duration_minutes, time_taken_seconds, points, client_id, synced)
-     VALUES (?, ?, ?, ?, ?, ?, ?, lower(hex(randomblob(16))), 0)`,
+       (user_id, deck_id, score, total_questions, duration_minutes, time_taken_seconds, points, client_id, synced, game_mode)
+     VALUES (?, ?, ?, ?, ?, ?, ?, lower(hex(randomblob(16))), 0, ?)`,
     params.userId,
     params.deckId,
     params.score,
     params.totalQuestions,
     params.durationMinutes,
     params.timeTakenSeconds,
-    params.points
+    params.points,
+    params.gameMode
   );
   const attempt = await db.getFirstAsync<QuizAttempt>(
     `SELECT ${ATTEMPT_COLUMNS} FROM quiz_attempts WHERE id = ?`,
@@ -61,7 +64,7 @@ export async function getAllAttemptsForUser(userId: number): Promise<QuizAttempt
     `SELECT qa.id, qa.user_id as userId, qa.deck_id as deckId, qa.score,
             qa.total_questions as totalQuestions, qa.duration_minutes as durationMinutes,
             qa.time_taken_seconds as timeTakenSeconds, qa.points, qa.completed_at as completedAt,
-            d.name as deckName, qa.client_id as clientId
+            d.name as deckName, qa.client_id as clientId, qa.game_mode as gameMode
      FROM quiz_attempts qa
      JOIN decks d ON d.id = qa.deck_id
      WHERE qa.user_id = ?

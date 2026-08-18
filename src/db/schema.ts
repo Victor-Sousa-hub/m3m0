@@ -47,7 +47,8 @@ CREATE TABLE IF NOT EXISTS quiz_attempts (
   points INTEGER NOT NULL DEFAULT 0,
   completed_at TEXT NOT NULL DEFAULT (datetime('now')),
   client_id TEXT,
-  synced INTEGER NOT NULL DEFAULT 0
+  synced INTEGER NOT NULL DEFAULT 0,
+  game_mode TEXT NOT NULL DEFAULT 'thinking'
 );
 
 /** Every locally-active calendar date, the source of truth streaks are computed from (see src/sync/streakMath.ts). */

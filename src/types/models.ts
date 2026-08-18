@@ -1,3 +1,5 @@
+import type { GameMode } from '../quiz/gameModes';
+
 export interface Deck {
   id: number;
   name: string;
@@ -43,4 +45,5 @@ export interface QuizAttempt {
   timeTakenSeconds: number;
   points: number;
   completedAt: string;
+  gameMode: GameMode;
 }

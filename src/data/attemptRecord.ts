@@ -1,3 +1,5 @@
+import { GAME_MODE_ORDER, type GameMode } from '../quiz/gameModes';
+
 /**
  * Platform-agnostic view of a quiz attempt used by StatsScreen/DeckDetailScreen.
  * clientId is null for legacy local rows created before sync existed.
@@ -11,16 +13,19 @@ export interface AttemptRecord {
   timeTakenSeconds: number;
   points: number;
   completedAt: string;
+  gameMode: GameMode;
 }
 
-/** Personal best (by points) per exam duration — the "me vs. me" scoreboard. */
-export function bestAttemptPerDuration(attempts: AttemptRecord[]): AttemptRecord[] {
-  const bestByDuration = new Map<number, AttemptRecord>();
+/** Personal best (by points) per game mode — the "me vs. me" scoreboard. */
+export function bestAttemptPerMode(attempts: AttemptRecord[]): AttemptRecord[] {
+  const bestByMode = new Map<GameMode, AttemptRecord>();
   for (const attempt of attempts) {
-    const current = bestByDuration.get(attempt.durationMinutes);
+    const current = bestByMode.get(attempt.gameMode);
     if (!current || attempt.points > current.points) {
-      bestByDuration.set(attempt.durationMinutes, attempt);
+      bestByMode.set(attempt.gameMode, attempt);
     }
   }
-  return [...bestByDuration.values()].sort((a, b) => a.durationMinutes - b.durationMinutes);
+  return [...bestByMode.values()].sort(
+    (a, b) => GAME_MODE_ORDER.indexOf(a.gameMode) - GAME_MODE_ORDER.indexOf(b.gameMode)
+  );
 }

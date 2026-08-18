@@ -21,7 +21,7 @@ export async function syncNow(): Promise<void> {
   const pendingAttempts = await db.getAllAsync<AttemptPayload>(
     `SELECT qa.client_id as clientId, d.name as deckName, qa.score, qa.total_questions as totalQuestions,
             qa.duration_minutes as durationMinutes, qa.time_taken_seconds as timeTakenSeconds, qa.points,
-            qa.completed_at as completedAt
+            qa.completed_at as completedAt, qa.game_mode as gameMode
      FROM quiz_attempts qa
      JOIN decks d ON d.id = qa.deck_id
      WHERE qa.synced = 0 AND qa.client_id IS NOT NULL`

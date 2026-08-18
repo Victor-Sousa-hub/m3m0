@@ -1,10 +1,11 @@
 import { useCallback, useMemo, useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import * as attemptRepository from '../data/attemptRepository';
 import * as streakRepository from '../data/streakRepository';
+import { GAME_MODE_ORDER, GAME_MODES, type GameMode } from '../quiz/gameModes';
 import { useCurrentUser } from '../context/UserContext';
 import { useTheme } from '../theme/useTheme';
 import type { ThemeColors } from '../theme/colors';
@@ -37,6 +38,7 @@ export default function StatsScreen({}: Props) {
   const [attempts, setAttempts] = useState<AttemptRecord[]>([]);
   const [streak, setStreak] = useState<StreakInfo | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [scoreboardFilter, setScoreboardFilter] = useState<GameMode | 'all'>('all');
 
   useFocusEffect(
     useCallback(() => {
@@ -61,10 +63,11 @@ export default function StatsScreen({}: Props) {
     () => attempts.reduce((sum, attempt) => sum + attempt.timeTakenSeconds, 0),
     [attempts]
   );
-  const scoreboard = useMemo(
-    () => [...attempts].sort((a, b) => b.points - a.points).slice(0, SCOREBOARD_SIZE),
-    [attempts]
-  );
+  const scoreboard = useMemo(() => {
+    const filtered =
+      scoreboardFilter === 'all' ? attempts : attempts.filter((a) => a.gameMode === scoreboardFilter);
+    return [...filtered].sort((a, b) => b.points - a.points).slice(0, SCOREBOARD_SIZE);
+  }, [attempts, scoreboardFilter]);
 
   return (
     <View style={styles.container}>
@@ -75,7 +78,7 @@ export default function StatsScreen({}: Props) {
         </View>
         <View style={styles.summaryCard}>
           <Text style={styles.summaryValue}>{attempts.length}</Text>
-          <Text style={styles.summaryLabel}>Simulados</Text>
+          <Text style={styles.summaryLabel}>Partidas</Text>
         </View>
         <View style={styles.summaryCard}>
           <Text style={styles.summaryValue}>🔥 {streak?.currentStreak ?? 0}</Text>
@@ -93,8 +96,25 @@ export default function StatsScreen({}: Props) {
         ListHeaderComponent={
           <>
             <Text style={styles.sectionTitle}>Scoreboard</Text>
+            <View style={styles.filterRow}>
+              {(['all', ...GAME_MODE_ORDER] as const).map((filter) => {
+                const isSelected = filter === scoreboardFilter;
+                const label = filter === 'all' ? 'Todos' : GAME_MODES[filter].label;
+                return (
+                  <Pressable
+                    key={filter}
+                    style={[styles.filterChip, isSelected && styles.filterChipSelected]}
+                    onPress={() => setScoreboardFilter(filter)}
+                  >
+                    <Text style={[styles.filterChipText, isSelected && styles.filterChipTextSelected]}>
+                      {label}
+                    </Text>
+                  </Pressable>
+                );
+              })}
+            </View>
             {scoreboard.length === 0 ? (
-              <Text style={styles.emptyText}>Nenhum simulado ainda.</Text>
+              <Text style={styles.emptyText}>Nenhuma partida ainda.</Text>
             ) : (
               scoreboard.map((attempt, index) => (
                 <View key={attempt.clientId ?? index} style={styles.scoreRow}>
@@ -102,8 +122,8 @@ export default function StatsScreen({}: Props) {
                   <View style={styles.scoreInfo}>
                     <Text style={styles.scoreDeck}>{attempt.deckName}</Text>
                     <Text style={styles.scoreMeta}>
-                      {attempt.score}/{attempt.totalQuestions} · {attempt.durationMinutes} min ·{' '}
-                      {formatDate(attempt.completedAt)}
+                      {GAME_MODES[attempt.gameMode].label} · {attempt.score}/{attempt.totalQuestions} ·{' '}
+                      {attempt.durationMinutes} min · {formatDate(attempt.completedAt)}
                     </Text>
                   </View>
                   <Text style={styles.scorePoints}>{attempt.points} pts</Text>
@@ -113,7 +133,7 @@ export default function StatsScreen({}: Props) {
 
             <Text style={styles.sectionTitle}>Histórico</Text>
             {!isLoading && attempts.length === 0 && (
-              <Text style={styles.emptyText}>Nenhum simulado feito ainda.</Text>
+              <Text style={styles.emptyText}>Nenhuma partida feita ainda.</Text>
             )}
           </>
         }
@@ -122,7 +142,7 @@ export default function StatsScreen({}: Props) {
             <View style={styles.scoreInfo}>
               <Text style={styles.scoreDeck}>{item.deckName}</Text>
               <Text style={styles.scoreMeta}>
-                {item.score}/{item.totalQuestions} · {item.points} pts
+                {GAME_MODES[item.gameMode].label} · {item.score}/{item.totalQuestions} · {item.points} pts
               </Text>
             </View>
             <Text style={styles.historyDate}>{formatDate(item.completedAt)}</Text>
@@ -163,6 +183,31 @@ function createStyles(colors: ThemeColors) {
       fontSize: 12,
       color: colors.textMuted,
       marginTop: 2,
+    },
+    filterRow: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      gap: 8,
+      marginBottom: 12,
+    },
+    filterChip: {
+      borderWidth: 1,
+      borderColor: colors.border,
+      borderRadius: 999,
+      paddingHorizontal: 14,
+      paddingVertical: 6,
+    },
+    filterChipSelected: {
+      borderColor: colors.primary,
+      backgroundColor: colors.primarySoft,
+    },
+    filterChipText: {
+      fontSize: 13,
+      fontWeight: '600',
+      color: colors.text,
+    },
+    filterChipTextSelected: {
+      color: colors.primary,
     },
     sectionTitle: {
       fontSize: 16,

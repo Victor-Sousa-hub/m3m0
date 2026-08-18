@@ -3,6 +3,7 @@ import { getSyncState } from '../db/syncState';
 import { syncPull } from '../sync/apiClient';
 import { syncNow } from '../sync/syncClient';
 import type { AttemptRecord } from './attemptRecord';
+import type { GameMode } from '../quiz/gameModes';
 
 export async function saveAttempt(params: {
   userId: number;
@@ -13,6 +14,7 @@ export async function saveAttempt(params: {
   durationMinutes: number;
   timeTakenSeconds: number;
   points: number;
+  gameMode: GameMode;
 }): Promise<void> {
   await saveQuizAttempt(params);
   syncNow(); // fire-and-forget, never blocks the quiz flow
@@ -34,6 +36,7 @@ export async function getAttemptsForDeck(
     timeTakenSeconds: row.timeTakenSeconds,
     points: row.points,
     completedAt: row.completedAt,
+    gameMode: row.gameMode,
   }));
 }
 
@@ -53,6 +56,7 @@ export async function getAllAttempts(userId: number): Promise<AttemptRecord[]> {
     timeTakenSeconds: row.timeTakenSeconds,
     points: row.points,
     completedAt: row.completedAt,
+    gameMode: row.gameMode,
   }));
 
   const state = await getSyncState();
@@ -72,6 +76,7 @@ export async function getAllAttempts(userId: number): Promise<AttemptRecord[]> {
         timeTakenSeconds: attempt.timeTakenSeconds,
         points: attempt.points,
         completedAt: attempt.completedAt,
+        gameMode: attempt.gameMode,
       }));
     return [...localRecords, ...remoteOnly].sort((a, b) => (a.completedAt < b.completedAt ? 1 : -1));
   } catch {

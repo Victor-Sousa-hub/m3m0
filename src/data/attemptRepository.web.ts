@@ -1,6 +1,7 @@
 import { getSyncState } from '../db/syncState';
 import { syncPush, syncPull } from '../sync/apiClient';
 import type { AttemptRecord } from './attemptRecord';
+import type { GameMode } from '../quiz/gameModes';
 
 async function requireSecret(): Promise<string> {
   const state = await getSyncState();
@@ -17,6 +18,7 @@ export async function saveAttempt(params: {
   durationMinutes: number;
   timeTakenSeconds: number;
   points: number;
+  gameMode: GameMode;
 }): Promise<void> {
   const secret = await requireSecret();
   const today = new Date();
@@ -36,6 +38,7 @@ export async function saveAttempt(params: {
         timeTakenSeconds: params.timeTakenSeconds,
         points: params.points,
         completedAt: today.toISOString(),
+        gameMode: params.gameMode,
       },
     ],
   });
@@ -63,6 +66,7 @@ export async function getAllAttempts(_userId: number): Promise<AttemptRecord[]> 
       timeTakenSeconds: attempt.timeTakenSeconds,
       points: attempt.points,
       completedAt: attempt.completedAt,
+      gameMode: attempt.gameMode,
     }))
     .sort((a, b) => (a.completedAt < b.completedAt ? 1 : -1));
 }

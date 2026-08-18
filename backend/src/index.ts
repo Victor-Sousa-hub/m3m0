@@ -32,6 +32,7 @@ interface AttemptInput {
   timeTakenSeconds: number;
   points: number;
   completedAt: string;
+  gameMode: string;
 }
 
 type AttemptRecord = AttemptInput;
@@ -118,8 +119,8 @@ async function handleSyncPush(request: Request, env: Env, accountId: string): Pr
     ...attempts.map((attempt) =>
       env.DB.prepare(
         `INSERT OR IGNORE INTO quiz_attempts
-           (account_id, client_id, deck_name, score, total_questions, duration_minutes, time_taken_seconds, points, completed_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+           (account_id, client_id, deck_name, score, total_questions, duration_minutes, time_taken_seconds, points, completed_at, game_mode)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
       ).bind(
         accountId,
         attempt.clientId,
@@ -129,7 +130,8 @@ async function handleSyncPush(request: Request, env: Env, accountId: string): Pr
         attempt.durationMinutes,
         attempt.timeTakenSeconds,
         attempt.points,
-        attempt.completedAt
+        attempt.completedAt,
+        attempt.gameMode
       )
     ),
   ];
@@ -147,7 +149,7 @@ async function handleSyncPull(env: Env, accountId: string): Promise<Response> {
     env.DB.prepare(
       `SELECT client_id as clientId, deck_name as deckName, score, total_questions as totalQuestions,
               duration_minutes as durationMinutes, time_taken_seconds as timeTakenSeconds, points,
-              completed_at as completedAt
+              completed_at as completedAt, game_mode as gameMode
        FROM quiz_attempts WHERE account_id = ?`
     ).bind(accountId),
   ]);

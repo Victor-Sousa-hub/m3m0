@@ -5,7 +5,8 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import * as deckRepository from '../data/deckRepository';
 import * as attemptRepository from '../data/attemptRepository';
-import { bestAttemptPerDuration } from '../data/attemptRecord';
+import { bestAttemptPerMode } from '../data/attemptRecord';
+import { GAME_MODES } from '../quiz/gameModes';
 import { useCurrentUser } from '../context/UserContext';
 import { useTheme } from '../theme/useTheme';
 import type { ThemeColors } from '../theme/colors';
@@ -31,7 +32,7 @@ export default function DeckDetailScreen({ route, navigation }: Props) {
   );
 
   const hasQuestions = (questionCount ?? 0) > 0;
-  const bestByDuration = useMemo(() => bestAttemptPerDuration(attempts), [attempts]);
+  const bestByMode = useMemo(() => bestAttemptPerMode(attempts), [attempts]);
 
   return (
     <View style={styles.container}>
@@ -47,16 +48,16 @@ export default function DeckDetailScreen({ route, navigation }: Props) {
         onPress={() => navigation.navigate('Preparation', { deckId, deckName })}
         disabled={!hasQuestions}
       >
-        <Text style={styles.startButtonText}>Iniciar simulado</Text>
+        <Text style={styles.startButtonText}>Iniciar partida</Text>
       </Pressable>
 
-      {bestByDuration.length > 0 && (
+      {bestByMode.length > 0 && (
         <>
-          <Text style={styles.historyTitle}>Recordes por tempo</Text>
+          <Text style={styles.historyTitle}>Recordes por estilo</Text>
           <View style={styles.recordsRow}>
-            {bestByDuration.map((attempt) => (
-              <View key={attempt.durationMinutes} style={styles.recordCard}>
-                <Text style={styles.recordDuration}>{attempt.durationMinutes} min</Text>
+            {bestByMode.map((attempt) => (
+              <View key={attempt.gameMode} style={styles.recordCard}>
+                <Text style={styles.recordDuration}>{GAME_MODES[attempt.gameMode].label}</Text>
                 <Text style={styles.recordPoints}>{attempt.points} pts</Text>
                 <Text style={styles.recordScore}>
                   {attempt.score}/{attempt.totalQuestions}
@@ -71,11 +72,12 @@ export default function DeckDetailScreen({ route, navigation }: Props) {
       <FlatList
         data={attempts}
         keyExtractor={(item, index) => item.clientId ?? `${item.completedAt}-${index}`}
-        ListEmptyComponent={<Text style={styles.emptyText}>Nenhum simulado feito ainda.</Text>}
+        ListEmptyComponent={<Text style={styles.emptyText}>Nenhuma partida feita ainda.</Text>}
         renderItem={({ item }) => (
           <View style={styles.attemptRow}>
             <Text style={styles.attemptScore}>
-              {item.score}/{item.totalQuestions} · {item.points} pts · {item.durationMinutes} min
+              {GAME_MODES[item.gameMode].label} · {item.score}/{item.totalQuestions} · {item.points} pts ·{' '}
+              {item.durationMinutes} min
             </Text>
             <Text style={styles.attemptDate}>{item.completedAt}</Text>
           </View>

@@ -71,6 +71,7 @@ async function migrate(db: SQLite.SQLiteDatabase): Promise<void> {
   await addColumnIfMissing(db, 'quiz_attempts', 'points', 'INTEGER NOT NULL DEFAULT 0');
   await addColumnIfMissing(db, 'quiz_attempts', 'client_id', 'TEXT');
   await addColumnIfMissing(db, 'quiz_attempts', 'synced', 'INTEGER NOT NULL DEFAULT 0');
+  await addColumnIfMissing(db, 'quiz_attempts', 'game_mode', "TEXT NOT NULL DEFAULT 'thinking'");
   await backfillAttemptClientIds(db);
   await backfillActiveDaysFromLegacyStreak(db);
 }
