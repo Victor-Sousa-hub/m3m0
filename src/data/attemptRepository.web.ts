@@ -1,7 +1,7 @@
 import { getSyncState } from '../db/syncState';
 import { syncPush, syncPull } from '../sync/apiClient';
 import type { AttemptRecord } from './attemptRecord';
-import type { GameMode } from '../quiz/gameModes';
+import { normalizeGameMode, type GameMode } from '../quiz/gameModes';
 
 async function requireSecret(): Promise<string> {
   const state = await getSyncState();
@@ -66,7 +66,7 @@ export async function getAllAttempts(_userId: number): Promise<AttemptRecord[]> 
       timeTakenSeconds: attempt.timeTakenSeconds,
       points: attempt.points,
       completedAt: attempt.completedAt,
-      gameMode: attempt.gameMode,
+      gameMode: normalizeGameMode(attempt.gameMode),
     }))
     .sort((a, b) => (a.completedAt < b.completedAt ? 1 : -1));
 }

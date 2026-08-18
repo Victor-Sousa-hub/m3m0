@@ -18,6 +18,16 @@ export interface GameModeConfig {
 
 export const GAME_MODE_ORDER: GameMode[] = ['blitz', 'thinking', 'simulado'];
 
+/**
+ * Attempt records can arrive from a sync backend that predates game modes
+ * (not yet migrated/redeployed) or from a stale client, so `gameMode` isn't
+ * guaranteed to be a known value — normalize it at the data boundary instead
+ * of trusting it, same rationale as validating imported question sets.
+ */
+export function normalizeGameMode(value: unknown): GameMode {
+  return value === 'blitz' || value === 'thinking' || value === 'simulado' ? value : 'thinking';
+}
+
 export const GAME_MODES: Record<GameMode, GameModeConfig> = {
   blitz: {
     id: 'blitz',
