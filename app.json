@@ -27,7 +27,7 @@
       "expo-sqlite"
     ],
     "extra": {
-      "syncApiUrl": "http://localhost:8787",
+      "syncApiUrl": "https://m3m0-sync.m3m0.workers.dev",
       "eas": {
         "projectId": "07427351-9862-4d0d-a8f9-807f1df653d7"
       }

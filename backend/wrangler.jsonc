@@ -7,7 +7,7 @@
     {
       "binding": "DB",
       "database_name": "m3m0-sync-db",
-      "database_id": "REPLACE_WITH_DATABASE_ID",
+      "database_id": "f0f70c33-e88e-49d6-a375-a0697a01ce90",
       "migrations_dir": "migrations"
     }
   ]
