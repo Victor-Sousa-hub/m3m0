@@ -64,7 +64,6 @@ export default function QuizScreen({ route, navigation }: Props) {
       const timeTakenSeconds = Math.max(0, Math.round((Date.now() - startedAt) / 1000));
       const finalPoints = computeFinalScore({
         correctCount: finalScore,
-        totalQuestions,
         timeTakenSeconds,
       });
       await attemptRepository.saveAttempt({

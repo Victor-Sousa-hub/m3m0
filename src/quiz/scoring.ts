@@ -1,13 +1,24 @@
+const POINTS_PER_CORRECT_ANSWER = 10;
+/** Floor on seconds credited per correct answer, so a bogus/instant timing can't inflate the speed bonus unboundedly. */
+const MIN_SECONDS_PER_CORRECT_ANSWER = 2;
+
 /**
- * Final score for a finished quiz: rewards accuracy and speed together —
- * more correct answers and less time taken both push the score up, scaled
- * by how many questions were in play so bigger games are worth more.
+ * Final score for a finished quiz: correct answers are the primary driver
+ * (10 points each, scaling linearly with how many you got right), with a
+ * secondary speed bonus for finishing faster. Correctness dominates by
+ * design — e.g. 10/10 in 5 minutes outscores 5/5 in 1 minute — while the
+ * bonus still rewards being quick among runs with the same correct count.
  */
 export function computeFinalScore(params: {
   correctCount: number;
-  totalQuestions: number;
   timeTakenSeconds: number;
 }): number {
-  const minutesTaken = Math.max(params.timeTakenSeconds, 1) / 60;
-  return Math.round(params.correctCount * (1 / minutesTaken) * params.totalQuestions);
+  const basePoints = params.correctCount * POINTS_PER_CORRECT_ANSWER;
+  const effectiveSeconds = Math.max(
+    params.timeTakenSeconds,
+    params.correctCount * MIN_SECONDS_PER_CORRECT_ANSWER,
+    1
+  );
+  const speedBonus = Math.round((params.correctCount * 60) / effectiveSeconds);
+  return basePoints + speedBonus;
 }
