@@ -15,9 +15,10 @@ export async function importQuestionSet(raw: unknown): Promise<{ deckId: number 
 
   await db.withTransactionAsync(async () => {
     const deckResult = await db.runAsync(
-      'INSERT INTO decks (name, exam_code) VALUES (?, ?)',
+      'INSERT INTO decks (name, exam_code, kind) VALUES (?, ?, ?)',
       data.deck.name,
-      data.deck.examCode ?? null
+      data.deck.examCode ?? null,
+      data.deck.kind
     );
     deckId = deckResult.lastInsertRowId;
 

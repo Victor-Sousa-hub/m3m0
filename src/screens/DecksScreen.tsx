@@ -86,7 +86,11 @@ export default function DecksScreen({ navigation }: Props) {
           <Pressable
             style={styles.deckItem}
             onPress={() =>
-              navigation.navigate('DeckDetail', { deckId: item.id, deckName: item.name })
+              navigation.navigate('DeckDetail', {
+                deckId: item.id,
+                deckName: item.name,
+                deckKind: item.kind,
+              })
             }
           >
             <Text style={styles.deckName}>{item.name}</Text>

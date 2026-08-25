@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS decks (
   id INTEGER PRIMARY KEY NOT NULL,
   name TEXT NOT NULL,
   exam_code TEXT,
+  kind TEXT NOT NULL DEFAULT 'exam',
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 

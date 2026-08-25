@@ -3,8 +3,14 @@ import { importQuestionSet } from './importQuestions';
 import mlaC01PracticeTest1 from '../data/imports/mla-c01-practice-test-1.json';
 import mlaC01PracticeTest2 from '../data/imports/mla-c01-practice-test-2.json';
 import mlaC01PracticeTest3 from '../data/imports/mla-c01-practice-test-3.json';
+import keyConceptsAws from '../data/imports/key-concepts-aws.json';
 
-const SEED_QUESTION_SETS: unknown[] = [mlaC01PracticeTest1, mlaC01PracticeTest2, mlaC01PracticeTest3];
+const SEED_QUESTION_SETS: unknown[] = [
+  mlaC01PracticeTest1,
+  mlaC01PracticeTest2,
+  mlaC01PracticeTest3,
+  keyConceptsAws,
+];
 
 /**
  * One-time bundled seed data (personal AWS exam practice sets). Skips any

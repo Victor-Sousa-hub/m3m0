@@ -1,11 +1,11 @@
-import type { GameMode } from '../quiz/gameModes';
+import type { DeckKind, GameMode } from '../quiz/gameModes';
 
 export type RootStackParamList = {
   Decks: undefined;
   Stats: undefined;
   Sync: undefined;
-  DeckDetail: { deckId: number; deckName: string };
-  Preparation: { deckId: number; deckName: string };
+  DeckDetail: { deckId: number; deckName: string; deckKind: DeckKind };
+  Preparation: { deckId: number; deckName: string; deckKind: DeckKind };
   Quiz: { deckId: number; deckName: string; gameMode: GameMode; questionCount: number; durationMinutes: number };
   Results: {
     deckName: string;

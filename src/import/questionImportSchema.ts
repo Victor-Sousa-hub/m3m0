@@ -26,12 +26,36 @@ export const QuestionInputSchema = z
 export const DeckInputSchema = z.object({
   name: z.string().trim().min(1, 'Deck name is required'),
   examCode: z.string().trim().min(1).optional(),
+  /** 'exam' = practice-test questions, any option count, multi-answer allowed. 'key_concepts' = concept-name prompt with exactly 4 options/1 correct, see the refinement below. */
+  kind: z.enum(['exam', 'key_concepts']).default('exam'),
 });
 
-export const QuestionSetInputSchema = z.object({
-  deck: DeckInputSchema,
-  questions: z.array(QuestionInputSchema).min(1, 'At least one question is required'),
-});
+export const QuestionSetInputSchema = z
+  .object({
+    deck: DeckInputSchema,
+    questions: z.array(QuestionInputSchema).min(1, 'At least one question is required'),
+  })
+  .superRefine((data, ctx) => {
+    if (data.deck.kind !== 'key_concepts') return;
+
+    data.questions.forEach((question, index) => {
+      if (question.options.length !== 4) {
+        ctx.addIssue({
+          code: 'custom',
+          message: 'key_concepts questions must have exactly 4 options',
+          path: ['questions', index, 'options'],
+        });
+      }
+      const correctCount = question.options.filter((option) => option.isCorrect).length;
+      if (correctCount !== 1) {
+        ctx.addIssue({
+          code: 'custom',
+          message: 'key_concepts questions must have exactly 1 correct option',
+          path: ['questions', index, 'options'],
+        });
+      }
+    });
+  });
 
 export type QuestionOptionInput = z.infer<typeof QuestionOptionInputSchema>;
 export type QuestionInput = z.infer<typeof QuestionInputSchema>;

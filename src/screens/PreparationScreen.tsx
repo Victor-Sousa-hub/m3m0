@@ -3,7 +3,13 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import * as deckRepository from '../data/deckRepository';
-import { GAME_MODE_ORDER, GAME_MODES, presetOptions, type GameMode } from '../quiz/gameModes';
+import {
+  ALLOWED_GAME_MODES_BY_DECK_KIND,
+  GAME_MODES,
+  KEY_CONCEPTS_BLITZ_DURATIONS,
+  presetOptions,
+  type GameMode,
+} from '../quiz/gameModes';
 import { useTheme } from '../theme/useTheme';
 import type { ThemeColors } from '../theme/colors';
 import type { RootStackParamList } from '../navigation/types';
@@ -11,14 +17,19 @@ import type { RootStackParamList } from '../navigation/types';
 type Props = NativeStackScreenProps<RootStackParamList, 'Preparation'>;
 
 export default function PreparationScreen({ route, navigation }: Props) {
-  const { deckId, deckName } = route.params;
+  const { deckId, deckName, deckKind } = route.params;
   const { colors } = useTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
 
+  const allowedModes = ALLOWED_GAME_MODES_BY_DECK_KIND[deckKind];
+  const isKeyConcepts = deckKind === 'key_concepts';
+
   const [questionCount, setQuestionCount] = useState<number | null>(null);
-  const [gameMode, setGameMode] = useState<GameMode>('blitz');
-  const [selectedQuestions, setSelectedQuestions] = useState(GAME_MODES.blitz.minQuestions);
-  const [durationMinutes, setDurationMinutes] = useState(GAME_MODES.blitz.minDurationMinutes);
+  const [gameMode, setGameMode] = useState<GameMode>(allowedModes[0]);
+  const [selectedQuestions, setSelectedQuestions] = useState(GAME_MODES[allowedModes[0]].minQuestions);
+  const [durationMinutes, setDurationMinutes] = useState(
+    isKeyConcepts ? KEY_CONCEPTS_BLITZ_DURATIONS[0] : GAME_MODES[allowedModes[0]].minDurationMinutes
+  );
 
   useEffect(() => {
     deckRepository.getQuestionCountForDeck(deckId).then(setQuestionCount);
@@ -32,15 +43,15 @@ export default function PreparationScreen({ route, navigation }: Props) {
   const effectiveMinQuestions = Math.min(mode.minQuestions, effectiveMaxQuestions);
 
   const durationPresets = useMemo(
-    () => presetOptions(mode.minDurationMinutes, mode.maxDurationMinutes),
-    [mode.minDurationMinutes, mode.maxDurationMinutes]
+    () => (isKeyConcepts ? KEY_CONCEPTS_BLITZ_DURATIONS : presetOptions(mode.minDurationMinutes, mode.maxDurationMinutes)),
+    [isKeyConcepts, mode.minDurationMinutes, mode.maxDurationMinutes]
   );
 
   const selectMode = (nextMode: GameMode) => {
     setGameMode(nextMode);
     const config = GAME_MODES[nextMode];
     setSelectedQuestions(Math.min(config.minQuestions, deckTotal || config.minQuestions));
-    setDurationMinutes(config.minDurationMinutes);
+    setDurationMinutes(isKeyConcepts ? KEY_CONCEPTS_BLITZ_DURATIONS[0] : config.minDurationMinutes);
   };
 
   const finalQuestionCount = mode.customizable
@@ -60,23 +71,27 @@ export default function PreparationScreen({ route, navigation }: Props) {
         {questionCount === null ? 'Carregando...' : `${deckTotal} pergunta${deckTotal === 1 ? '' : 's'} disponível${deckTotal === 1 ? '' : 'eis'} neste baralho.`}
       </Text>
 
-      <Text style={styles.sectionLabel}>Estilo de jogo</Text>
-      <View style={styles.modeRow}>
-        {GAME_MODE_ORDER.map((id) => {
-          const config = GAME_MODES[id];
-          const isSelected = id === gameMode;
-          return (
-            <Pressable
-              key={id}
-              style={[styles.modeCard, isSelected && styles.modeCardSelected]}
-              onPress={() => selectMode(id)}
-            >
-              <Text style={[styles.modeLabel, isSelected && styles.modeLabelSelected]}>{config.label}</Text>
-              <Text style={styles.modeDescription}>{config.description}</Text>
-            </Pressable>
-          );
-        })}
-      </View>
+      {allowedModes.length > 1 && (
+        <>
+          <Text style={styles.sectionLabel}>Estilo de jogo</Text>
+          <View style={styles.modeRow}>
+            {allowedModes.map((id) => {
+              const config = GAME_MODES[id];
+              const isSelected = id === gameMode;
+              return (
+                <Pressable
+                  key={id}
+                  style={[styles.modeCard, isSelected && styles.modeCardSelected]}
+                  onPress={() => selectMode(id)}
+                >
+                  <Text style={[styles.modeLabel, isSelected && styles.modeLabelSelected]}>{config.label}</Text>
+                  <Text style={styles.modeDescription}>{config.description}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+        </>
+      )}
 
       {mode.customizable ? (
         <>

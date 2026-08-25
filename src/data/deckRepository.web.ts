@@ -2,6 +2,7 @@ import { QuestionSetInputSchema } from '../import/questionImportSchema';
 import mlaC01PracticeTest1 from '../data/imports/mla-c01-practice-test-1.json';
 import mlaC01PracticeTest2 from '../data/imports/mla-c01-practice-test-2.json';
 import mlaC01PracticeTest3 from '../data/imports/mla-c01-practice-test-3.json';
+import keyConceptsAws from '../data/imports/key-concepts-aws.json';
 import type { Deck, Question, QuestionOption } from '../types/models';
 
 /**
@@ -12,7 +13,12 @@ import type { Deck, Question, QuestionOption } from '../types/models';
  * sequential ids so the rest of the app (QuizScreen etc.) doesn't need to
  * know it's not talking to a database.
  */
-const SEED_SETS: unknown[] = [mlaC01PracticeTest1, mlaC01PracticeTest2, mlaC01PracticeTest3];
+const SEED_SETS: unknown[] = [
+  mlaC01PracticeTest1,
+  mlaC01PracticeTest2,
+  mlaC01PracticeTest3,
+  keyConceptsAws,
+];
 
 export const supportsCustomDecks = false;
 
@@ -37,6 +43,7 @@ function buildStore(): Store {
       id: deckId,
       name: parsed.deck.name,
       examCode: parsed.deck.examCode ?? null,
+      kind: parsed.deck.kind,
       createdAt: epoch,
     });
 

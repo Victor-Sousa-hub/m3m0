@@ -1,0 +1,313 @@
+{
+  "deck": { "name": "AWS Key Concepts", "kind": "key_concepts" },
+  "questions": [
+    {
+      "text": "Bootstrapping",
+      "explanation": "Unlike cross-validation, bootstrapping resamples with replacement, so the same observation can appear multiple times in a sample. It isn't used to validate models the way cross-validation is, since an observation used for training could also end up in the \"test\" sample, inflating performance metrics.",
+      "source": "key-concepts/Bootstrapping.md",
+      "options": [
+        { "text": "A resampling technique that draws random samples from a dataset with replacement, so the same observation can appear multiple times in a sample.", "isCorrect": true },
+        { "text": "A resampling technique that splits data into k folds and validates on each fold without replacement.", "isCorrect": false },
+        { "text": "A technique that trains multiple models in sequence, each correcting the errors of the previous one.", "isCorrect": false },
+        { "text": "A technique that trains multiple models in parallel on random subsets of features and averages their predictions.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Cross-validation",
+      "explanation": "Cross-validation splits the training set into training and validation sets to evaluate a model without touching the test set. The most common strategy is k-fold cross-validation, where k is the number of splits.",
+      "source": "key-concepts/Cross-validation.md",
+      "options": [
+        { "text": "A technique that splits the training set into training and validation folds (e.g., k-fold) to evaluate model performance.", "isCorrect": true },
+        { "text": "A technique that resamples the training set with replacement, allowing the same observation to appear multiple times.", "isCorrect": false },
+        { "text": "A technique that combines predictions from multiple independently trained models to reduce variance.", "isCorrect": false },
+        { "text": "A technique that reduces the number of input features by keeping only the most important ones.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Supervised learning",
+      "explanation": "In supervised learning the target variable can be binary, multi-class, or numerical, and the data type of that target variable determines which type of supervised problem you're solving (classification vs. regression).",
+      "source": "key-concepts/supervised learning.md",
+      "options": [
+        { "text": "A learning approach where models are trained on labeled data, and the target's type (binary, multi-class, or numeric) determines the kind of problem.", "isCorrect": true },
+        { "text": "A learning approach where models find patterns in unlabeled data, such as grouping similar observations into clusters.", "isCorrect": false },
+        { "text": "A learning approach where an agent learns by receiving rewards or penalties for actions in an environment.", "isCorrect": false },
+        { "text": "A learning approach that reduces the dimensionality of data while preserving as much variance as possible.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Bias errors",
+      "explanation": "Bias comes from the simplifying assumptions a model makes about the data. Linear algorithms like linear/logistic regression assume a linear relationship and carry high bias; decision trees make fewer assumptions and have less bias.",
+      "source": "key-concepts/bias errors.md",
+      "options": [
+        { "text": "Error introduced by the simplifying assumptions a model makes about the data, causing it to underfit.", "isCorrect": true },
+        { "text": "Error caused by a model's sensitivity to fluctuations in the training data, causing it to overfit.", "isCorrect": false },
+        { "text": "Error caused by an imbalanced distribution of classes in the training data.", "isCorrect": false },
+        { "text": "Error introduced by using too few training examples to estimate model parameters reliably.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Unsupervised learning",
+      "explanation": "Unsupervised problems provide no labeled data, only independent variables/features, so algorithms find patterns on their own. The most common type is clustering, which groups observations by similarity.",
+      "source": "key-concepts/unsupervised learning.md",
+      "options": [
+        { "text": "A learning approach that works with unlabeled data, finding structure such as clusters purely from the features.", "isCorrect": true },
+        { "text": "A learning approach that trains on labeled examples to predict a known target variable.", "isCorrect": false },
+        { "text": "A learning approach that uses trial-and-error interaction with an environment to maximize cumulative reward.", "isCorrect": false },
+        { "text": "A learning approach that trains a smaller model to imitate the outputs of a larger pretrained model.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Variance errors",
+      "explanation": "Variance is the difference in estimations a model produces on different training data. High-variance models like unpruned decision trees tend to overfit; linear/logistic regression have low variance. Pruning helps optimize high-variance models.",
+      "source": "key-concepts/variance errors.md",
+      "options": [
+        { "text": "Error caused by a model's sensitivity to fluctuations in the training data, causing it to overfit.", "isCorrect": true },
+        { "text": "Error introduced by the simplifying assumptions a model makes about the data, causing it to underfit.", "isCorrect": false },
+        { "text": "Error caused by noisy or mislabeled data points in the training set.", "isCorrect": false },
+        { "text": "Error caused by evaluating a model on the same data it was trained on.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Cross-Region Replication (CRR)",
+      "explanation": "CRR replicates S3 data between different geographical Regions, so during a disaster in one Region, another Region can keep serving users.",
+      "source": "key-concepts/CRR.md",
+      "options": [
+        { "text": "An S3 feature that automatically replicates objects to a bucket in a different AWS Region for disaster recovery.", "isCorrect": true },
+        { "text": "An S3 feature that replicates objects to another bucket within the same Region for redundancy.", "isCorrect": false },
+        { "text": "An EBS feature that creates point-in-time snapshots of a volume, stored in S3.", "isCorrect": false },
+        { "text": "A CloudFront feature that caches content at edge locations closer to users.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Data warehouse",
+      "explanation": "A data warehouse centralizes large volumes of structured, historical data from multiple sources and is optimized for analytical queries and reporting rather than transactional (OLTP) workloads. (Source note was empty — filled from general AWS/data knowledge.)",
+      "source": "key-concepts/data warehouse.md (general knowledge, source note was empty)",
+      "options": [
+        { "text": "A centralized repository of structured, historical data optimized for analytical queries and reporting.", "isCorrect": true },
+        { "text": "A storage service optimized for cheaply storing unstructured objects of any size and format.", "isCorrect": false },
+        { "text": "A database optimized for fast, high-volume transactional reads and writes.", "isCorrect": false },
+        { "text": "A serverless service that runs SQL queries directly against files stored in object storage.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Amazon EBS",
+      "explanation": "Elastic Block Store creates volumes tied to a single Availability Zone; a volume can only attach to an EC2 instance in that same AZ. EBS offers SSD types (IOPS-optimized) and HDD types (throughput-optimized), such as gp2, io1, and st1.",
+      "source": "key-concepts/EBS.md",
+      "options": [
+        { "text": "Durable block-storage volumes tied to a single Availability Zone, attachable only to EC2 instances in that same AZ.", "isCorrect": true },
+        { "text": "A regionally-resilient object storage service accessible from anywhere over the internet via HTTP.", "isCorrect": false },
+        { "text": "A serverless block storage service that automatically replicates across every Availability Zone in a Region.", "isCorrect": false },
+        { "text": "A managed relational database service that provisions and scales instances across multiple Regions.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Recovery Point Objective (RPO)",
+      "explanation": "RPO is the maximum acceptable data loss, measured as the time between the last backup and a failure. E.g., a backup taken 6 hours before a failure means a 6-hour RPO.",
+      "source": "key-concepts/Recovery Point Objective (RPO)..md",
+      "options": [
+        { "text": "The maximum acceptable amount of data loss, measured as the time between the last backup and a failure.", "isCorrect": true },
+        { "text": "The maximum acceptable time to restore a system to full operation after a disaster.", "isCorrect": false },
+        { "text": "The maximum acceptable downtime a service can experience before violating its SLA.", "isCorrect": false },
+        { "text": "The frequency at which a system's health checks run to detect failures.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Recovery Time Objective (RTO)",
+      "explanation": "RTO is the maximum acceptable time between a disaster occurring and the system being fully restored. E.g., restoring service 3 hours after a failure is a 3-hour RTO; lower RTO generally costs more (spare hardware, faster restoration process).",
+      "source": "key-concepts/Time Objective (RTO).md",
+      "options": [
+        { "text": "The maximum acceptable time between a disaster occurring and the system being fully restored.", "isCorrect": true },
+        { "text": "The maximum acceptable amount of data loss, measured back from the moment of failure.", "isCorrect": false },
+        { "text": "The scheduled interval at which backups are taken, regardless of when a failure occurs.", "isCorrect": false },
+        { "text": "The percentage of time a system is guaranteed to be available over a billing period.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "SSE-C (Server-Side Encryption, Customer-Provided Keys)",
+      "explanation": "With SSE-C, the user supplies the encryption key on every PUT/GET. S3 performs the actual encryption/decryption but discards the key immediately after use and never stores it.",
+      "source": "key-concepts/SSE-C.md",
+      "options": [
+        { "text": "The user supplies the encryption key on each request; S3 performs the encryption/decryption but discards the key after use.", "isCorrect": true },
+        { "text": "S3 generates and fully manages the encryption key end-to-end, including rotation, with no user involvement.", "isCorrect": false },
+        { "text": "AWS KMS manages a customer master key, and S3 uses it to generate a data key for each object.", "isCorrect": false },
+        { "text": "The client encrypts and decrypts the object locally, keeping the key entirely outside of S3.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "SSE-S3 (Server-Side Encryption, S3-Managed Keys)",
+      "explanation": "With SSE-S3, AWS handles both key management and the encryption/decryption process end to end. The user just uploads the unencrypted object; S3 creates, rotates, and manages a unique master key using AES-256.",
+      "source": "key-concepts/SSE-S3.md",
+      "options": [
+        { "text": "S3 creates, rotates, and fully manages the encryption key internally using AES-256; the user just uploads the plain object.", "isCorrect": true },
+        { "text": "The user supplies their own encryption key on every request, and S3 discards it right after use.", "isCorrect": false },
+        { "text": "AWS KMS manages a customer master key used to generate a per-object data encryption key.", "isCorrect": false },
+        { "text": "The client must encrypt the object before upload and decrypt it after download.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "SSE-KMS (Server-Side Encryption, KMS-Managed Keys)",
+      "explanation": "AWS KMS manages a Customer Master Key (CMK), which is used to generate a per-object Data Encryption Key (DEK). S3 stores the encrypted DEK alongside the object. Using a customer-managed CMK adds rotation control, fine-grained permissions, and API-call logging/auditing.",
+      "source": "key-concepts/SSE-KMS.md",
+      "options": [
+        { "text": "AWS KMS manages a customer master key that's used to generate a per-object data encryption key, adding rotation control and auditing.", "isCorrect": true },
+        { "text": "S3 generates, rotates, and manages the encryption key entirely on its own, with no KMS involvement.", "isCorrect": false },
+        { "text": "The user must provide the encryption key on every PUT and GET request.", "isCorrect": false },
+        { "text": "The client encrypts the object locally before uploading it to S3.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Amazon S3",
+      "explanation": "S3 is Amazon's region-based object storage service, accessible from anywhere via the internet. Data stays in the chosen Region (replicated across its Availability Zones) until explicitly moved, and is reachable via console, CLI, API, or standard HTTP.",
+      "source": "aws-services/Amazon S3.md",
+      "options": [
+        { "text": "A regionally-resilient object storage service where data stays in the chosen Region, replicated across its Availability Zones.", "isCorrect": true },
+        { "text": "A block storage service that provisions volumes tied to a single Availability Zone.", "isCorrect": false },
+        { "text": "A serverless query service that runs SQL directly against files without loading them into a database.", "isCorrect": false },
+        { "text": "A relational database service that automatically provisions compute and storage instances.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Amazon Athena",
+      "explanation": "Athena is a serverless service for querying data stored in S3 using schema-on-read: you define a table's schema in a data catalog, and Athena validates it against the raw data (CSV, JSON, Parquet, ORC, etc.) only when you query, with no need to transform the source first.",
+      "source": "aws-services/Athena.md",
+      "options": [
+        { "text": "A serverless service that runs SQL queries directly against data in S3, validating a data-catalog schema against the raw data at query time.", "isCorrect": true },
+        { "text": "A managed data warehouse service that requires loading and transforming data before it can be queried.", "isCorrect": false },
+        { "text": "A fully managed relational database that provisions dedicated compute for storing and querying data.", "isCorrect": false },
+        { "text": "A block storage service used to persist EC2 instance data.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Amazon SageMaker",
+      "explanation": "SageMaker speeds up ML development and deployment by automatically handling the infrastructure for training and inference, orchestrating other AWS services (EC2 instances, load balancers, auto-scaling) behind the scenes.",
+      "source": "aws-services/SageMaker..md",
+      "options": [
+        { "text": "A fully managed ML platform that automatically provisions and orchestrates infrastructure (EC2, load balancers, auto-scaling) for training and inference.", "isCorrect": true },
+        { "text": "A serverless service for running ad-hoc SQL queries against data stored in object storage.", "isCorrect": false },
+        { "text": "A pre-trained computer vision API for image and video analysis with no model training involved.", "isCorrect": false },
+        { "text": "A managed service offering access to third-party foundational language models via an API.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Amazon Lex",
+      "explanation": "Lex builds conversational interfaces (chatbots and voice assistants) using the same natural-language-understanding technology as Alexa, handling intent recognition and speech-to-text automatically. (Source note was empty — filled from general AWS knowledge.)",
+      "source": "aws-services/AWS Lex.md (general knowledge, source note was empty)",
+      "options": [
+        { "text": "A service for building conversational chatbots and voice interfaces, handling intent recognition and speech-to-text automatically.", "isCorrect": true },
+        { "text": "A pre-trained service for detecting objects, faces, and text within images and videos.", "isCorrect": false },
+        { "text": "A managed service for building interactive dashboards and business-intelligence visualizations.", "isCorrect": false },
+        { "text": "A fully managed platform for training and deploying custom machine learning models.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Amazon QuickSight",
+      "explanation": "QuickSight is a serverless, cloud-native business intelligence service for building interactive dashboards and visualizations from data across AWS and third-party sources. (Source note was empty — filled from general AWS knowledge.)",
+      "source": "aws-services/AWS QuickSight.md (general knowledge, source note was empty)",
+      "options": [
+        { "text": "A serverless business-intelligence service for building interactive dashboards and visualizations.", "isCorrect": true },
+        { "text": "A conversational AI service for building chatbots and voice interfaces.", "isCorrect": false },
+        { "text": "A serverless service for running SQL queries directly against files in S3.", "isCorrect": false },
+        { "text": "A fully managed platform for training and deploying custom machine learning models.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Amazon Rekognition",
+      "explanation": "Rekognition is a pre-trained computer vision service that analyzes images and videos to detect objects, faces, text, and inappropriate content, with no model training required. (Source note was empty — filled from general AWS knowledge.)",
+      "source": "aws-services/AWS Rekognition.md (general knowledge, source note was empty)",
+      "options": [
+        { "text": "A pre-trained computer vision service that detects objects, faces, text, and inappropriate content in images and videos.", "isCorrect": true },
+        { "text": "A managed service offering access to third-party foundational language models via an API.", "isCorrect": false },
+        { "text": "A conversational AI service for building chatbots and voice interfaces.", "isCorrect": false },
+        { "text": "A fully managed platform for training and deploying custom machine learning models from scratch.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Amazon EC2",
+      "explanation": "EC2 is a resizable virtual server service that lets you launch and manage compute instances on demand, choosing instance types, storage, and networking to match your workload. (Source note was empty — filled from general AWS knowledge.)",
+      "source": "aws-services/EC2.md (general knowledge, source note was empty)",
+      "options": [
+        { "text": "A resizable virtual server service for launching and managing on-demand compute instances.", "isCorrect": true },
+        { "text": "A block storage service that provides durable volumes attachable to virtual servers.", "isCorrect": false },
+        { "text": "A serverless compute service that runs code in response to events without provisioning servers.", "isCorrect": false },
+        { "text": "A fully managed relational database service that provisions and scales database instances.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Amazon Redshift",
+      "explanation": "Redshift is a petabyte-scale, column-oriented data warehouse for analytics (OLAP), not real-time transactions. Redshift Spectrum can query S3 data directly without loading it into the cluster, and it integrates with QuickSight for visualization and SageMaker for feature engineering ahead of model training.",
+      "source": "aws-services/Amazon Redshift.md",
+      "options": [
+        { "text": "A petabyte-scale, column-oriented data warehouse for analytics (OLAP), not real-time transactional workloads.", "isCorrect": true },
+        { "text": "A fully managed NoSQL key/value and document database for low-latency transactional access.", "isCorrect": false },
+        { "text": "A managed relational database service for OLTP workloads across several database engines.", "isCorrect": false },
+        { "text": "A serverless service that queries data in S3 directly without provisioning a database cluster.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Amazon RDS",
+      "explanation": "RDS provides managed relational database instances (MySQL, PostgreSQL, MariaDB, Aurora, Oracle, SQL Server) without the user managing the underlying server — AWS handles patching, OS, versions, and high availability. A database instance is accessed via its DNS endpoint.",
+      "source": "aws-services/Amazon RDS.md",
+      "options": [
+        { "text": "A managed relational database service that provisions and maintains database server instances across several engines.", "isCorrect": true },
+        { "text": "A fully managed NoSQL key/value and document database with automatic scaling.", "isCorrect": false },
+        { "text": "A petabyte-scale, column-oriented data warehouse optimized for analytical queries.", "isCorrect": false },
+        { "text": "A resizable virtual server service for launching general-purpose compute instances.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "Amazon DynamoDB",
+      "explanation": "DynamoDB is a fully managed NoSQL key/value and document database, accessed via an endpoint, with throughput that can be scaled manually or automatically, plus built-in backup, point-in-time recovery, and encryption.",
+      "source": "aws-services/Amazon DynamoDB.md",
+      "options": [
+        { "text": "A fully managed NoSQL key/value and document database with scalable throughput, point-in-time recovery, and encryption built in.", "isCorrect": true },
+        { "text": "A managed relational database service supporting engines like MySQL, PostgreSQL, and Aurora.", "isCorrect": false },
+        { "text": "A petabyte-scale, column-oriented data warehouse for analytics.", "isCorrect": false },
+        { "text": "A durable block-storage volume attachable to a single EC2 instance in one Availability Zone.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "AWS Kinesis",
+      "explanation": "Kinesis Data Streams ingests real-time data from multiple producers (EC2, Lambda, IoT devices, on-prem servers, mobile apps) into shards — each supporting ~1MB/s writes and 2MB/s reads — for multiple consumers to read, retaining records 24 hours by default (up to 365 days).",
+      "source": "aws-services/AWS Kinesis.md",
+      "options": [
+        { "text": "A real-time streaming service that ingests data into shards for consumers to process, retaining records 24 hours by default.", "isCorrect": true },
+        { "text": "A fully managed NoSQL database for low-latency key/value and document storage.", "isCorrect": false },
+        { "text": "A serverless compute service that runs code in response to events without provisioning servers.", "isCorrect": false },
+        { "text": "A petabyte-scale data warehouse used for batch analytical queries.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "AWS Lambda",
+      "explanation": "Lambda is a serverless compute service that runs your code in response to events (an S3 upload, a Kinesis record, an API call, etc.) without provisioning or managing servers, billing only for the compute time actually used. (Source note was empty — filled from general AWS knowledge.)",
+      "source": "aws-services/AWS Lambda.md (general knowledge, source note was empty)",
+      "options": [
+        { "text": "A serverless compute service that runs code in response to events, without provisioning or managing servers.", "isCorrect": true },
+        { "text": "A resizable virtual server service where you provision and manage instances yourself.", "isCorrect": false },
+        { "text": "A real-time streaming service that ingests and retains data records across shards.", "isCorrect": false },
+        { "text": "A managed service for creating and controlling encryption keys.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "AWS KMS",
+      "explanation": "AWS Key Management Service creates, stores, and controls the cryptographic keys (Customer Master Keys) used to encrypt data across AWS services, with key rotation, fine-grained permissions, and audit logging of key usage — the backbone of SSE-KMS. (Source note was empty — filled from general AWS knowledge.)",
+      "source": "aws-services/AWS KMS.md (general knowledge, source note was empty)",
+      "options": [
+        { "text": "A managed service for creating, storing, and controlling cryptographic keys used to encrypt data, with rotation and audit logging.", "isCorrect": true },
+        { "text": "A service where S3 creates, rotates, and manages the encryption key entirely on its own with no user involvement.", "isCorrect": false },
+        { "text": "A service where the client supplies its own encryption key on every request.", "isCorrect": false },
+        { "text": "A serverless compute service that runs code in response to events.", "isCorrect": false }
+      ]
+    },
+    {
+      "text": "AWS Glacier",
+      "explanation": "S3 Glacier is a low-cost storage class/service for long-term data archival, trading retrieval speed for a much lower storage price than standard S3 — retrieval can take minutes to hours depending on the tier chosen (Expedited, Standard, Bulk), unlike the millisecond access of standard S3. (Source note was empty — filled from general AWS knowledge.)",
+      "source": "aws-services/AWS Glacier.md (general knowledge, source note was empty)",
+      "options": [
+        { "text": "A low-cost storage class for long-term archival, with retrieval times ranging from minutes to hours depending on the tier.", "isCorrect": true },
+        { "text": "A regionally-resilient object storage service with millisecond retrieval, accessible from anywhere over the internet.", "isCorrect": false },
+        { "text": "A durable block-storage volume attachable only to EC2 instances in the same Availability Zone.", "isCorrect": false },
+        { "text": "A petabyte-scale, column-oriented data warehouse for analytical queries.", "isCorrect": false }
+      ]
+    }
+  ]
+}

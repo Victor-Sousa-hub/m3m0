@@ -1,5 +1,13 @@
 export type GameMode = 'blitz' | 'thinking' | 'simulado';
 
+/**
+ * 'exam' decks are practice-test style (N options, multi-answer allowed) and
+ * play in any pacing style. 'key_concepts' decks are concept-name + exactly
+ * 4 alternatives, and only make sense as a fast recall drill — see
+ * ALLOWED_GAME_MODES_BY_DECK_KIND.
+ */
+export type DeckKind = 'exam' | 'key_concepts';
+
 /** AWS Certified Machine Learning Engineer - Associate (MLA-C01) real exam numbers. */
 export const MLA_C01_EXAM_QUESTIONS = 65;
 export const MLA_C01_EXAM_DURATION_MINUTES = 130;
@@ -60,6 +68,15 @@ export const GAME_MODES: Record<GameMode, GameModeConfig> = {
     customizable: false,
   },
 };
+
+/** Which pacing styles a deck kind can be played in — see DeckKind. */
+export const ALLOWED_GAME_MODES_BY_DECK_KIND: Record<DeckKind, GameMode[]> = {
+  exam: GAME_MODE_ORDER,
+  key_concepts: ['blitz'],
+};
+
+/** Fixed duration choices for key-concepts decks, replacing Blitz's normal 1-15 min range. */
+export const KEY_CONCEPTS_BLITZ_DURATIONS = [1, 3];
 
 /**
  * ~`approxCount` evenly-spaced preset options between a range's min and max,

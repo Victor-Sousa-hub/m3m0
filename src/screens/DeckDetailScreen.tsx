@@ -16,7 +16,7 @@ import type { AttemptRecord } from '../data/attemptRecord';
 type Props = NativeStackScreenProps<RootStackParamList, 'DeckDetail'>;
 
 export default function DeckDetailScreen({ route, navigation }: Props) {
-  const { deckId, deckName } = route.params;
+  const { deckId, deckName, deckKind } = route.params;
   const user = useCurrentUser();
   const { colors } = useTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
@@ -45,7 +45,7 @@ export default function DeckDetailScreen({ route, navigation }: Props) {
 
       <Pressable
         style={[styles.startButton, !hasQuestions && styles.startButtonDisabled]}
-        onPress={() => navigation.navigate('Preparation', { deckId, deckName })}
+        onPress={() => navigation.navigate('Preparation', { deckId, deckName, deckKind })}
         disabled={!hasQuestions}
       >
         <Text style={styles.startButtonText}>Iniciar partida</Text>

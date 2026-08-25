@@ -7,7 +7,7 @@ export const supportsCustomDecks = true;
 export async function listDecks(): Promise<Deck[]> {
   const db = await getDatabase();
   return db.getAllAsync<Deck>(
-    'SELECT id, name, exam_code as examCode, created_at as createdAt FROM decks ORDER BY created_at DESC'
+    'SELECT id, name, exam_code as examCode, kind, created_at as createdAt FROM decks ORDER BY created_at DESC'
   );
 }
 

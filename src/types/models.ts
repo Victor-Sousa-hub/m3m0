@@ -1,9 +1,10 @@
-import type { GameMode } from '../quiz/gameModes';
+import type { DeckKind, GameMode } from '../quiz/gameModes';
 
 export interface Deck {
   id: number;
   name: string;
   examCode: string | null;
+  kind: DeckKind;
   createdAt: string;
 }
 
