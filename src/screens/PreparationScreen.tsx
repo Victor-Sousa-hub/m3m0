@@ -164,6 +164,7 @@ export default function PreparationScreen({ route, navigation }: Props) {
           navigation.navigate('Quiz', {
             deckId,
             deckName,
+            deckKind,
             gameMode,
             questionCount: finalQuestionCount,
             durationMinutes: finalDurationMinutes,

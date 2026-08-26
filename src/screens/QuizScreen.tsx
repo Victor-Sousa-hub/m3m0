@@ -6,6 +6,7 @@ import * as deckRepository from '../data/deckRepository';
 import * as attemptRepository from '../data/attemptRepository';
 import * as streakRepository from '../data/streakRepository';
 import { sampleQuestions } from '../quiz/sampleQuestions';
+import { shuffleArray } from '../quiz/shuffle';
 import { computeFinalScore } from '../quiz/scoring';
 import { useCurrentUser } from '../context/UserContext';
 import { useTheme } from '../theme/useTheme';
@@ -22,7 +23,7 @@ function formatTime(totalSeconds: number): string {
 }
 
 export default function QuizScreen({ route, navigation }: Props) {
-  const { deckId, deckName, gameMode, questionCount, durationMinutes } = route.params;
+  const { deckId, deckName, deckKind, gameMode, questionCount, durationMinutes } = route.params;
   const user = useCurrentUser();
   const { colors } = useTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
@@ -119,6 +120,12 @@ export default function QuizScreen({ route, navigation }: Props) {
     [currentQuestion]
   );
 
+  // Key-concepts source data always lists the correct option first; shuffle per question so it isn't a giveaway.
+  const displayOptions = useMemo(() => {
+    if (!currentQuestion) return [];
+    return deckKind === 'key_concepts' ? shuffleArray(currentQuestion.options) : currentQuestion.options;
+  }, [currentQuestion, deckKind]);
+
   const isCurrentAnswerCorrect = useMemo(() => {
     if (selectedOptionIds.size !== correctOptionIds.size) return false;
     for (const id of selectedOptionIds) {
@@ -202,7 +209,7 @@ export default function QuizScreen({ route, navigation }: Props) {
       )}
 
       <View style={styles.options}>
-        {currentQuestion.options.map((option) => {
+        {displayOptions.map((option) => {
           const isSelected = selectedOptionIds.has(option.id);
           const isCorrectOption = correctOptionIds.has(option.id);
 

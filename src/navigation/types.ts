@@ -6,7 +6,14 @@ export type RootStackParamList = {
   Sync: undefined;
   DeckDetail: { deckId: number; deckName: string; deckKind: DeckKind };
   Preparation: { deckId: number; deckName: string; deckKind: DeckKind };
-  Quiz: { deckId: number; deckName: string; gameMode: GameMode; questionCount: number; durationMinutes: number };
+  Quiz: {
+    deckId: number;
+    deckName: string;
+    deckKind: DeckKind;
+    gameMode: GameMode;
+    questionCount: number;
+    durationMinutes: number;
+  };
   Results: {
     deckName: string;
     gameMode: GameMode;
