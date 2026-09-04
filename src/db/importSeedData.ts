@@ -1,5 +1,4 @@
-import type { SQLiteDatabase } from 'expo-sqlite';
-import { importQuestionSet } from './importQuestions';
+import { syncSeedQuestionSet } from './importQuestions';
 import mlaC01PracticeTest1 from '../data/imports/mla-c01-practice-test-1.json';
 import mlaC01PracticeTest2 from '../data/imports/mla-c01-practice-test-2.json';
 import mlaC01PracticeTest3 from '../data/imports/mla-c01-practice-test-3.json';
@@ -19,20 +18,15 @@ const SEED_QUESTION_SETS: unknown[] = [
 ];
 
 /**
- * One-time bundled seed data (personal AWS exam practice sets). Skips any
- * deck whose name already exists so this is safe to call on every launch.
+ * Bundled seed data (personal AWS exam practice sets), safe to call on every
+ * launch: new decks get created once, and an existing deck whose bundled
+ * question count has changed gets its questions/options replaced in place
+ * (see syncSeedQuestionSet) — never touching users, quiz_attempts,
+ * active_days, or sync_state, so a content update can never cost the user
+ * their streak, history, or device pairing.
  */
-export async function importSeedQuestionSets(db: SQLiteDatabase): Promise<void> {
+export async function importSeedQuestionSets(): Promise<void> {
   for (const raw of SEED_QUESTION_SETS) {
-    const deckName = (raw as { deck?: { name?: string } }).deck?.name;
-    if (!deckName) continue;
-
-    const existing = await db.getFirstAsync<{ id: number }>(
-      'SELECT id FROM decks WHERE name = ? LIMIT 1',
-      deckName
-    );
-    if (existing) continue;
-
-    await importQuestionSet(raw);
+    await syncSeedQuestionSet(raw);
   }
 }

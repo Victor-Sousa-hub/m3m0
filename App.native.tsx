@@ -19,8 +19,8 @@ export default function App() {
 
   useEffect(() => {
     getDatabase()
-      .then(async (db) => {
-        await importSeedQuestionSets(db);
+      .then(async () => {
+        await importSeedQuestionSets();
         return getCurrentUser();
       })
       .then((existingUser) => {
