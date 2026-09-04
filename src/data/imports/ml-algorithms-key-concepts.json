@@ -1,0 +1,1342 @@
+{
+  "deck": {
+    "name": "Machine Learning Algorithms",
+    "kind": "key_concepts"
+  },
+  "questions": [
+    {
+      "text": "Classification models",
+      "explanation": "Classification models are supervised learning algorithms whose target variable is categorical (binary or multi-class), predicting which category a new observation belongs to. Common examples include logistic regression, decision trees, Random Forest, and XGBoost.",
+      "source": "Machine Learning Algorithms/Classification & Regression/🎲 Classification models.md",
+      "options": [
+        {
+          "text": "A supervised learning algorithm family whose target variable is a category, predicting which class a new observation belongs to.",
+          "isCorrect": true
+        },
+        {
+          "text": "A supervised learning algorithm family whose target variable is a continuous number, predicting a numeric value for new observations.",
+          "isCorrect": false
+        },
+        {
+          "text": "An unsupervised technique that groups observations by feature similarity alone, with no predefined category labels to predict.",
+          "isCorrect": false
+        },
+        {
+          "text": "An unsupervised technique that finds 'if A then B' relationships between items that frequently co-occur within the same transaction.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A model must predict which of five predefined categories a support ticket belongs to, using labeled historical tickets. Which type of supervised task is this?",
+      "explanation": "Classification models predict a categorical target variable; contrast with regression models, which predict a continuous number.",
+      "source": "Machine Learning Algorithms/Classification & Regression/🎲 Classification models.md",
+      "options": [
+        {
+          "text": "Classification",
+          "isCorrect": true
+        },
+        {
+          "text": "Regression task",
+          "isCorrect": false
+        },
+        {
+          "text": "Clustering task",
+          "isCorrect": false
+        },
+        {
+          "text": "Forecasting task",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Decision trees",
+      "explanation": "A decision tree recursively splits data on feature thresholds to build a tree of decision rules, ending in leaf nodes that hold a class label or numeric value. A single unpruned tree has low bias but high variance, easily overfitting.",
+      "source": "Machine Learning Algorithms/Classification & Regression/🎲 decision trees.md",
+      "options": [
+        {
+          "text": "A supervised algorithm that splits data on feature thresholds, ending in leaf nodes that hold a class label or numeric value.",
+          "isCorrect": true
+        },
+        {
+          "text": "A bagging ensemble of decision trees, each trained on a bootstrapped sample with a random subset of features considered per split.",
+          "isCorrect": false
+        },
+        {
+          "text": "A boosting ensemble of decision trees trained sequentially, where each new tree corrects the residual errors of the prior ensemble.",
+          "isCorrect": false
+        },
+        {
+          "text": "An algorithm that partitions observations into k groups by repeatedly assigning points to the nearest centroid and recomputing it.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A lender needs to explain exactly why each loan application was approved or denied to a non-technical auditor, tracing the precise rule path behind every individual decision. Which model best satisfies this need for full transparency?",
+      "explanation": "A single decision tree is highly interpretable because you can trace the exact threshold-based rule path for any prediction, unlike ensembles that trade transparency for accuracy.",
+      "source": "Machine Learning Algorithms/Classification & Regression/🎲 decision trees.md",
+      "options": [
+        {
+          "text": "Decision tree",
+          "isCorrect": true
+        },
+        {
+          "text": "Random Forest",
+          "isCorrect": false
+        },
+        {
+          "text": "XGBoost",
+          "isCorrect": false
+        },
+        {
+          "text": "Neural network",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Logistic regression",
+      "explanation": "Logistic regression is a linear classification algorithm that models the probability of a binary outcome by applying a sigmoid function to a weighted linear combination of features. Despite its name it is a classifier, not a regressor.",
+      "source": "Machine Learning Algorithms/Classification & Regression/🎲 logistic regression.md",
+      "options": [
+        {
+          "text": "A linear classification algorithm that models the probability of a binary outcome via a sigmoid over a weighted feature sum.",
+          "isCorrect": true
+        },
+        {
+          "text": "A SageMaker built-in algorithm that fits linear regression and classification models together in one unified, configurable algorithm.",
+          "isCorrect": false
+        },
+        {
+          "text": "An instance-based algorithm that predicts an observation's label from a majority vote among its k closest neighbors by distance.",
+          "isCorrect": false
+        },
+        {
+          "text": "A supervised algorithm that recursively splits data on feature thresholds, ending in leaf nodes that hold a predicted class.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team wants a fast-training binary classifier for a roughly linearly separable credit-approval dataset, where coefficients must clearly show each feature's direction of influence. Which algorithm fits best?",
+      "explanation": "Logistic regression models the probability of a binary outcome via a sigmoid over a linear combination of features, giving directly interpretable coefficients and fast training on simpler, linearly separable data.",
+      "source": "Machine Learning Algorithms/Classification & Regression/🎲 logistic regression.md",
+      "options": [
+        {
+          "text": "Logistic regression",
+          "isCorrect": true
+        },
+        {
+          "text": "Single decision tree",
+          "isCorrect": false
+        },
+        {
+          "text": "Random Forest ensemble",
+          "isCorrect": false
+        },
+        {
+          "text": "Support vector machine",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Regression models",
+      "explanation": "Regression models are supervised learning algorithms whose target variable is a continuous numerical value, predicting that value for new observations. They are evaluated with metrics like RMSE or MAE, never classification metrics.",
+      "source": "Machine Learning Algorithms/Classification & Regression/🎲 Regression models.md",
+      "options": [
+        {
+          "text": "A supervised learning algorithm family whose target variable is a continuous number, predicting a numeric value for new observations.",
+          "isCorrect": true
+        },
+        {
+          "text": "A supervised learning algorithm family whose target variable is a category, predicting which class or label an observation belongs to.",
+          "isCorrect": false
+        },
+        {
+          "text": "An unsupervised technique that groups observations purely by feature similarity, without a target value to predict at all.",
+          "isCorrect": false
+        },
+        {
+          "text": "An unsupervised technique that finds 'if A then B' relationships between items frequently co-occurring in the same transaction.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A model must predict a house's sale price, a continuous numeric value, from historical sales data. Which type of supervised task is this?",
+      "explanation": "Regression models predict a continuous numerical target, in contrast to classification (categorical targets) or forecasting (sequential, time-ordered targets).",
+      "source": "Machine Learning Algorithms/Classification & Regression/🎲 Regression models.md",
+      "options": [
+        {
+          "text": "Regression",
+          "isCorrect": true
+        },
+        {
+          "text": "Classification",
+          "isCorrect": false
+        },
+        {
+          "text": "Forecasting",
+          "isCorrect": false
+        },
+        {
+          "text": "Clustering",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Deep neural network (DNN)",
+      "explanation": "A DNN is a neural network with multiple hidden layers, allowing it to learn increasingly abstract feature representations at each successive layer. It requires substantially more data and compute than shallow models.",
+      "source": "Machine Learning Algorithms/Deep Learning/🎲 deep neural network (DNN).md",
+      "options": [
+        {
+          "text": "A neural network with multiple stacked hidden layers, letting it learn increasingly abstract feature representations at each layer.",
+          "isCorrect": true
+        },
+        {
+          "text": "A general family of algorithms built from interconnected nodes with weighted sums and activations, without specifying how many layers.",
+          "isCorrect": false
+        },
+        {
+          "text": "A neural network architecture that maintains a hidden state across time steps, designed specifically for sequential data.",
+          "isCorrect": false
+        },
+        {
+          "text": "An optimization algorithm that iteratively adjusts a model's parameters in the direction that reduces a loss function.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "An image-classification model must learn its own hierarchical features directly from raw pixels, progressing from edges to shapes to objects, and requires GPU-scale training. Which approach fits?",
+      "explanation": "A deep neural network's many stacked hidden layers learn increasingly abstract, hierarchical feature representations from unstructured data, unlike tabular algorithms such as XGBoost.",
+      "source": "Machine Learning Algorithms/Deep Learning/🎲 deep neural network (DNN).md",
+      "options": [
+        {
+          "text": "Deep neural network",
+          "isCorrect": true
+        },
+        {
+          "text": "XGBoost ensemble",
+          "isCorrect": false
+        },
+        {
+          "text": "Random Forest ensemble",
+          "isCorrect": false
+        },
+        {
+          "text": "Logistic regression",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Gradient descent (SGD)",
+      "explanation": "Gradient descent is the optimization algorithm used to train models by iteratively adjusting parameters to reduce a loss function's gradient. Stochastic Gradient Descent approximates that gradient using a small random batch at each step.",
+      "source": "Machine Learning Algorithms/Deep Learning/🎲 gradient descent (SGD).md",
+      "options": [
+        {
+          "text": "An optimization algorithm that iteratively adjusts parameters to reduce loss; SGD approximates the gradient from a small random batch.",
+          "isCorrect": true
+        },
+        {
+          "text": "An ensemble technique that trains decision trees sequentially, each on a random subsample of rows and columns from the dataset.",
+          "isCorrect": false
+        },
+        {
+          "text": "A penalty added to a loss function proportional to the sum of squared weights, shrinking large weights toward zero.",
+          "isCorrect": false
+        },
+        {
+          "text": "A hyperparameter optimization strategy that samples random combinations of values instead of testing every combination exhaustively.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A dataset is too large to compute the exact gradient over the full training set at every optimization step. Which technique makes iterative training tractable by approximating the gradient using small random batches?",
+      "explanation": "Stochastic Gradient Descent approximates the gradient using a small random batch each step, trading some update accuracy for much faster, more scalable training; it is a distinct concept from the similarly-named stochastic gradient boosting.",
+      "source": "Machine Learning Algorithms/Deep Learning/🎲 gradient descent (SGD).md",
+      "options": [
+        {
+          "text": "Stochastic Gradient Descent",
+          "isCorrect": true
+        },
+        {
+          "text": "Stochastic gradient boosting",
+          "isCorrect": false
+        },
+        {
+          "text": "Bayesian Optimization (BO)",
+          "isCorrect": false
+        },
+        {
+          "text": "Batch Gradient Descent (BGD)",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "L2 regularization",
+      "explanation": "L2 regularization adds a penalty to a model's loss function proportional to the sum of squared weights, discouraging large weights and reducing overfitting. Unlike L1, it shrinks weights toward zero but rarely to exactly zero.",
+      "source": "Machine Learning Algorithms/Deep Learning/🎲 L2 regularization.md",
+      "options": [
+        {
+          "text": "A penalty added to a loss function proportional to the sum of squared weights, shrinking large weights without zeroing them out.",
+          "isCorrect": true
+        },
+        {
+          "text": "A penalty added to a loss function proportional to the sum of absolute weights, capable of shrinking some weights exactly to zero.",
+          "isCorrect": false
+        },
+        {
+          "text": "An optimization algorithm that iteratively adjusts a model's parameters in the direction that reduces a loss function.",
+          "isCorrect": false
+        },
+        {
+          "text": "An ensemble technique that trains trees sequentially on random subsamples of rows and columns to reduce overfitting.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A linear regression model has many correlated features and performs far better on training data than on validation data. Which fix shrinks all weights toward zero, but rarely to exactly zero, producing a smoother decision boundary?",
+      "explanation": "L2 regularization penalizes the sum of squared weights, shrinking large weights toward zero without zeroing them out, unlike L1 regularization, which can drive some weights exactly to zero for feature selection.",
+      "source": "Machine Learning Algorithms/Deep Learning/🎲 L2 regularization.md",
+      "options": [
+        {
+          "text": "L2 regularization",
+          "isCorrect": true
+        },
+        {
+          "text": "L1 regularization",
+          "isCorrect": false
+        },
+        {
+          "text": "Random Forest",
+          "isCorrect": false
+        },
+        {
+          "text": "Increasing model depth",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Neural network",
+      "explanation": "A neural network is a layered algorithm of interconnected nodes, each applying a weighted sum plus a non-linear activation, that can learn complex, non-linear relationships. It is trained via gradient descent and backpropagation.",
+      "source": "Machine Learning Algorithms/Deep Learning/🎲 Neural network.md",
+      "options": [
+        {
+          "text": "A layered network of interconnected nodes applying weighted sums and non-linear activations to learn complex relationships.",
+          "isCorrect": true
+        },
+        {
+          "text": "A neural network with many stacked hidden layers, letting it learn increasingly abstract feature representations.",
+          "isCorrect": false
+        },
+        {
+          "text": "A neural network architecture that maintains a hidden state across time steps to model sequential, time-dependent data.",
+          "isCorrect": false
+        },
+        {
+          "text": "An optimization algorithm that iteratively adjusts a model's weights to minimize a loss function during training.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A model needs to capture complex, non-linear relationships in raw audio waveforms, where traditional tabular algorithms don't apply well. Which approach is best suited?",
+      "explanation": "Neural networks learn complex, non-linear relationships from unstructured data like audio, images, or text, whereas algorithms like XGBoost usually win on structured tabular data instead.",
+      "source": "Machine Learning Algorithms/Deep Learning/🎲 Neural network.md",
+      "options": [
+        {
+          "text": "Neural network",
+          "isCorrect": true
+        },
+        {
+          "text": "XGBoost algorithm",
+          "isCorrect": false
+        },
+        {
+          "text": "Linear Learner",
+          "isCorrect": false
+        },
+        {
+          "text": "Random Forest",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "AdaBoost",
+      "explanation": "AdaBoost is a boosting algorithm that trains a sequence of weak learners, where each new learner focuses more on observations the previous learner misclassified by increasing their sample weight. It is not a SageMaker built-in algorithm.",
+      "source": "Machine Learning Algorithms/Ensemble Algorithms/🎲 AdaBoost.md",
+      "options": [
+        {
+          "text": "A boosting algorithm that trains weak learners sequentially, increasing the weight of observations the previous learner misclassified.",
+          "isCorrect": true
+        },
+        {
+          "text": "A boosting technique that trains weak learners sequentially, each one fitted to the residual errors of the prior ensemble.",
+          "isCorrect": false
+        },
+        {
+          "text": "A bagging ensemble that trains decision trees independently and in parallel on bootstrapped samples of the data.",
+          "isCorrect": false
+        },
+        {
+          "text": "A boosting technique that trains trees sequentially on random subsamples of rows and columns each round, reducing variance.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A boosting method trains a sequence of shallow decision trees, where each new tree increases the sample weight of observations the previous tree misclassified. Which algorithm is being described?",
+      "explanation": "AdaBoost re-weights misclassified observations after each round of weak learners, unlike gradient boosting, which instead fits new trees to the ensemble's residual errors.",
+      "source": "Machine Learning Algorithms/Ensemble Algorithms/🎲 AdaBoost.md",
+      "options": [
+        {
+          "text": "AdaBoost model",
+          "isCorrect": true
+        },
+        {
+          "text": "Gradient Boosting",
+          "isCorrect": false
+        },
+        {
+          "text": "Random Forest",
+          "isCorrect": false
+        },
+        {
+          "text": "XGBoost",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Gradient Boosting",
+      "explanation": "Gradient Boosting builds an ensemble of weak learners sequentially, where each new tree predicts the residual errors of the ensemble so far via gradient descent on a loss function. It generalizes to any differentiable loss.",
+      "source": "Machine Learning Algorithms/Ensemble Algorithms/🎲 Gradient Boosting.md",
+      "options": [
+        {
+          "text": "A boosting technique that trains decision trees sequentially, each new tree fitted to the residual errors of the ensemble so far.",
+          "isCorrect": true
+        },
+        {
+          "text": "A boosting algorithm that trains weak learners sequentially, increasing the weight of observations the previous learner misclassified.",
+          "isCorrect": false
+        },
+        {
+          "text": "A bagging ensemble that trains decision trees independently and in parallel on bootstrapped samples of the data.",
+          "isCorrect": false
+        },
+        {
+          "text": "A boosting technique that extends gradient boosting by training each tree on a random subsample of rows and columns.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A boosting ensemble must support both classification and regression by fitting each new tree to the residual errors of the ensemble so far via gradient descent on a differentiable loss, rather than reweighting misclassified samples. Which technique is this?",
+      "explanation": "Gradient Boosting generalizes boosting to any differentiable loss function by fitting new trees to residual errors, unlike AdaBoost, which reweights misclassified samples and is framed mainly for classification.",
+      "source": "Machine Learning Algorithms/Ensemble Algorithms/🎲 Gradient Boosting.md",
+      "options": [
+        {
+          "text": "Gradient Boosting",
+          "isCorrect": true
+        },
+        {
+          "text": "AdaBoost",
+          "isCorrect": false
+        },
+        {
+          "text": "Stochastic gradient boosting",
+          "isCorrect": false
+        },
+        {
+          "text": "Random Forest",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Random Forest",
+      "explanation": "Random Forest is a bagging ensemble of decision trees: each tree trains on a bootstrapped sample, and only a random subset of features is considered at each split. Trees are trained independently and in parallel, fixing high variance.",
+      "source": "Machine Learning Algorithms/Ensemble Algorithms/🎲 Random Forest.md",
+      "options": [
+        {
+          "text": "A bagging ensemble of decision trees, each trained independently on a bootstrapped sample with a random subset of features.",
+          "isCorrect": true
+        },
+        {
+          "text": "A boosting technique that trains decision trees sequentially, each new tree fitted to the residual errors so far.",
+          "isCorrect": false
+        },
+        {
+          "text": "A boosting algorithm that trains weak learners sequentially, increasing the weight of misclassified observations each round.",
+          "isCorrect": false
+        },
+        {
+          "text": "A single supervised algorithm that recursively splits data on feature thresholds into a tree of decision rules.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A single decision tree is badly overfitting a tabular customer-churn dataset. The team wants many decorrelated trees trained independently in parallel on bootstrapped samples, voting on the final prediction. Which technique fits?",
+      "explanation": "Random Forest bags decision trees on bootstrapped samples with random feature subsets at each split, training them independently and in parallel to reduce the variance that causes a single tree to overfit.",
+      "source": "Machine Learning Algorithms/Ensemble Algorithms/🎲 Random Forest.md",
+      "options": [
+        {
+          "text": "Random Forest",
+          "isCorrect": true
+        },
+        {
+          "text": "Gradient Boosting",
+          "isCorrect": false
+        },
+        {
+          "text": "XGBoost model",
+          "isCorrect": false
+        },
+        {
+          "text": "AdaBoost model",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Stochastic gradient boosting",
+      "explanation": "Stochastic Gradient Boosting extends Gradient Boosting by training each sequential tree on a random subsample of rows (and often columns) rather than the full dataset. This is the mechanism behind XGBoost's subsample hyperparameters.",
+      "source": "Machine Learning Algorithms/Ensemble Algorithms/🎲 stochastic gradient boosting.md",
+      "options": [
+        {
+          "text": "A boosting technique that extends gradient boosting by training each tree on a random subsample of rows and columns.",
+          "isCorrect": true
+        },
+        {
+          "text": "A boosting technique that trains decision trees sequentially on the full dataset, each correcting the prior residual errors.",
+          "isCorrect": false
+        },
+        {
+          "text": "A bagging ensemble that trains decision trees independently and in parallel on bootstrapped samples of the data.",
+          "isCorrect": false
+        },
+        {
+          "text": "A boosting algorithm that trains weak learners sequentially, increasing the weight of previously misclassified observations.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "An XGBoost model is overfitting on training data. The team lowers `subsample` and `colsample_bytree` so each round of trees trains on a random subset of rows and columns instead of the full dataset. Which technique are they applying?",
+      "explanation": "Stochastic gradient boosting extends gradient boosting with row/column subsampling per tree, adding regularization that reduces overfitting; this is exactly the mechanism behind XGBoost's subsample and colsample_bytree hyperparameters.",
+      "source": "Machine Learning Algorithms/Ensemble Algorithms/🎲 stochastic gradient boosting.md",
+      "options": [
+        {
+          "text": "Stochastic gradient boosting",
+          "isCorrect": true
+        },
+        {
+          "text": "AdaBoost-style reweighting",
+          "isCorrect": false
+        },
+        {
+          "text": "Random Forest tree bagging",
+          "isCorrect": false
+        },
+        {
+          "text": "More boosting round count",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "XGBoost (eXtreme Gradient Boosting)",
+      "explanation": "XGBoost is a highly optimized, regularized implementation of Gradient Boosting with built-in row/column subsampling, training an ensemble of trees sequentially to correct residual errors. It adds L1/L2 regularization on top of standard boosting.",
+      "source": "Machine Learning Algorithms/Ensemble Algorithms/🎲 XGBoost (eXtreme Gradient Boosting).md",
+      "options": [
+        {
+          "text": "A highly optimized, regularized implementation of gradient boosting with built-in row and column subsampling and L1/L2 penalties.",
+          "isCorrect": true
+        },
+        {
+          "text": "A boosting technique that trains decision trees sequentially, each new tree fitted to the residual errors so far.",
+          "isCorrect": false
+        },
+        {
+          "text": "A bagging ensemble of decision trees trained independently and in parallel on bootstrapped data samples, reducing variance.",
+          "isCorrect": false
+        },
+        {
+          "text": "A boosting algorithm that trains weak learners sequentially by reweighting the observations misclassified before.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A structured, tabular fraud-detection dataset (not image, text, or time series) needs the algorithm most likely to deliver the best out-of-the-box accuracy on AWS, with built-in L1/L2 regularization layered on top of standard gradient boosting. Which should be chosen?",
+      "explanation": "XGBoost is a highly optimized, regularized implementation of gradient boosting and is the exam's default best-accuracy, general-purpose choice for tabular classification and regression problems.",
+      "source": "Machine Learning Algorithms/Ensemble Algorithms/🎲 XGBoost (eXtreme Gradient Boosting).md",
+      "options": [
+        {
+          "text": "XGBoost model",
+          "isCorrect": true
+        },
+        {
+          "text": "Random Forest",
+          "isCorrect": false
+        },
+        {
+          "text": "AdaBoost",
+          "isCorrect": false
+        },
+        {
+          "text": "Gradient Boosting",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "DeepAR Algorithm",
+      "explanation": "DeepAR is a SageMaker built-in algorithm for time series forecasting that trains a single autoregressive RNN jointly across many related time series, producing probabilistic (not just point) forecasts and helping with cold-start items.",
+      "source": "Machine Learning Algorithms/Forecasting/🎲 DeepAR Algorithm.md",
+      "options": [
+        {
+          "text": "A SageMaker algorithm that trains a single recurrent neural network across many related series, producing probabilistic forecasts.",
+          "isCorrect": true
+        },
+        {
+          "text": "A neural network architecture that maintains a hidden state across time steps to model sequential, time-dependent data.",
+          "isCorrect": false
+        },
+        {
+          "text": "A general family of algorithms that predict a metric's future values from its historical trend and seasonality.",
+          "isCorrect": false
+        },
+        {
+          "text": "A SageMaker algorithm that fits linear regression and classification models together in one unified, configurable algorithm.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A retailer must forecast demand for thousands of related SKUs, including brand-new products with almost no sales history, using a single jointly-trained model that borrows patterns across all products. Which SageMaker built-in algorithm fits?",
+      "explanation": "DeepAR trains one global autoregressive RNN model across many related time series, letting it borrow statistical strength across series and handle cold-start items with little history.",
+      "source": "Machine Learning Algorithms/Forecasting/🎲 DeepAR Algorithm.md",
+      "options": [
+        {
+          "text": "DeepAR algorithm",
+          "isCorrect": true
+        },
+        {
+          "text": "Random Forest",
+          "isCorrect": false
+        },
+        {
+          "text": "K-Means Clustering",
+          "isCorrect": false
+        },
+        {
+          "text": "Linear Learner",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Forecasting models",
+      "explanation": "Forecasting models predict future values of a metric over time, accounting for trend, seasonality, and related covariates. Unlike standard regression, forecasting deals with sequential, time-ordered data requiring time-based splits.",
+      "source": "Machine Learning Algorithms/Forecasting/🎲 Forecasting models.md",
+      "options": [
+        {
+          "text": "A family of algorithms that predicts a metric's future values from historical trend, seasonality, and covariates.",
+          "isCorrect": true
+        },
+        {
+          "text": "A family of supervised algorithms whose target is a continuous number, predicting a value from independent observations.",
+          "isCorrect": false
+        },
+        {
+          "text": "A SageMaker algorithm that trains a single recurrent neural network jointly across many related series to forecast demand.",
+          "isCorrect": false
+        },
+        {
+          "text": "A neural network architecture that maintains a hidden state across time steps to model sequential dependencies.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A dataset consists of sequential, time-ordered sales figures with strong seasonality, and any train/validation split must respect time order rather than shuffling randomly. Which type of model is appropriate?",
+      "explanation": "Forecasting models deal specifically with sequential, time-ordered data and temporal dependencies, requiring time-based splits, unlike standard regression on i.i.d. tabular data.",
+      "source": "Machine Learning Algorithms/Forecasting/🎲 Forecasting models.md",
+      "options": [
+        {
+          "text": "Forecasting model",
+          "isCorrect": true
+        },
+        {
+          "text": "Regression model",
+          "isCorrect": false
+        },
+        {
+          "text": "Classification model",
+          "isCorrect": false
+        },
+        {
+          "text": "Clustering model",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Time series forecasting RNN",
+      "explanation": "A Recurrent Neural Network is a neural network architecture designed for sequential data — it maintains a hidden state carrying information from previous time steps forward. It powers DeepAR under the hood but suffers vanishing gradients over long sequences.",
+      "source": "Machine Learning Algorithms/Forecasting/🎲 time series forecasting RNN.md",
+      "options": [
+        {
+          "text": "A neural network architecture that maintains a hidden state carrying information across time steps to model sequential data.",
+          "isCorrect": true
+        },
+        {
+          "text": "A SageMaker built-in algorithm that trains a single RNN jointly across many related series to produce probabilistic forecasts.",
+          "isCorrect": false
+        },
+        {
+          "text": "A neural network with many stacked hidden layers, letting it learn increasingly abstract feature representations.",
+          "isCorrect": false
+        },
+        {
+          "text": "A general family of layered algorithms built from interconnected nodes with weighted sums and activation functions.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team wants to hand-build a custom sequence model in PyTorch that maintains a hidden state carrying information forward across time steps, to capture long, non-linear temporal patterns in raw sensor data. Which architecture are they implementing?",
+      "explanation": "A recurrent neural network maintains a hidden state across time steps to model temporal dependencies, and is the architecture powering DeepAR under the hood.",
+      "source": "Machine Learning Algorithms/Forecasting/🎲 time series forecasting RNN.md",
+      "options": [
+        {
+          "text": "Recurrent neural network",
+          "isCorrect": true
+        },
+        {
+          "text": "Convolutional neural network",
+          "isCorrect": false
+        },
+        {
+          "text": "Deep neural network",
+          "isCorrect": false
+        },
+        {
+          "text": "Factorization Machines",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Random Search strategy",
+      "explanation": "Random Search is a hyperparameter optimization strategy that samples random combinations of hyperparameter values, rather than exhaustively testing every combination (Grid Search) or learning from prior trials (Bayesian Optimization). It is easy to parallelize since each trial is independent.",
+      "source": "Machine Learning Algorithms/🎲 Random Search strategy.md",
+      "options": [
+        {
+          "text": "A hyperparameter optimization strategy that samples random combinations of values rather than testing every combination.",
+          "isCorrect": true
+        },
+        {
+          "text": "A hyperparameter optimization strategy that exhaustively tests every combination of values across a fixed grid.",
+          "isCorrect": false
+        },
+        {
+          "text": "A hyperparameter optimization strategy that chooses each next combination based on the results of prior trials.",
+          "isCorrect": false
+        },
+        {
+          "text": "An optimization algorithm that iteratively adjusts a model's own parameters in the direction that reduces loss.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A model has many hyperparameters and a generous budget for launching training jobs in parallel, and trials don't need to depend on each other's results. Which SageMaker automatic model tuning strategy fits best?",
+      "explanation": "Random Search samples hyperparameter combinations independently, so trials are easy to parallelize, unlike Bayesian Optimization's sequential, results-dependent search.",
+      "source": "Machine Learning Algorithms/🎲 Random Search strategy.md",
+      "options": [
+        {
+          "text": "Random Search",
+          "isCorrect": true
+        },
+        {
+          "text": "Bayesian search",
+          "isCorrect": false
+        },
+        {
+          "text": "Grid Search",
+          "isCorrect": false
+        },
+        {
+          "text": "Early stopping",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "DeepAR forecasting algorithm",
+      "explanation": "This note covers the SageMaker built-in algorithm specifics of DeepAR: JSON Lines input with a target array plus optional dynamic/categorical features, and key hyperparameters like context_length and prediction_length.",
+      "source": "Machine Learning Algorithms/Supervised learning/🎲DeepAR forecasting algorithm.md",
+      "options": [
+        {
+          "text": "DeepAR's SageMaker implementation, using JSON Lines input with `context_length`/`prediction_length` hyperparameters.",
+          "isCorrect": true
+        },
+        {
+          "text": "A neural network architecture that maintains a hidden state across time steps to model sequential data generally.",
+          "isCorrect": false
+        },
+        {
+          "text": "A SageMaker algorithm for high-dimensional sparse data that models pairwise feature interactions via latent vectors.",
+          "isCorrect": false
+        },
+        {
+          "text": "A SageMaker algorithm that fits linear regression and classification models together in one unified algorithm.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A SageMaker training job needs time series data formatted as JSON Lines records with `start` and `target` fields, and the forecast horizon must be set explicitly. Which hyperparameter controls how far into the future the model forecasts?",
+      "explanation": "DeepAR's prediction_length hyperparameter sets the forecast horizon, while context_length instead controls how much history the model looks back on.",
+      "source": "Machine Learning Algorithms/Supervised learning/🎲DeepAR forecasting algorithm.md",
+      "options": [
+        {
+          "text": "prediction_length",
+          "isCorrect": true
+        },
+        {
+          "text": "context_length",
+          "isCorrect": false
+        },
+        {
+          "text": "early_stopping_rounds",
+          "isCorrect": false
+        },
+        {
+          "text": "min_child_weight",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Factorization machines algorithm",
+      "explanation": "Factorization Machines is a SageMaker built-in algorithm designed for high-dimensional, sparse datasets that efficiently models pairwise feature interactions by learning low-dimensional latent vectors for each feature, commonly used in recommendation systems.",
+      "source": "Machine Learning Algorithms/Supervised learning/🎲Factorization machines algorithm.md",
+      "options": [
+        {
+          "text": "A SageMaker algorithm for high-dimensional sparse data that models pairwise feature interactions using latent vectors.",
+          "isCorrect": true
+        },
+        {
+          "text": "A general-purpose SageMaker algorithm that learns embeddings for pairs of objects, capturing the relationship between them.",
+          "isCorrect": false
+        },
+        {
+          "text": "An instance-based algorithm that predicts a label from a majority vote among an observation's k closest neighbors.",
+          "isCorrect": false
+        },
+        {
+          "text": "A SageMaker algorithm that fits linear regression and classification models together in one unified algorithm.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A recommendation engine must be built from a large, extremely sparse user-item interaction matrix, where most users have interacted with only a tiny fraction of items, and pairwise interactions must be modeled without one-hot-encoding every combination. Which SageMaker built-in algorithm fits?",
+      "explanation": "Factorization Machines efficiently models pairwise feature interactions in high-dimensional, sparse data by learning low-dimensional latent vectors per feature, making it the flagship choice for sparse recommendation matrices.",
+      "source": "Machine Learning Algorithms/Supervised learning/🎲Factorization machines algorithm.md",
+      "options": [
+        {
+          "text": "Factorization Machines",
+          "isCorrect": true
+        },
+        {
+          "text": "Object2Vec algorithm",
+          "isCorrect": false
+        },
+        {
+          "text": "K-Means Clustering algorithm",
+          "isCorrect": false
+        },
+        {
+          "text": "Linear Learner",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "KNN algorithm",
+      "explanation": "k-Nearest Neighbors is a SageMaker built-in algorithm that predicts an observation's output based on the k closest observations in the training data, using majority vote (classification) or averaging (regression). It is non-parametric and distance-based, so feature scaling is essential.",
+      "source": "Machine Learning Algorithms/Supervised learning/🎲KNN algorithm.md",
+      "options": [
+        {
+          "text": "A SageMaker algorithm that predicts an observation's output from a majority vote or average among its k closest neighbors.",
+          "isCorrect": true
+        },
+        {
+          "text": "A SageMaker algorithm that partitions observations into k clusters by iteratively assigning points to the nearest centroid.",
+          "isCorrect": false
+        },
+        {
+          "text": "A bagging ensemble of decision trees, each trained independently on a bootstrapped sample of the data.",
+          "isCorrect": false
+        },
+        {
+          "text": "A SageMaker algorithm for high-dimensional sparse data that models pairwise feature interactions via latent vectors.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A moderately sized, feature-scaled dataset needs a classifier that predicts a new observation's label by majority vote among its k closest labeled neighbors, without building an explicit model at training time. Which algorithm is this?",
+      "explanation": "k-Nearest Neighbors is a non-parametric, instance-based learner that indexes training data and computes distances at prediction time rather than building an explicit trained model.",
+      "source": "Machine Learning Algorithms/Supervised learning/🎲KNN algorithm.md",
+      "options": [
+        {
+          "text": "k-Nearest Neighbors",
+          "isCorrect": true
+        },
+        {
+          "text": "K-Means Clustering",
+          "isCorrect": false
+        },
+        {
+          "text": "Random Forest",
+          "isCorrect": false
+        },
+        {
+          "text": "Logistic regression",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Linear learner algorithm",
+      "explanation": "Linear Learner is a SageMaker built-in algorithm that fits linear models for both regression and classification in a single unified algorithm, trained via distributed gradient descent with built-in L1/L2 regularization support.",
+      "source": "Machine Learning Algorithms/Supervised learning/🎲Linear learner algorithm.md",
+      "options": [
+        {
+          "text": "A SageMaker algorithm that fits linear regression and classification models together in one unified, configurable algorithm.",
+          "isCorrect": true
+        },
+        {
+          "text": "A linear classification algorithm that models the probability of a binary outcome via a sigmoid function.",
+          "isCorrect": false
+        },
+        {
+          "text": "A highly optimized, regularized implementation of gradient boosting for nonlinear tabular data, such as XGBoost.",
+          "isCorrect": false
+        },
+        {
+          "text": "A SageMaker algorithm for high-dimensional sparse data that models pairwise feature interactions via latent vectors.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team wants one SageMaker built-in algorithm that can be configured for either continuous-target regression or binary/multiclass classification, with built-in L1/L2 regularization, as a fast interpretable baseline before trying more complex models. Which algorithm fits?",
+      "explanation": "Linear Learner fits linear regression and logistic classification in one unified algorithm, selected via the predictor_type setting, with L1/L2 regularization tunable as hyperparameters.",
+      "source": "Machine Learning Algorithms/Supervised learning/🎲Linear learner algorithm.md",
+      "options": [
+        {
+          "text": "Linear Learner",
+          "isCorrect": true
+        },
+        {
+          "text": "Random Forest",
+          "isCorrect": false
+        },
+        {
+          "text": "K-Means Clustering",
+          "isCorrect": false
+        },
+        {
+          "text": "Random Cut Forest",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Object2Vec algorithm",
+      "explanation": "Object2Vec is a general-purpose SageMaker built-in algorithm that learns low-dimensional embeddings for pairs of objects, such that the embeddings capture the relationship or similarity between them. It requires labeled pairs to train.",
+      "source": "Machine Learning Algorithms/Supervised learning/🎲Object2Vec algorithm.md",
+      "options": [
+        {
+          "text": "A general-purpose SageMaker algorithm that learns embeddings for pairs of objects, capturing the relationship between them.",
+          "isCorrect": true
+        },
+        {
+          "text": "A SageMaker algorithm built specifically for sparse categorical interaction data, such as recommendation matrices.",
+          "isCorrect": false
+        },
+        {
+          "text": "An unsupervised SageMaker algorithm that discovers latent topics within a collection of documents, such as blog posts.",
+          "isCorrect": false
+        },
+        {
+          "text": "A supervised NLP task that assigns a predefined category or label to a whole document's text content.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team wants to learn reusable embeddings that capture semantic similarity between pairs of customer support questions and their matching answers, to power semantic search. Which SageMaker built-in algorithm is designed for this general-purpose paired-object embedding task?",
+      "explanation": "Object2Vec learns low-dimensional embeddings for pairs of arbitrary objects, including text, capturing their relationship, unlike Factorization Machines which is built specifically for sparse categorical interaction data.",
+      "source": "Machine Learning Algorithms/Supervised learning/🎲Object2Vec algorithm.md",
+      "options": [
+        {
+          "text": "Object2Vec algorithm",
+          "isCorrect": true
+        },
+        {
+          "text": "Factorization Machines",
+          "isCorrect": false
+        },
+        {
+          "text": "Neural Topic Model",
+          "isCorrect": false
+        },
+        {
+          "text": "k-Nearest Neighbors",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "XGBoost algorithm",
+      "explanation": "This note covers the SageMaker built-in algorithm specifics of XGBoost: input formats (CSV, LibSVM, Parquet), key hyperparameters (num_round, max_depth, eta, subsample), and its default objective metrics.",
+      "source": "Machine Learning Algorithms/Supervised learning/🎲XGBoost algorithm.md",
+      "options": [
+        {
+          "text": "The SageMaker implementation of XGBoost, supporting CSV/LibSVM input and hyperparameters like `max_depth` and `eta`.",
+          "isCorrect": true
+        },
+        {
+          "text": "A highly optimized, regularized implementation of gradient boosting with built-in row and column subsampling.",
+          "isCorrect": false
+        },
+        {
+          "text": "A boosting technique that trains decision trees sequentially, each new tree fitted to the residual errors so far.",
+          "isCorrect": false
+        },
+        {
+          "text": "A bagging ensemble of decision trees trained independently and in parallel on bootstrapped data samples.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A SageMaker training job reads CSV data directly from S3 and needs `max_depth` and `eta` tuned via automatic model tuning to maximize `validation:auc` on a binary classification task. Which built-in algorithm's hyperparameters are being tuned?",
+      "explanation": "XGBoost's built-in algorithm accepts CSV/LibSVM/Parquet input from S3 and exposes hyperparameters like max_depth and eta, with validation:auc as its default binary classification objective metric.",
+      "source": "Machine Learning Algorithms/Supervised learning/🎲XGBoost algorithm.md",
+      "options": [
+        {
+          "text": "XGBoost algorithm",
+          "isCorrect": true
+        },
+        {
+          "text": "Linear Learner",
+          "isCorrect": false
+        },
+        {
+          "text": "Factorization Machines",
+          "isCorrect": false
+        },
+        {
+          "text": "Random Cut Forest",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Document classification",
+      "explanation": "Document classification is a supervised NLP task that assigns a predefined category or label to a whole document based on its textual content. On AWS, Amazon Comprehend offers this as a managed service before building a custom SageMaker model.",
+      "source": "Machine Learning Algorithms/Textual analysis/🎲 Document classification.md",
+      "options": [
+        {
+          "text": "A supervised NLP task that assigns a predefined category or label to a whole document based on its text content.",
+          "isCorrect": true
+        },
+        {
+          "text": "An unsupervised algorithm that discovers latent topics within a collection of documents, with no predefined labels.",
+          "isCorrect": false
+        },
+        {
+          "text": "A supervised algorithm family whose target variable is a category, predicting which class an observation belongs to.",
+          "isCorrect": false
+        },
+        {
+          "text": "A general-purpose algorithm that learns embeddings for pairs of objects, capturing the relationship between them.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team has thousands of labeled support tickets, each already tagged with one of five predefined categories, and wants a model that assigns new tickets to those same categories. Which task best describes this?",
+      "explanation": "Document classification is supervised NLP: it assigns text to predefined labels, unlike the Neural Topic Model, which discovers latent topics without any predefined categories.",
+      "source": "Machine Learning Algorithms/Textual analysis/🎲 Document classification.md",
+      "options": [
+        {
+          "text": "Document classification",
+          "isCorrect": true
+        },
+        {
+          "text": "Neural Topic Model",
+          "isCorrect": false
+        },
+        {
+          "text": "Clustering algorithm",
+          "isCorrect": false
+        },
+        {
+          "text": "Association rule learning",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Neural Topic Model (NTM)",
+      "explanation": "Neural Topic Model is a SageMaker built-in unsupervised algorithm that discovers latent topics within a collection of documents, expressing each document as a mixture of topics without predefined labels. The number of topics is a hyperparameter set before training.",
+      "source": "Machine Learning Algorithms/Textual analysis/🎲 Neural Topic Model (NTM).md",
+      "options": [
+        {
+          "text": "A SageMaker unsupervised algorithm that discovers latent topics within documents, with no predefined labels.",
+          "isCorrect": true
+        },
+        {
+          "text": "A supervised NLP task that assigns a predefined category or label to a whole document's text content.",
+          "isCorrect": false
+        },
+        {
+          "text": "A SageMaker algorithm that partitions observations into k clusters by iteratively assigning points to centroids.",
+          "isCorrect": false
+        },
+        {
+          "text": "An unsupervised technique that finds 'if A then B' relationships between items co-occurring in transactions.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A company has thousands of unlabeled customer reviews and wants to automatically discover the hidden themes within them, such as shipping issues or pricing complaints, without any predefined categories. Which SageMaker built-in algorithm fits?",
+      "explanation": "Neural Topic Model is an unsupervised algorithm that discovers latent topics from raw text as distributions over words, unlike document classification, which requires predefined labeled categories.",
+      "source": "Machine Learning Algorithms/Textual analysis/🎲 Neural Topic Model (NTM).md",
+      "options": [
+        {
+          "text": "Neural Topic Model",
+          "isCorrect": true
+        },
+        {
+          "text": "Document classification",
+          "isCorrect": false
+        },
+        {
+          "text": "K-Means Clustering",
+          "isCorrect": false
+        },
+        {
+          "text": "Object2Vec",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Association rule learning",
+      "explanation": "Association rule learning is an unsupervised technique that discovers 'if A, then B' relationships between items that frequently co-occur together in transactions, most commonly associated with market basket analysis. Rules are evaluated using support, confidence, and lift.",
+      "source": "Machine Learning Algorithms/Unsupervised learning/🎲 Association rule learning.md",
+      "options": [
+        {
+          "text": "An unsupervised technique that discovers 'if A then B' relationships between items that co-occur in transactions.",
+          "isCorrect": true
+        },
+        {
+          "text": "An unsupervised technique that groups observations by feature similarity, rather than finding relationships between items.",
+          "isCorrect": false
+        },
+        {
+          "text": "An unsupervised algorithm that detects anomalous observations by how easily they can be isolated in random trees.",
+          "isCorrect": false
+        },
+        {
+          "text": "An unsupervised algorithm that discovers latent topics within a collection of documents, with no predefined labels.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "An analysis of transaction data reveals that customers who buy diapers frequently also buy baby wipes in the same purchase. Which technique should be used to formally discover this kind of item co-occurrence pattern?",
+      "explanation": "Association rule learning discovers if-A-then-B relationships between items that frequently co-occur in the same transaction, evaluated with support, confidence, and lift.",
+      "source": "Machine Learning Algorithms/Unsupervised learning/🎲 Association rule learning.md",
+      "options": [
+        {
+          "text": "Association rule learning",
+          "isCorrect": true
+        },
+        {
+          "text": "Factorization Machines model",
+          "isCorrect": false
+        },
+        {
+          "text": "Clustering algorithm",
+          "isCorrect": false
+        },
+        {
+          "text": "Random Cut Forest (RCF)",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Clustering",
+      "explanation": "Clustering is an unsupervised task that groups observations into clusters based purely on similarity of their features, with no predefined labels. Its quality is judged with internal metrics or domain review, not accuracy/F1.",
+      "source": "Machine Learning Algorithms/Unsupervised learning/🎲 Clustering.md",
+      "options": [
+        {
+          "text": "An unsupervised task that groups observations into clusters based purely on feature similarity.",
+          "isCorrect": true
+        },
+        {
+          "text": "An unsupervised technique that discovers 'if A then B' relationships between items that co-occur in transactions.",
+          "isCorrect": false
+        },
+        {
+          "text": "An unsupervised algorithm that detects anomalous observations by how easily they can be isolated in random trees.",
+          "isCorrect": false
+        },
+        {
+          "text": "A supervised algorithm family whose target variable is a category, predicting a predefined class label.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A retailer wants to segment customers into behavioral groups purely from purchase-pattern features, with no predefined 'correct' segment labels to train against. Which type of task fits?",
+      "explanation": "Clustering groups observations by feature similarity with no ground-truth labels, distinct from association rule learning (relationships between items) and classification (predefined labels).",
+      "source": "Machine Learning Algorithms/Unsupervised learning/🎲 Clustering.md",
+      "options": [
+        {
+          "text": "Clustering task",
+          "isCorrect": true
+        },
+        {
+          "text": "Association rules",
+          "isCorrect": false
+        },
+        {
+          "text": "Random Cut Forest",
+          "isCorrect": false
+        },
+        {
+          "text": "Classification",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "K-Means Clustering",
+      "explanation": "K-Means is a clustering algorithm that partitions observations into k clusters by iteratively assigning each point to its nearest centroid and recalculating centroids until assignments stabilize. It requires choosing k in advance and prior feature scaling.",
+      "source": "Machine Learning Algorithms/Unsupervised learning/🎲 K-Means Clustering.md",
+      "options": [
+        {
+          "text": "A clustering algorithm that partitions observations into k groups by assigning points to the nearest centroid.",
+          "isCorrect": true
+        },
+        {
+          "text": "A supervised algorithm that predicts an observation's output from a majority vote among its k closest neighbors.",
+          "isCorrect": false
+        },
+        {
+          "text": "An unsupervised algorithm that detects anomalous observations by how easily they can be isolated in random trees.",
+          "isCorrect": false
+        },
+        {
+          "text": "An unsupervised task that groups observations by feature similarity, without specifying how the groups are formed.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team needs to group website users into behavioral segments using numeric engagement features, choosing the number of groups in advance via the elbow method, on a SageMaker built-in algorithm optimized to scale to large datasets. Which algorithm fits?",
+      "explanation": "K-Means partitions observations into k clusters by iterative centroid assignment, with k chosen in advance (often via the elbow method) and feature scaling required beforehand.",
+      "source": "Machine Learning Algorithms/Unsupervised learning/🎲 K-Means Clustering.md",
+      "options": [
+        {
+          "text": "K-Means Clustering",
+          "isCorrect": true
+        },
+        {
+          "text": "Random Cut Forest",
+          "isCorrect": false
+        },
+        {
+          "text": "k-Nearest Neighbors",
+          "isCorrect": false
+        },
+        {
+          "text": "Neural Topic Model",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Random Cut Forest (RCF)",
+      "explanation": "Random Cut Forest is a SageMaker built-in unsupervised algorithm for anomaly detection: it builds an ensemble of trees by randomly partitioning the data and scores each observation by how easily it is isolated. It natively supports streaming data.",
+      "source": "Machine Learning Algorithms/Unsupervised learning/🎲 Random Cut Forest (RCF).md",
+      "options": [
+        {
+          "text": "A SageMaker unsupervised algorithm that detects anomalies by scoring how easily each observation is isolated in random trees.",
+          "isCorrect": true
+        },
+        {
+          "text": "A bagging ensemble of decision trees used for supervised classification and regression tasks, such as Random Forest.",
+          "isCorrect": false
+        },
+        {
+          "text": "A clustering algorithm that partitions observations into k groups by iteratively assigning points to centroids.",
+          "isCorrect": false
+        },
+        {
+          "text": "An unsupervised task that groups observations into clusters based purely on feature similarity, such as K-Means.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team must detect unusual spikes in IoT sensor readings streamed in near real time, with no pre-existing labeled dataset of anomalous events to train a supervised classifier on. Which SageMaker built-in algorithm fits, pairing naturally with a Kinesis stream?",
+      "explanation": "Random Cut Forest is an unsupervised anomaly-detection algorithm that scores how anomalous each observation is via a tree ensemble, and natively supports streaming data.",
+      "source": "Machine Learning Algorithms/Unsupervised learning/🎲 Random Cut Forest (RCF).md",
+      "options": [
+        {
+          "text": "Random Cut Forest",
+          "isCorrect": true
+        },
+        {
+          "text": "Random Forest model",
+          "isCorrect": false
+        },
+        {
+          "text": "K-Means Clustering",
+          "isCorrect": false
+        },
+        {
+          "text": "XGBoost model",
+          "isCorrect": false
+        }
+      ]
+    }
+  ]
+}

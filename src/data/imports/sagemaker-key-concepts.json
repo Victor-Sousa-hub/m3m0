@@ -1,0 +1,1342 @@
+{
+  "deck": {
+    "name": "SageMaker",
+    "kind": "key_concepts"
+  },
+  "questions": [
+    {
+      "text": "SageMaker Clarify's Conditional Demographic Disparity (CDD)",
+      "explanation": "CDD is a pre-training bias metric Clarify computes to check whether a sensitive group experiences a disproportionate share of a negative outcome after conditioning on another attribute, avoiding misleading conclusions from confounding variables.",
+      "source": "SageMaker/Data Preparation & Governance/🤖 SageMaker Clarify's Conditional Demographic Disparity (CDD).md",
+      "options": [
+        {
+          "text": "A pre-training bias metric checking whether a sensitive group gets a disproportionate share of a negative outcome after conditioning on another attribute.",
+          "isCorrect": true
+        },
+        {
+          "text": "A pre-training bias metric measuring the raw difference in positive-outcome proportions between two groups, without conditioning on anything else.",
+          "isCorrect": false
+        },
+        {
+          "text": "A pre-training bias metric measuring whether one demographic group is underrepresented relative to another within the raw training dataset.",
+          "isCorrect": false
+        },
+        {
+          "text": "A post-training bias metric measuring the difference in positive-outcome proportions predicted by the trained model between two groups.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team wants to check whether a sensitive demographic group has a disproportionately higher rejection rate than other groups within the same job category, not just overall, before training a resume-screening model. Which SageMaker Clarify pre-training bias metric fits?",
+      "explanation": "Conditional Demographic Disparity (CDD) checks for disproportionate outcomes after conditioning on another attribute (here, job category), avoiding misleading conclusions from that confounder.",
+      "source": "SageMaker/Data Preparation & Governance/🤖 SageMaker Clarify's Conditional Demographic Disparity (CDD).md",
+      "options": [
+        {
+          "text": "Conditional Demographic Disparity (CDD)",
+          "isCorrect": true
+        },
+        {
+          "text": "Difference in Positive Proportions in Labels (DPL)",
+          "isCorrect": false
+        },
+        {
+          "text": "Difference in Conditional Acceptance (DCAcc)",
+          "isCorrect": false
+        },
+        {
+          "text": "Difference in Conditional Rejection (DCR)",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker Clarify",
+      "explanation": "SageMaker Clarify computes pre-training bias metrics on raw data and post-training bias metrics on model predictions, and generates explainability reports using Shapley values and Partial Dependence Plots.",
+      "source": "SageMaker/Data Preparation & Governance/🤖 SageMaker Clarify's.md",
+      "options": [
+        {
+          "text": "SageMaker's bias-detection and explainability tool that computes bias metrics and generates Shapley-value reports.",
+          "isCorrect": true
+        },
+        {
+          "text": "SageMaker's continuous monitoring tool that compares a live endpoint's incoming data and predictions against a baseline to detect drift over time.",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker's visual, low-code tool inside Studio for importing, cleaning, and transforming data before it is used to train a model.",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker's data-labeling service that combines human labelers and automated labeling to build accurate training datasets.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Before training a loan-approval model, a team wants to check whether any demographic group is underrepresented in the training data, then after training wants Shapley-based explanations for individual predictions to confirm fairness. Which single SageMaker capability provides both?",
+      "explanation": "Clarify computes pre-training bias metrics on raw data and post-training bias metrics plus Shapley-value explainability on model predictions, both at a point in time.",
+      "source": "SageMaker/Data Preparation & Governance/🤖 SageMaker Clarify's.md",
+      "options": [
+        {
+          "text": "Amazon SageMaker Clarify",
+          "isCorrect": true
+        },
+        {
+          "text": "SageMaker Model Monitor",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Data Wrangler",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Ground Truth",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker Data Wrangler",
+      "explanation": "Data Wrangler is a visual, low-code tool inside SageMaker Studio offering 300+ built-in transformations plus EDA visualizations, and can export the resulting pipeline as reusable code or a SageMaker Pipelines step.",
+      "source": "SageMaker/Data Preparation & Governance/🤖 SageMaker Data Wrangler.md",
+      "options": [
+        {
+          "text": "A visual, low-code tool inside SageMaker Studio for importing, cleaning, and transforming data, with exportable transformation pipelines.",
+          "isCorrect": true
+        },
+        {
+          "text": "A centralized, managed repository for storing and serving ML features, keeping online and offline stores consistent between training and inference.",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker's bias-detection and explainability tool that computes fairness metrics and generates model explanations for individual predictions.",
+          "isCorrect": false
+        },
+        {
+          "text": "A general-purpose AWS visual data-preparation tool positioned as part of the broader analytics platform rather than the SageMaker workflow.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A data scientist needs to visually explore a raw dataset, fix missing values, one-hot encode categorical columns, and export the resulting transformation as a step in an automated SageMaker Pipeline. Which tool fits this workflow?",
+      "explanation": "Data Wrangler is a visual, low-code tool for EDA and feature engineering that can export a built transformation flow directly as a SageMaker Pipelines step.",
+      "source": "SageMaker/Data Preparation & Governance/🤖 SageMaker Data Wrangler.md",
+      "options": [
+        {
+          "text": "SageMaker Data Wrangler",
+          "isCorrect": true
+        },
+        {
+          "text": "SageMaker Feature Store",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Ground Truth",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Clarify",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker Feature Store",
+      "explanation": "Feature Store provides an online store for low-latency real-time lookups and an offline store of historical features in S3, solving training/serving skew by guaranteeing consistent feature values across both paths.",
+      "source": "SageMaker/Data Preparation & Governance/🤖 SageMaker Feature Store.md",
+      "options": [
+        {
+          "text": "A repository for ML features with an online store for fast lookups and an offline store for training data.",
+          "isCorrect": true
+        },
+        {
+          "text": "A visual, low-code tool inside SageMaker Studio for importing, cleaning, and transforming raw data before it is fed into a training job.",
+          "isCorrect": false
+        },
+        {
+          "text": "A catalog for versioning and approving trained model packages, governing which model version is promoted to production.",
+          "isCorrect": false
+        },
+        {
+          "text": "A data-labeling service that combines human reviewers and automated labeling to build accurate training datasets.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Multiple ML teams need the exact same 'customer lifetime value' feature, computed once and consumed identically by both a real-time fraud-detection endpoint and a nightly batch training job, avoiding training/serving skew. What should they use?",
+      "explanation": "Feature Store centralizes feature definitions and values across an online store (low-latency serving) and an offline store (historical training/batch data), guaranteeing consistency between the two paths.",
+      "source": "SageMaker/Data Preparation & Governance/🤖 SageMaker Feature Store.md",
+      "options": [
+        {
+          "text": "SageMaker Feature Store",
+          "isCorrect": true
+        },
+        {
+          "text": "SageMaker Data Wrangler",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Clarify",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Ground Truth",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker Ground Truth",
+      "explanation": "Ground Truth builds accurate training datasets using human labelers plus automated labeling, with active learning auto-labeling easy examples and routing only low-confidence ones to human reviewers.",
+      "source": "SageMaker/Data Preparation & Governance/🤖 SageMaker Ground Truth.md",
+      "options": [
+        {
+          "text": "A data-labeling service that builds accurate training datasets using human labelers plus automated labeling to reduce cost.",
+          "isCorrect": true
+        },
+        {
+          "text": "A centralized repository that stores and serves ML features consistently between training and real-time inference.",
+          "isCorrect": false
+        },
+        {
+          "text": "A bias-detection and explainability tool that computes fairness metrics on datasets and model predictions.",
+          "isCorrect": false
+        },
+        {
+          "text": "A visual, low-code tool for exploring and transforming raw data before training, offering built-in data-quality reports.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A company has millions of unlabeled images and needs a cost-effective way to produce a high-quality labeled training set for a custom object-detection model, mixing human reviewers with automated labeling to control cost. What should they use?",
+      "explanation": "Ground Truth builds labeled training datasets using a mix of human labelers and active learning, where a model auto-labels easy examples and sends only low-confidence ones to humans, cutting labeling cost.",
+      "source": "SageMaker/Data Preparation & Governance/🤖 SageMaker Ground Truth.md",
+      "options": [
+        {
+          "text": "SageMaker Ground Truth",
+          "isCorrect": true
+        },
+        {
+          "text": "SageMaker Clarify",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Data Wrangler",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Feature Store",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker Asynchronous Inference",
+      "explanation": "Asynchronous Inference queues requests and processes them in the background, supporting payloads up to 1 GB and processing times up to an hour, and can scale to zero when the queue is empty.",
+      "source": "SageMaker/Inference & Deployment/🤖 SageMaker Asynchronous Inference.md",
+      "options": [
+        {
+          "text": "An inference option that queues requests and processes them in the background, supporting large payloads and long processing times, scaling to zero when idle.",
+          "isCorrect": true
+        },
+        {
+          "text": "An inference option that deploys a model behind a persistent, always-on endpoint returning predictions with low, consistent latency for each request.",
+          "isCorrect": false
+        },
+        {
+          "text": "An inference option that automatically provisions and scales compute on demand, including to zero, for relatively quick, synchronous requests with unpredictable traffic.",
+          "isCorrect": false
+        },
+        {
+          "text": "An offline inference option that scores an entire dataset stored in S3 at once, with no persistent endpoint required.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A computer vision model processes large video files, taking several minutes per request, and callers should be notified once each result is ready rather than waiting on an open connection. Which inference option fits, without needing an always-on low-latency endpoint?",
+      "explanation": "Asynchronous Inference queues large-payload, long-running requests and delivers results asynchronously (e.g. via SNS), sitting between real-time and batch transform on the latency spectrum.",
+      "source": "SageMaker/Inference & Deployment/🤖 SageMaker Asynchronous Inference.md",
+      "options": [
+        {
+          "text": "SageMaker Asynchronous Inference",
+          "isCorrect": true
+        },
+        {
+          "text": "SageMaker Real-time Inference",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Serverless Inference",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker batch transform",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker batch transform",
+      "explanation": "Batch transform runs offline, one-time inference on an entire dataset stored in S3, writing predictions back to S3 with no persistent endpoint and no ongoing hosting cost between jobs.",
+      "source": "SageMaker/Inference & Deployment/🤖 SageMaker batch transform.md",
+      "options": [
+        {
+          "text": "An offline inference option that runs one-time predictions on an entire dataset stored in S3 at once, with no persistent endpoint required.",
+          "isCorrect": true
+        },
+        {
+          "text": "An inference option that deploys a model behind a persistent, always-on endpoint for low-latency predictions on individual requests.",
+          "isCorrect": false
+        },
+        {
+          "text": "An inference option that queues requests and processes them in the background, supporting large payloads and long processing times.",
+          "isCorrect": false
+        },
+        {
+          "text": "An inference option that automatically scales compute to zero when idle, best suited for intermittent, unpredictable synchronous traffic.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team needs to score millions of customer records once a night for a churn-prediction report, with no need for instant results, and wants to avoid paying for a real-time endpoint that would sit idle the rest of the day. What should they use?",
+      "explanation": "Batch transform runs offline inference on an entire S3 dataset at once with no persistent endpoint, so compute is provisioned only for the duration of the job.",
+      "source": "SageMaker/Inference & Deployment/🤖 SageMaker batch transform.md",
+      "options": [
+        {
+          "text": "Amazon SageMaker batch transform",
+          "isCorrect": true
+        },
+        {
+          "text": "SageMaker Real-time Inference",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Asynchronous Inference",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Serverless Inference",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker Neo",
+      "explanation": "SageMaker Neo compiles and optimizes a trained model to run faster, with a smaller footprint, on a specific target hardware platform, including edge devices, without losing accuracy, and pairs with the lightweight Neo-AI (dlr) runtime.",
+      "source": "SageMaker/Inference & Deployment/🤖 SageMaker Neo.md",
+      "options": [
+        {
+          "text": "A service that compiles and optimizes a trained model to run faster, with a smaller footprint, on a specific target hardware platform.",
+          "isCorrect": true
+        },
+        {
+          "text": "A service that automatically optimizes deep learning training code to run faster on GPU instances, reducing training time and cost.",
+          "isCorrect": false
+        },
+        {
+          "text": "A model hub offering pre-built, pre-trained models and solution templates that can be deployed directly or fine-tuned.",
+          "isCorrect": false
+        },
+        {
+          "text": "An AutoML capability that explores algorithms and hyperparameters on a tabular dataset and produces ranked candidate models.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A trained image-classification model needs to run efficiently on a resource-constrained edge camera with limited compute, using the same trained model that also runs on a cloud GPU instance. What should the team use to prepare the model for the edge target?",
+      "explanation": "SageMaker Neo compiles and optimizes a trained model for a specific target hardware platform, including edge/embedded devices, and pairs with the lightweight Neo runtime on-device.",
+      "source": "SageMaker/Inference & Deployment/🤖 SageMaker Neo.md",
+      "options": [
+        {
+          "text": "Amazon SageMaker Neo service",
+          "isCorrect": true
+        },
+        {
+          "text": "SageMaker Training Compiler",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Real-time Inference",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Serverless Inference",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker Real-time Inference",
+      "explanation": "Real-time Inference deploys a model behind a persistent, always-on HTTPS endpoint with low, consistent millisecond latency, best suited for sustained, predictable traffic, and you pay for the endpoint 24/7.",
+      "source": "SageMaker/Inference & Deployment/🤖 SageMaker Real-time Inference.md",
+      "options": [
+        {
+          "text": "An inference option that deploys a model behind a persistent, always-on endpoint, returning predictions with low, consistent latency for each request.",
+          "isCorrect": true
+        },
+        {
+          "text": "An inference option that automatically provisions and scales compute on demand, including to zero when idle, for intermittent traffic.",
+          "isCorrect": false
+        },
+        {
+          "text": "An inference option that queues incoming requests and delivers results asynchronously, supporting large payloads and long processing times.",
+          "isCorrect": false
+        },
+        {
+          "text": "An offline inference option that scores an entire dataset at once and writes predictions back to storage, with no endpoint kept running.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A fraud-detection system must score each transaction in milliseconds as it happens, under continuous, high, predictable traffic. Which inference option meets this latency and throughput profile?",
+      "explanation": "Real-time Inference deploys a persistent, always-on endpoint with the lowest, most consistent latency, best suited for sustained, predictable traffic.",
+      "source": "SageMaker/Inference & Deployment/🤖 SageMaker Real-time Inference.md",
+      "options": [
+        {
+          "text": "SageMaker Real-time Inference",
+          "isCorrect": true
+        },
+        {
+          "text": "SageMaker Serverless Inference",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Asynchronous Inference",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker batch transform",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker's Blue/Green Deployment",
+      "explanation": "SageMaker's blue/green deployment stands up a new fleet running the updated model alongside the existing fleet, shifts traffic over (all-at-once, canary, or linear), and only terminates the old fleet once the new one is confirmed healthy.",
+      "source": "SageMaker/Inference & Deployment/🤖 SageMaker's blue green.md",
+      "options": [
+        {
+          "text": "An endpoint update strategy that stands up a new fleet with the updated model, shifts traffic over gradually, and terminates the old fleet once healthy.",
+          "isCorrect": true
+        },
+        {
+          "text": "A mechanism that automatically tracks and preserves distinct versions of model packages, pipeline definitions, and endpoint configurations so a prior version can be restored.",
+          "isCorrect": false
+        },
+        {
+          "text": "A catalog for versioning and approving trained model packages, governing which specific model version is promoted to a production endpoint.",
+          "isCorrect": false
+        },
+        {
+          "text": "An inference option that deploys a model behind a single, persistent endpoint, returning predictions with low, consistent latency for individual requests.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team must update a live fraud-detection endpoint to a newly trained model with zero downtime, shifting only 10% of traffic to the new version first and automatically rolling back if error rates spike. What deployment strategy does this describe?",
+      "explanation": "Blue/green deployment stands up a new fleet alongside the existing one and shifts traffic (canary, linear, or all-at-once), with automatic rollback if CloudWatch alarms detect a problem during the shift.",
+      "source": "SageMaker/Inference & Deployment/🤖 SageMaker's blue green.md",
+      "options": [
+        {
+          "text": "SageMaker blue/green deployment",
+          "isCorrect": true
+        },
+        {
+          "text": "SageMaker Model Registry",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker's built-in versioning",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Real-time Inference",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker Serverless Inference",
+      "explanation": "Serverless Inference automatically provisions, scales, and tears down compute on demand, including scaling to zero when idle, so you pay only for actual inference requests, at the cost of cold-start latency.",
+      "source": "SageMaker/Inference & Deployment/🤖 SageMaker Serverless Inference.md",
+      "options": [
+        {
+          "text": "An inference option that automatically provisions and scales compute on demand, including to zero when idle, billed only for actual requests.",
+          "isCorrect": true
+        },
+        {
+          "text": "An inference option that deploys a model behind a persistent, always-on endpoint, returning predictions with low, consistent latency for individual requests.",
+          "isCorrect": false
+        },
+        {
+          "text": "An inference option that queues incoming requests and processes them in the background, supporting large payloads and long processing times.",
+          "isCorrect": false
+        },
+        {
+          "text": "An offline inference option that scores an entire dataset stored in S3 at once, with no persistent endpoint required.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "An internal tool receives inference requests sporadically, with bursts followed by long idle periods, and the team wants to avoid paying for compute during the idle stretches while still handling the bursts automatically. Which inference option fits best?",
+      "explanation": "Serverless Inference auto-provisions and scales compute on demand, including scaling to zero when idle, trading away consistent low latency for cost savings during unpredictable traffic.",
+      "source": "SageMaker/Inference & Deployment/🤖 SageMaker Serverless Inference.md",
+      "options": [
+        {
+          "text": "SageMaker Serverless Inference",
+          "isCorrect": true
+        },
+        {
+          "text": "SageMaker Real-time Inference",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Asynchronous Inference",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker batch transform",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker Lineage Tracking",
+      "explanation": "Lineage Tracking automatically records the provenance of every artifact in an ML workflow, tracing which dataset, processing job, code, and hyperparameters produced a model, creating a traceable graph useful for audits and reproducibility.",
+      "source": "SageMaker/MLOps & Monitoring/🤖 SageMaker Lineage Tracking.md",
+      "options": [
+        {
+          "text": "A feature that records the provenance of every artifact in an ML workflow, tracing which dataset, code, and hyperparameters produced a model.",
+          "isCorrect": true
+        },
+        {
+          "text": "A feature that tracks and lets you compare the inputs, parameters, and metrics of multiple training runs to see which configuration performed best.",
+          "isCorrect": false
+        },
+        {
+          "text": "A feature that captures and analyzes internal training state, such as gradients and loss, in near real time to detect problems within a single training run.",
+          "isCorrect": false
+        },
+        {
+          "text": "A centralized view that consolidates monitoring alerts and governance information across all deployed models in an account.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A regulated financial institution must be able to prove, for any deployed model, exactly which dataset version, preprocessing code, and hyperparameters were used to train it, automatically and without manual tagging. Which SageMaker feature provides this?",
+      "explanation": "Lineage Tracking automatically records the provenance of every artifact in a workflow, creating a traceable graph from raw data to deployed endpoint for audit and reproducibility.",
+      "source": "SageMaker/MLOps & Monitoring/🤖 SageMaker Lineage Tracking.md",
+      "options": [
+        {
+          "text": "SageMaker Lineage Tracking",
+          "isCorrect": true
+        },
+        {
+          "text": "SageMaker Experiments",
+          "isCorrect": false
+        },
+        {
+          "text": "Amazon SageMaker Debugger",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Model Dashboard",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker Model Dashboard",
+      "explanation": "Model Dashboard is a centralized, unified view of all deployed models across an account, surfacing each model's Model Monitor alerts, endpoint status, and lineage/governance information without computing new metrics itself.",
+      "source": "SageMaker/MLOps & Monitoring/🤖 SageMaker Model Dashboard.md",
+      "options": [
+        {
+          "text": "A centralized view of all deployed models in an account, surfacing each model's monitoring alerts and governance information.",
+          "isCorrect": true
+        },
+        {
+          "text": "A service that continuously monitors a single deployed endpoint's live data and predictions against a baseline to detect drift.",
+          "isCorrect": false
+        },
+        {
+          "text": "A catalog for versioning and approving trained model packages, including an approval workflow, before promotion to a production endpoint.",
+          "isCorrect": false
+        },
+        {
+          "text": "A feature that automatically records the provenance of every artifact in an ML workflow, from raw training data all the way to a deployed model.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A platform team governing dozens of production models wants one place to see which of them currently have active drift or bias alerts, without checking each endpoint's monitoring individually. What should they use?",
+      "explanation": "Model Dashboard is a governance/observability aggregation layer that consolidates existing signals from Model Monitor and Lineage Tracking into one account-wide view, rather than computing new metrics itself.",
+      "source": "SageMaker/MLOps & Monitoring/🤖 SageMaker Model Dashboard.md",
+      "options": [
+        {
+          "text": "SageMaker Model Dashboard",
+          "isCorrect": true
+        },
+        {
+          "text": "SageMaker Model Monitor",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Lineage Tracking",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Model Registry",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker Model Monitor",
+      "explanation": "Model Monitor continuously compares a deployed endpoint's live inference data and predictions against a baseline to automatically detect data quality, model quality, bias, and feature-attribution drift, raising CloudWatch alarms on violations.",
+      "source": "SageMaker/MLOps & Monitoring/🤖 SageMaker Model Monitor.md",
+      "options": [
+        {
+          "text": "A service that monitors a deployed endpoint's data and predictions against a baseline, detecting bias and attribution drift.",
+          "isCorrect": true
+        },
+        {
+          "text": "A tool that computes bias-detection and explainability metrics on a dataset or model's predictions at a single point in time, such as before or after training.",
+          "isCorrect": false
+        },
+        {
+          "text": "A centralized dashboard that consolidates monitoring alerts and governance information across all deployed models in an account.",
+          "isCorrect": false
+        },
+        {
+          "text": "A feature that automatically records the provenance of every artifact in an ML workflow, from raw dataset to deployed endpoint.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A live credit-scoring endpoint needs continuous, automated detection of both declining prediction accuracy and emerging unfairness over time, alerting the team through CloudWatch when a baseline is violated. Which SageMaker feature provides this ongoing monitoring?",
+      "explanation": "Model Monitor continuously compares an endpoint's live data and predictions against a baseline to detect data quality, model quality, bias, and feature-attribution drift, raising CloudWatch alarms on violations.",
+      "source": "SageMaker/MLOps & Monitoring/🤖 SageMaker Model Monitor.md",
+      "options": [
+        {
+          "text": "SageMaker Model Monitor",
+          "isCorrect": true
+        },
+        {
+          "text": "SageMaker Clarify",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Model Dashboard",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Lineage Tracking",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker Model Registry",
+      "explanation": "Model Registry is a catalog for versioning, approving, and tracking trained model packages, providing an approval workflow (e.g. PendingManualApproval) that governs which model version reaches production.",
+      "source": "SageMaker/MLOps & Monitoring/🤖 SageMaker Model Registry.md",
+      "options": [
+        {
+          "text": "A catalog for versioning and approving trained model packages, with a manual approval gate governing which version deploys.",
+          "isCorrect": true
+        },
+        {
+          "text": "The broader mechanism that automatically tracks and preserves distinct versions of artifacts such as model packages, pipeline definitions, and endpoint configurations.",
+          "isCorrect": false
+        },
+        {
+          "text": "A CI/CD and orchestration service that defines and automates an end-to-end ML workflow of processing, training, tuning, and deployment steps.",
+          "isCorrect": false
+        },
+        {
+          "text": "An endpoint update strategy that runs the updated model alongside the existing model and gradually shifts traffic over to it.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A regulated organization requires a human to explicitly review and approve a model's evaluation metrics before it can be deployed to production, as part of an automated retraining pipeline. Which feature enforces this approval gate?",
+      "explanation": "Model Registry catalogs trained model packages and supports an approval workflow, where a version can be marked PendingManualApproval and only deployed once explicitly approved.",
+      "source": "SageMaker/MLOps & Monitoring/🤖 SageMaker Model Registry.md",
+      "options": [
+        {
+          "text": "SageMaker Model Registry",
+          "isCorrect": true
+        },
+        {
+          "text": "SageMaker's built-in versioning",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Pipelines",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Model Dashboard",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker Pipelines",
+      "explanation": "SageMaker Pipelines is a purpose-built CI/CD and orchestration service for ML that defines an end-to-end workflow of processing, training, tuning, evaluation, registration, and deployment as a repeatable, versioned pipeline visualized as a DAG.",
+      "source": "SageMaker/MLOps & Monitoring/🤖 SageMaker Pipelines.md",
+      "options": [
+        {
+          "text": "A CI/CD and orchestration service for ML that defines and automates an end-to-end workflow as a repeatable, versioned pipeline visualized as a DAG.",
+          "isCorrect": true
+        },
+        {
+          "text": "A catalog for versioning and approving trained model packages, governing which model version is deployed to production.",
+          "isCorrect": false
+        },
+        {
+          "text": "A feature that automatically records the provenance of every artifact in a workflow, tracing which dataset and code produced a specific model.",
+          "isCorrect": false
+        },
+        {
+          "text": "A service that continuously monitors a deployed endpoint's live data and predictions against a baseline to detect drift over time.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team wants to automate the full retraining process for a fraud model, from data processing through evaluation to registering a new model version, so it runs consistently and reproducibly every time new labeled data arrives. Which service orchestrates this?",
+      "explanation": "SageMaker Pipelines defines and automates an end-to-end ML workflow as a repeatable, versioned pipeline, with first-class Studio integration and step caching to skip unchanged steps.",
+      "source": "SageMaker/MLOps & Monitoring/🤖 SageMaker Pipelines.md",
+      "options": [
+        {
+          "text": "SageMaker Pipelines",
+          "isCorrect": true
+        },
+        {
+          "text": "AWS Step Functions",
+          "isCorrect": false
+        },
+        {
+          "text": "AWS CodePipeline",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Model Registry",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker built-in model versioning",
+      "explanation": "SageMaker's built-in versioning automatically tracks and preserves distinct versions of artifacts like model packages, pipeline definitions, and endpoint configurations, so a prior version stays available for comparison or rollback.",
+      "source": "SageMaker/MLOps & Monitoring/🤖 SageMaker's built-in versioning.md",
+      "options": [
+        {
+          "text": "A mechanism that automatically tracks and preserves distinct versions of ML artifacts, such as model packages, enabling rollback.",
+          "isCorrect": true
+        },
+        {
+          "text": "A catalog specifically for versioning and approving trained model packages, providing the approval gate that governs which version reaches production.",
+          "isCorrect": false
+        },
+        {
+          "text": "A feature that records the provenance of an artifact, tracing which dataset, code, and hyperparameters produced it, rather than tracking that multiple versions exist.",
+          "isCorrect": false
+        },
+        {
+          "text": "An endpoint update strategy that runs the updated model alongside the existing model and gradually shifts traffic between the two.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "After a new model version causes unexpected prediction errors in production, a team needs to quickly restore the endpoint to the last known-good model package and configuration. What underlying mechanism makes that prior version available to restore?",
+      "explanation": "SageMaker's built-in versioning automatically tracks and preserves prior versions of model packages, pipeline definitions, and endpoint configurations, enabling comparison, audit, or rollback.",
+      "source": "SageMaker/MLOps & Monitoring/🤖 SageMaker's built-in versioning.md",
+      "options": [
+        {
+          "text": "SageMaker's built-in versioning",
+          "isCorrect": true
+        },
+        {
+          "text": "Amazon SageMaker Model Registry",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Lineage Tracking",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker blue/green deployment",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Amazon SageMaker",
+      "explanation": "Amazon SageMaker is AWS's fully managed platform for building, training, tuning, and deploying custom ML models, orchestrating underlying infrastructure like EC2 instances and auto-scaling so you don't have to manage it yourself.",
+      "source": "SageMaker/Studio & AutoML/🤖 Amazon SageMaker.md",
+      "options": [
+        {
+          "text": "AWS's fully managed platform for building, training, tuning, and deploying custom machine learning models, handling the underlying infrastructure automatically.",
+          "isCorrect": true
+        },
+        {
+          "text": "The umbrella platform's web-based IDE that provides a single interface with notebooks, experiment tracking, and pipeline visualization for the ML lifecycle.",
+          "isCorrect": false
+        },
+        {
+          "text": "A no-code, visual tool that lets business analysts build and generate predictions from ML models through a point-and-click interface.",
+          "isCorrect": false
+        },
+        {
+          "text": "A model hub offering pre-built, pre-trained models and solution templates that can be deployed directly or fine-tuned on your own data.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team needs to train a custom model on their own labeled data, not just call a pre-trained AI API, and wants a managed platform that handles the underlying training and hosting infrastructure for them. Which service is this?",
+      "explanation": "Amazon SageMaker is AWS's fully managed platform covering the entire ML workflow for building, training, and deploying custom models, orchestrating infrastructure like EC2 and auto-scaling behind the scenes.",
+      "source": "SageMaker/Studio & AutoML/🤖 Amazon SageMaker.md",
+      "options": [
+        {
+          "text": "Amazon SageMaker",
+          "isCorrect": true
+        },
+        {
+          "text": "Amazon Rekognition",
+          "isCorrect": false
+        },
+        {
+          "text": "Amazon Comprehend",
+          "isCorrect": false
+        },
+        {
+          "text": "Amazon Bedrock",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker Autopilot",
+      "explanation": "SageMaker Autopilot is AutoML that, given a tabular dataset and target column, automatically explores algorithms and hyperparameters and produces ranked candidate models along with the generated notebooks showing exactly how each was built.",
+      "source": "SageMaker/Studio & AutoML/🤖 SageMaker Autopilot.md",
+      "options": [
+        {
+          "text": "An AutoML capability that, given a dataset, explores algorithms and hyperparameters, producing ranked models with notebooks.",
+          "isCorrect": true
+        },
+        {
+          "text": "A no-code, visual tool that lets business analysts build and generate predictions from models through a point-and-click interface, without writing any code.",
+          "isCorrect": false
+        },
+        {
+          "text": "A model hub offering pre-built, pre-trained models and solution templates that can be deployed directly or fine-tuned with a few clicks.",
+          "isCorrect": false
+        },
+        {
+          "text": "A web-based integrated development environment providing notebooks, experiment tracking, and pipeline visualization for the full ML lifecycle.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A data scientist wants to quickly establish a strong AutoML baseline for a new tabular classification problem, but also needs to see and audit the actual preprocessing and training code that was generated, not just a black-box prediction. Which tool fits?",
+      "explanation": "Autopilot automatically explores algorithms and hyperparameters and produces multiple ranked candidate models along with the generated notebooks showing exactly how each was built.",
+      "source": "SageMaker/Studio & AutoML/🤖 SageMaker Autopilot.md",
+      "options": [
+        {
+          "text": "SageMaker Autopilot",
+          "isCorrect": true
+        },
+        {
+          "text": "SageMaker Canvas",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker JumpStart",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Studio Classic",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker Canvas",
+      "explanation": "SageMaker Canvas is a no-code, visual ML tool letting business analysts build, train, and generate predictions through a point-and-click interface; under the hood it uses Autopilot but hides the code from the user.",
+      "source": "SageMaker/Studio & AutoML/🤖 SageMaker Canvas.md",
+      "options": [
+        {
+          "text": "A no-code, visual ML tool for business analysts to build, train, and generate predictions through a point-and-click interface.",
+          "isCorrect": true
+        },
+        {
+          "text": "An AutoML capability that automatically explores algorithms and hyperparameters on a tabular dataset and produces ranked candidate models with generated notebooks.",
+          "isCorrect": false
+        },
+        {
+          "text": "A model hub offering pre-built, pre-trained models and solution templates that can be deployed directly or fine-tuned on your own data.",
+          "isCorrect": false
+        },
+        {
+          "text": "A web-based integrated development environment providing notebooks, experiment tracking, and debugging for the full ML lifecycle.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A marketing analyst with no programming or ML background wants to upload a spreadsheet of customer data and get churn predictions without involving a data science team. Which tool is designed for this?",
+      "explanation": "Canvas is a no-code, point-and-click ML tool for business analysts to build models and generate predictions, using Autopilot under the hood while hiding all code and infrastructure.",
+      "source": "SageMaker/Studio & AutoML/🤖 SageMaker Canvas.md",
+      "options": [
+        {
+          "text": "Amazon SageMaker Canvas",
+          "isCorrect": true
+        },
+        {
+          "text": "SageMaker Autopilot",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Studio Classic",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker JumpStart",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker Image",
+      "explanation": "A SageMaker (custom) image is a packaged environment built from a Docker container that can be attached to SageMaker Studio so users can launch notebooks or kernels with specific libraries or frameworks pre-installed.",
+      "source": "SageMaker/Studio & AutoML/🤖 SageMaker image.md",
+      "options": [
+        {
+          "text": "A packaged environment built from a Docker container, attached to SageMaker Studio so users can launch notebooks with specific libraries pre-installed.",
+          "isCorrect": true
+        },
+        {
+          "text": "The web-based integrated development environment itself, providing notebooks, experiment tracking, and pipeline visualization for the ML lifecycle.",
+          "isCorrect": false
+        },
+        {
+          "text": "An AutoML capability that automatically explores algorithms and hyperparameters and produces ranked candidate models with generated notebooks.",
+          "isCorrect": false
+        },
+        {
+          "text": "A no-code, visual tool that lets business analysts build and generate predictions from models without writing any code.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "An administrator wants every data scientist's Studio notebook to start with a specific set of internal Python packages and a pinned deep learning framework already installed, instead of each person installing them manually every session. What should the admin attach to Studio?",
+      "explanation": "A custom SageMaker image is a Docker-based environment definition attached to Studio so notebooks launch with specific libraries and dependencies pre-installed, beyond the default managed images.",
+      "source": "SageMaker/Studio & AutoML/🤖 SageMaker image.md",
+      "options": [
+        {
+          "text": "A custom Docker-based SageMaker Studio image",
+          "isCorrect": true
+        },
+        {
+          "text": "A Bring Your Own Container (BYOC) training image",
+          "isCorrect": false
+        },
+        {
+          "text": "A SageMaker JumpStart solution template",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Studio Classic itself",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker JumpStart",
+      "explanation": "SageMaker JumpStart is a model hub offering pre-built, pre-trained models and solution templates, including foundation models, that can be deployed directly or fine-tuned on your own data with a few clicks.",
+      "source": "SageMaker/Studio & AutoML/🤖 SageMaker JumpStart.md",
+      "options": [
+        {
+          "text": "A model hub within SageMaker offering pre-built, pre-trained models and solution templates that can be deployed directly or fine-tuned on your data.",
+          "isCorrect": true
+        },
+        {
+          "text": "An AutoML capability that automatically explores algorithms and hyperparameters on a tabular dataset and produces ranked candidate models.",
+          "isCorrect": false
+        },
+        {
+          "text": "A no-code, visual tool that lets business analysts build, train, and generate predictions from models through a point-and-click interface.",
+          "isCorrect": false
+        },
+        {
+          "text": "A web-based integrated development environment providing notebooks, experiment tracking, and pipeline visualization for the ML lifecycle.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team wants to fine-tune a pretrained NLP or vision model on their own labeled dataset instead of training from scratch, working directly within SageMaker Studio notebooks and endpoints. Which SageMaker feature provides the pretrained starting point?",
+      "explanation": "JumpStart is a model hub offering pre-built, pre-trained models and solution templates that can be deployed directly or fine-tuned on your own data inside the SageMaker workflow.",
+      "source": "SageMaker/Studio & AutoML/🤖 SageMaker JumpStart.md",
+      "options": [
+        {
+          "text": "SageMaker JumpStart",
+          "isCorrect": true
+        },
+        {
+          "text": "Amazon Bedrock",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Autopilot",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Canvas tool",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker Studio Classic",
+      "explanation": "SageMaker Studio Classic is the original web-based IDE for ML, providing one interface with notebooks, experiment tracking, model debugging, and pipeline DAG visualization for the full ML lifecycle.",
+      "source": "SageMaker/Studio & AutoML/🤖 SageMaker Studio Classic.md",
+      "options": [
+        {
+          "text": "The original web-based IDE for ML, providing one interface with notebooks, experiment tracking, debugging, and pipeline visualization.",
+          "isCorrect": true
+        },
+        {
+          "text": "A no-code, visual tool that lets business analysts build, train, and generate predictions from models through a point-and-click interface.",
+          "isCorrect": false
+        },
+        {
+          "text": "A model hub offering pre-built, pre-trained models and solution templates that can be deployed directly or fine-tuned.",
+          "isCorrect": false
+        },
+        {
+          "text": "An AutoML capability that automatically explores algorithms and hyperparameters on a tabular dataset and produces ranked candidate models.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A data scientist needs one integrated environment to write training code, track experiments, debug training jobs, and visualize a pipeline DAG, without switching between separate standalone tools. Which SageMaker component is this?",
+      "explanation": "Studio Classic is the notebook-centric IDE that integrates directly with Experiments, Debugger, Pipelines, and Model Registry in one UI, running notebooks on elastic compute decoupled from storage.",
+      "source": "SageMaker/Studio & AutoML/🤖 SageMaker Studio Classic.md",
+      "options": [
+        {
+          "text": "SageMaker Studio Classic",
+          "isCorrect": true
+        },
+        {
+          "text": "Amazon SageMaker Canvas",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker JumpStart",
+          "isCorrect": false
+        },
+        {
+          "text": "Amazon SageMaker Experiments",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker Debugger",
+      "explanation": "SageMaker Debugger automatically captures and analyzes internal training state, such as tensors, gradients, weights, and loss, in near real time, detecting issues like vanishing/exploding gradients and underutilized hardware within a single run.",
+      "source": "SageMaker/Training & Tuning/🤖 SageMaker Debugger.md",
+      "options": [
+        {
+          "text": "A feature that captures and analyzes internal training state, such as gradients, weights, and loss, in near real time to detect issues within a single training run.",
+          "isCorrect": true
+        },
+        {
+          "text": "A feature that tracks and compares the inputs, parameters, and metrics of multiple training runs to identify which configuration performed best.",
+          "isCorrect": false
+        },
+        {
+          "text": "A feature that automatically records the provenance of every artifact in a workflow, tracing which dataset and code produced a specific trained model.",
+          "isCorrect": false
+        },
+        {
+          "text": "A service that continuously monitors a deployed endpoint's live data and predictions against a baseline to detect drift after deployment.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A deep learning training job's loss isn't decreasing as expected, and the team needs to see what's happening inside that specific run to find out gradients are vanishing partway through. Which tool surfaces this?",
+      "explanation": "Debugger automatically captures and analyzes internal training state like tensors and gradients in near real time, detecting issues such as vanishing gradients without manual instrumentation.",
+      "source": "SageMaker/Training & Tuning/🤖 SageMaker Debugger.md",
+      "options": [
+        {
+          "text": "Amazon SageMaker Debugger",
+          "isCorrect": true
+        },
+        {
+          "text": "SageMaker Experiments",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Lineage Tracking",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Training Compiler",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker Experiments",
+      "explanation": "SageMaker Experiments automatically tracks, organizes, and lets you compare the inputs, parameters, and metrics of multiple training runs to see which configuration produced the best model.",
+      "source": "SageMaker/Training & Tuning/🤖 SageMaker Experiments.md",
+      "options": [
+        {
+          "text": "A feature that tracks and lets you compare the inputs, parameters, and metrics of multiple training runs to find the best configuration.",
+          "isCorrect": true
+        },
+        {
+          "text": "A feature that captures and analyzes internal training state, such as gradients and loss, in near real time to detect issues within a single training run.",
+          "isCorrect": false
+        },
+        {
+          "text": "A feature that automatically records the provenance of every artifact in a workflow, tracing which dataset and code produced a specific model.",
+          "isCorrect": false
+        },
+        {
+          "text": "A managed implementation of hyperparameter optimization that launches many training jobs with different combinations to find the best one.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A data scientist runs dozens of training jobs while manually tuning feature sets and hyperparameters, and wants to visually compare their metrics side by side to identify the best-performing configuration. Which tool tracks and compares these runs?",
+      "explanation": "Experiments tracks and compares metadata, parameters, and metrics across many training runs, distinct from tuning jobs which search for hyperparameters, and from Debugger which inspects a single run's internals.",
+      "source": "SageMaker/Training & Tuning/🤖 SageMaker Experiments.md",
+      "options": [
+        {
+          "text": "Amazon SageMaker Experiments",
+          "isCorrect": true
+        },
+        {
+          "text": "SageMaker Debugger",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Lineage Tracking",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker's automatic model tuning",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker Managed Spot Training",
+      "explanation": "Managed Spot Training runs training jobs on spare EC2 Spot capacity instead of On-Demand instances, cutting costs by up to roughly 90%, while SageMaker automatically handles interruptions via checkpointing.",
+      "source": "SageMaker/Training & Tuning/🤖 SageMaker Managed Spot Training.md",
+      "options": [
+        {
+          "text": "A feature that runs training jobs on spare EC2 Spot capacity instead of On-Demand instances, cutting costs while handling interruptions via checkpointing.",
+          "isCorrect": true
+        },
+        {
+          "text": "A feature that keeps training instances retained after a job finishes so a subsequent training job can start almost instantly on the same instances.",
+          "isCorrect": false
+        },
+        {
+          "text": "A managed implementation of hyperparameter optimization that launches many training jobs with different combinations to find the best-performing one.",
+          "isCorrect": false
+        },
+        {
+          "text": "A feature that automatically optimizes deep learning training code to run faster on GPU instances without changing model accuracy.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team runs frequent, non-urgent hyperparameter experimentation trials and wants to cut its SageMaker training bill significantly, configuring training scripts with checkpointing so interrupted jobs resume instead of restarting. What should they enable?",
+      "explanation": "Managed Spot Training runs training jobs on spare EC2 Spot capacity for up to ~90% savings, with SageMaker automatically handling interruptions by resuming from checkpoints saved to S3.",
+      "source": "SageMaker/Training & Tuning/🤖 SageMaker Managed Spot Training.md",
+      "options": [
+        {
+          "text": "SageMaker Managed Spot Training",
+          "isCorrect": true
+        },
+        {
+          "text": "SageMaker Warm Pools",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker's automatic model tuning",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Training Compiler",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker Automatic Model Tuning",
+      "explanation": "SageMaker's automatic model tuning launches many training jobs with different hyperparameter combinations, using grid search, random search, or Bayesian optimization, to find the combination that best optimizes a chosen objective metric.",
+      "source": "SageMaker/Training & Tuning/🤖 SageMaker's automatic model tuning.md",
+      "options": [
+        {
+          "text": "A managed implementation of hyperparameter optimization that launches many jobs with different combinations to optimize a metric.",
+          "isCorrect": true
+        },
+        {
+          "text": "A feature that runs training jobs on spare EC2 Spot capacity instead of On-Demand instances, cutting training costs while handling interruptions automatically.",
+          "isCorrect": false
+        },
+        {
+          "text": "A feature that keeps training instances retained after a job finishes so a subsequent job can start almost instantly on the same instances.",
+          "isCorrect": false
+        },
+        {
+          "text": "A feature that captures and analyzes internal training state in near real time to detect issues such as vanishing gradients within a single run.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team wants to find the optimal max_depth, eta, and num_round for an XGBoost model by launching a Bayesian-search job that optimizes AUC-ROC across dozens of parallel training jobs, instead of manually guessing values. What should they use?",
+      "explanation": "Automatic model tuning is SageMaker's managed hyperparameter optimization, supporting grid search, random search, and Bayesian optimization as the sample-efficient default search strategy.",
+      "source": "SageMaker/Training & Tuning/🤖 SageMaker's automatic model tuning.md",
+      "options": [
+        {
+          "text": "SageMaker's automatic model tuning",
+          "isCorrect": true
+        },
+        {
+          "text": "Amazon SageMaker Managed Spot Training",
+          "isCorrect": false
+        },
+        {
+          "text": "Amazon SageMaker Experiments",
+          "isCorrect": false
+        },
+        {
+          "text": "Amazon SageMaker Debugger",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker Training Compiler",
+      "explanation": "SageMaker Training Compiler automatically optimizes deep learning training code by compiling its computation graph to run faster on GPU instances, reducing training time and cost without changing model accuracy.",
+      "source": "SageMaker/Training & Tuning/🤖 SageMaker Training Compiler.md",
+      "options": [
+        {
+          "text": "A feature that compiles deep learning training code's computation graph to run faster on GPUs, without changing accuracy.",
+          "isCorrect": true
+        },
+        {
+          "text": "A feature that compiles and optimizes a trained model to run faster on a specific target hardware platform for inference, including edge devices.",
+          "isCorrect": false
+        },
+        {
+          "text": "A managed implementation of hyperparameter optimization that launches many training jobs with different combinations to find the best-performing one.",
+          "isCorrect": false
+        },
+        {
+          "text": "A feature that runs training jobs on spare EC2 Spot capacity instead of On-Demand instances, cutting training costs significantly.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team training a large deep learning model on GPU instances wants to reduce training time and cost without changing the model's architecture or accuracy, with minimal code changes to their training job. What should they enable?",
+      "explanation": "Training Compiler graph-compiles deep learning training code to run faster on GPU instances, a training-time optimization distinct from Neo, which optimizes models for inference.",
+      "source": "SageMaker/Training & Tuning/🤖 SageMaker Training Compiler.md",
+      "options": [
+        {
+          "text": "SageMaker Training Compiler",
+          "isCorrect": true
+        },
+        {
+          "text": "Amazon SageMaker Neo",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Managed Spot Training",
+          "isCorrect": false
+        },
+        {
+          "text": "Amazon SageMaker Warm Pools",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SageMaker Warm Pools",
+      "explanation": "Warm Pools keep training instances retained for a configurable period after a job finishes, letting a subsequent job start almost instantly on the same instances instead of waiting through normal provisioning delay.",
+      "source": "SageMaker/Training & Tuning/🤖 SageMaker Warm Pools.md",
+      "options": [
+        {
+          "text": "A feature that keeps training instances retained for a period after a job finishes, so the next job can start almost instantly instead of waiting for provisioning.",
+          "isCorrect": true
+        },
+        {
+          "text": "A feature that runs training jobs on spare EC2 Spot capacity instead of On-Demand instances, cutting training costs significantly while handling interruptions.",
+          "isCorrect": false
+        },
+        {
+          "text": "A managed implementation of hyperparameter optimization that launches many training jobs with different combinations to find the best-performing one.",
+          "isCorrect": false
+        },
+        {
+          "text": "A feature that automatically optimizes deep learning training code to run faster on GPU instances without changing model accuracy.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A data scientist is actively iterating on training script changes and retraining many times in a row, and wants each subsequent job to reuse the already-provisioned instance and start almost instantly instead of waiting minutes for fresh capacity. What should they enable?",
+      "explanation": "Warm Pools retain training instances for a configurable period after a job finishes so the next job can start on the same instances almost instantly, optimizing iteration speed rather than cost.",
+      "source": "SageMaker/Training & Tuning/🤖 SageMaker Warm Pools.md",
+      "options": [
+        {
+          "text": "Amazon SageMaker Warm Pools",
+          "isCorrect": true
+        },
+        {
+          "text": "SageMaker Managed Spot Training",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker's automatic model tuning",
+          "isCorrect": false
+        },
+        {
+          "text": "SageMaker Training Compiler",
+          "isCorrect": false
+        }
+      ]
+    }
+  ]
+}

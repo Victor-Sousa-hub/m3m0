@@ -1,312 +1,2215 @@
 {
-  "deck": { "name": "AWS Key Concepts", "kind": "key_concepts" },
+  "deck": {
+    "name": "AWS Key Concepts",
+    "kind": "key_concepts"
+  },
   "questions": [
     {
-      "text": "Bootstrapping",
-      "explanation": "Unlike cross-validation, bootstrapping resamples with replacement, so the same observation can appear multiple times in a sample. It isn't used to validate models the way cross-validation is, since an observation used for training could also end up in the \"test\" sample, inflating performance metrics.",
-      "source": "key-concepts/Bootstrapping.md",
+      "text": "Boosting",
+      "explanation": "Boosting trains models sequentially, with each new model giving more weight to the observations the previous one got wrong. It's the ensemble family that primarily reduces bias by combining many weak learners into a strong one.",
+      "source": "key-concepts/Ensemble Learning/🔑 Boosting.md",
       "options": [
-        { "text": "A resampling technique that draws random samples from a dataset with replacement, so the same observation can appear multiple times in a sample.", "isCorrect": true },
-        { "text": "A resampling technique that splits data into k folds and validates on each fold without replacement.", "isCorrect": false },
-        { "text": "A technique that trains multiple models in sequence, each correcting the errors of the previous one.", "isCorrect": false },
-        { "text": "A technique that trains multiple models in parallel on random subsets of features and averages their predictions.", "isCorrect": false }
+        {
+          "text": "An ensemble technique that trains models sequentially, with each new model focusing more on the observations the previous model got wrong.",
+          "isCorrect": true
+        },
+        {
+          "text": "An ensemble technique that trains models in parallel on different bootstrapped samples and combines their outputs by voting or averaging.",
+          "isCorrect": false
+        },
+        {
+          "text": "An ensemble technique that trains a meta-model to learn how to best combine the predictions of several independently trained base models.",
+          "isCorrect": false
+        },
+        {
+          "text": "An ensemble technique that combines predictions from several independently trained models by majority vote or averaging, using a fixed rule.",
+          "isCorrect": false
+        }
       ]
     },
     {
-      "text": "Cross-validation",
-      "explanation": "Cross-validation splits the training set into training and validation sets to evaluate a model without touching the test set. The most common strategy is k-fold cross-validation, where k is the number of splits.",
-      "source": "key-concepts/Cross-validation.md",
+      "text": "A team trains models one after another, and each new model gives extra weight to the observations the previous model got wrong, gradually turning weak learners into a strong one. Which ensemble technique are they using?",
+      "explanation": "Boosting trains models sequentially, with each new learner correcting the errors of the one before it by penalizing misclassified observations — this mainly reduces bias, unlike bagging's parallel, variance-reducing approach.",
+      "source": "key-concepts/Ensemble Learning/🔑 Boosting.md",
       "options": [
-        { "text": "A technique that splits the training set into training and validation folds (e.g., k-fold) to evaluate model performance.", "isCorrect": true },
-        { "text": "A technique that resamples the training set with replacement, allowing the same observation to appear multiple times.", "isCorrect": false },
-        { "text": "A technique that combines predictions from multiple independently trained models to reduce variance.", "isCorrect": false },
-        { "text": "A technique that reduces the number of input features by keeping only the most important ones.", "isCorrect": false }
+        {
+          "text": "Boosting (sequential)",
+          "isCorrect": true
+        },
+        {
+          "text": "Bagging (bootstrap)",
+          "isCorrect": false
+        },
+        {
+          "text": "Voting ensemble",
+          "isCorrect": false
+        },
+        {
+          "text": "Stacking (meta-model)",
+          "isCorrect": false
+        }
       ]
     },
     {
-      "text": "Supervised learning",
-      "explanation": "In supervised learning the target variable can be binary, multi-class, or numerical, and the data type of that target variable determines which type of supervised problem you're solving (classification vs. regression).",
-      "source": "key-concepts/supervised learning.md",
+      "text": "Bootstrapping aggregation",
+      "explanation": "Bagging trains multiple models in parallel, each on a different bootstrapped sample of the data, then combines their predictions by voting or averaging. It primarily reduces variance, which is why Random Forest applies it to decision trees.",
+      "source": "key-concepts/Ensemble Learning/🔑 Bootstrapping aggregation.md",
       "options": [
-        { "text": "A learning approach where models are trained on labeled data, and the target's type (binary, multi-class, or numeric) determines the kind of problem.", "isCorrect": true },
-        { "text": "A learning approach where models find patterns in unlabeled data, such as grouping similar observations into clusters.", "isCorrect": false },
-        { "text": "A learning approach where an agent learns by receiving rewards or penalties for actions in an environment.", "isCorrect": false },
-        { "text": "A learning approach that reduces the dimensionality of data while preserving as much variance as possible.", "isCorrect": false }
+        {
+          "text": "An ensemble technique that trains models in parallel on different bootstrapped samples and combines their outputs by voting or averaging.",
+          "isCorrect": true
+        },
+        {
+          "text": "An ensemble technique that trains models sequentially, with each new model focusing more on the observations the previous model got wrong.",
+          "isCorrect": false
+        },
+        {
+          "text": "An ensemble technique that trains a meta-model to learn how to best combine the predictions of several independently trained base models.",
+          "isCorrect": false
+        },
+        {
+          "text": "A broad family of techniques that combine multiple models' predictions to produce a single, stronger prediction.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A single decision tree is badly overfitting, so the team wants to train many trees in parallel on different bootstrapped samples and combine their predictions to cut variance. Which technique fits?",
+      "explanation": "Bootstrap aggregation (bagging) trains models independently and in parallel on bootstrapped samples, then averages or votes on their predictions, primarily to reduce variance — the standard fix for an overfitting decision tree.",
+      "source": "key-concepts/Ensemble Learning/🔑 Bootstrapping aggregation.md",
+      "options": [
+        {
+          "text": "Bagging (bootstrap)",
+          "isCorrect": true
+        },
+        {
+          "text": "Boosting (sequential)",
+          "isCorrect": false
+        },
+        {
+          "text": "Stacking (meta-model)",
+          "isCorrect": false
+        },
+        {
+          "text": "Voting ensemble",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Ensemble",
+      "explanation": "An ensemble combines multiple models' predictions, via voting or averaging, to produce a stronger prediction than any single model alone. Bagging, boosting, and stacking are the main families tested on the exam.",
+      "source": "key-concepts/Ensemble Learning/🔑 ensemble.md",
+      "options": [
+        {
+          "text": "A broad family of techniques that combine multiple models' predictions, typically by voting or averaging, to produce one stronger prediction.",
+          "isCorrect": true
+        },
+        {
+          "text": "An ensemble technique that trains models in parallel on different bootstrapped samples and combines their outputs by voting or averaging.",
+          "isCorrect": false
+        },
+        {
+          "text": "An ensemble technique that trains models sequentially, with each new model focusing more on the observations the previous model got wrong.",
+          "isCorrect": false
+        },
+        {
+          "text": "An ensemble technique that trains a meta-model to learn how to best combine the predictions of several independently trained base models.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team wants to combine several models' predictions, using majority voting for classification or averaging for regression, so the final output generalizes better than any single model alone. What general approach are they using?",
+      "explanation": "Ensemble methods combine multiple models and aggregate their outputs via voting or averaging, generally improving generalization over relying on a single model.",
+      "source": "key-concepts/Ensemble Learning/🔑 ensemble.md",
+      "options": [
+        {
+          "text": "Ensemble learning",
+          "isCorrect": true
+        },
+        {
+          "text": "Cross-validation",
+          "isCorrect": false
+        },
+        {
+          "text": "Hyperparameter tuning",
+          "isCorrect": false
+        },
+        {
+          "text": "Feature engineering",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Stacking",
+      "explanation": "Stacking trains several diverse base models and then a second-level meta-model that learns how to best combine their predictions. Unlike bagging or boosting, the combination rule is learned rather than fixed.",
+      "source": "key-concepts/Ensemble Learning/🔑 stacking.md",
+      "options": [
+        {
+          "text": "An ensemble technique that trains a meta-model to learn how to best combine the predictions of several independently trained base models.",
+          "isCorrect": true
+        },
+        {
+          "text": "An ensemble technique that trains models sequentially, with each new model focusing more on the observations the previous model got wrong.",
+          "isCorrect": false
+        },
+        {
+          "text": "An ensemble technique that trains models in parallel on different bootstrapped samples and combines their outputs by voting or averaging.",
+          "isCorrect": false
+        },
+        {
+          "text": "An ensemble technique that combines predictions from several independently trained models by majority vote or averaging, using a fixed rule.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A competition team trains XGBoost, Random Forest, and a neural network independently, then fits a logistic regression model on their outputs to produce the final prediction. Which ensemble technique are they using?",
+      "explanation": "Stacking trains diverse base models independently and then trains a second-level meta-model to learn how to best combine their predictions, unlike voting's fixed combination rule.",
+      "source": "key-concepts/Ensemble Learning/🔑 stacking.md",
+      "options": [
+        {
+          "text": "Stacking (meta-model)",
+          "isCorrect": true
+        },
+        {
+          "text": "Voting ensemble",
+          "isCorrect": false
+        },
+        {
+          "text": "Boosting (sequential)",
+          "isCorrect": false
+        },
+        {
+          "text": "Bagging (bootstrap)",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Voting ensemble",
+      "explanation": "A voting ensemble combines predictions from independently trained, typically different models using a fixed rule — majority vote for classification or averaging for regression. It's simpler than stacking, which learns the combination instead.",
+      "source": "key-concepts/Ensemble Learning/🔑 voting ensemble.md",
+      "options": [
+        {
+          "text": "An ensemble technique that combines predictions from several independently trained models by majority vote or averaging, using a fixed rule.",
+          "isCorrect": true
+        },
+        {
+          "text": "An ensemble technique that trains a meta-model to learn how to best combine the predictions of several independently trained base models.",
+          "isCorrect": false
+        },
+        {
+          "text": "An ensemble technique that trains models in parallel on different bootstrapped samples and combines their outputs by voting or averaging.",
+          "isCorrect": false
+        },
+        {
+          "text": "An ensemble technique that trains models sequentially, with each new model focusing more on the observations the previous model got wrong.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team combines predictions from a logistic regression model, a decision tree, and an SVM trained on the same data by taking a majority vote, with no model learning how to weight the others. Which technique is this?",
+      "explanation": "A voting ensemble combines predictions from independently trained, typically different models using a fixed rule (majority vote or average), unlike stacking, which learns the combination via a meta-model.",
+      "source": "key-concepts/Ensemble Learning/🔑 voting ensemble.md",
+      "options": [
+        {
+          "text": "The voting ensemble",
+          "isCorrect": true
+        },
+        {
+          "text": "Stacking (meta-model)",
+          "isCorrect": false
+        },
+        {
+          "text": "Boosting (sequential)",
+          "isCorrect": false
+        },
+        {
+          "text": "Bagging (bootstrap)",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Bias drift",
+      "explanation": "Bias drift is a shift in a deployed model's fairness metrics over time relative to a training-time baseline, detected in AWS with SageMaker Model Monitor's bias drift monitoring. It's distinct from model drift, which tracks overall predictive performance rather than fairness.",
+      "source": "key-concepts/Error, Bias & Drift/🔑 bias drift.md",
+      "options": [
+        {
+          "text": "A shift in a deployed model's fairness metrics over time relative to a baseline, causing it to treat groups differently than at training time.",
+          "isCorrect": true
+        },
+        {
+          "text": "A gradual decline in a deployed model's overall predictive performance caused by changes in input data or the input-target relationship.",
+          "isCorrect": false
+        },
+        {
+          "text": "A pre-training metric that measures whether a group experiences a disproportionate share of a negative outcome, conditioned on another attribute.",
+          "isCorrect": false
+        },
+        {
+          "text": "Error caused by a model's simplifying assumptions being too strong, leading it to underfit both training and validation data.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Months after launch, a credit-approval model's overall accuracy is unchanged, but it now approves one demographic group at a disproportionate rate compared to when it was validated as fair. What should the team be monitoring to catch this?",
+      "explanation": "Bias drift is a shift in a deployed model's fairness metrics relative to a baseline over time, distinct from model drift, which concerns overall predictive performance decaying.",
+      "source": "key-concepts/Error, Bias & Drift/🔑 bias drift.md",
+      "options": [
+        {
+          "text": "Bias drift",
+          "isCorrect": true
+        },
+        {
+          "text": "Model drift",
+          "isCorrect": false
+        },
+        {
+          "text": "High variance",
+          "isCorrect": false
+        },
+        {
+          "text": "High bias",
+          "isCorrect": false
+        }
       ]
     },
     {
       "text": "Bias errors",
-      "explanation": "Bias comes from the simplifying assumptions a model makes about the data. Linear algorithms like linear/logistic regression assume a linear relationship and carry high bias; decision trees make fewer assumptions and have less bias.",
-      "source": "key-concepts/bias errors.md",
+      "explanation": "Bias errors come from a model's simplifying assumptions being too strong to capture the true relationship in the data, causing underfitting on both training and validation sets. Linear models tend to have high bias; decision trees have less.",
+      "source": "key-concepts/Error, Bias & Drift/🔑bias errors.md",
       "options": [
-        { "text": "Error introduced by the simplifying assumptions a model makes about the data, causing it to underfit.", "isCorrect": true },
-        { "text": "Error caused by a model's sensitivity to fluctuations in the training data, causing it to overfit.", "isCorrect": false },
-        { "text": "Error caused by an imbalanced distribution of classes in the training data.", "isCorrect": false },
-        { "text": "Error introduced by using too few training examples to estimate model parameters reliably.", "isCorrect": false }
+        {
+          "text": "Error caused by a model's simplifying assumptions being too strong, leading it to underfit both training and test data.",
+          "isCorrect": true
+        },
+        {
+          "text": "Error caused by a model being overly sensitive to the specific training data, leading it to overfit and generalize poorly to new data.",
+          "isCorrect": false
+        },
+        {
+          "text": "A shift in a deployed model's fairness metrics over time relative to a baseline established during training.",
+          "isCorrect": false
+        },
+        {
+          "text": "A gradual decline in a deployed model's overall predictive performance after deployment, caused by changing input data.",
+          "isCorrect": false
+        }
       ]
     },
     {
-      "text": "Unsupervised learning",
-      "explanation": "Unsupervised problems provide no labeled data, only independent variables/features, so algorithms find patterns on their own. The most common type is clustering, which groups observations by similarity.",
-      "source": "key-concepts/unsupervised learning.md",
+      "text": "A linear regression model performs poorly on the training data itself, with both training and validation error high and roughly equal. What problem does this pattern indicate?",
+      "explanation": "High bias causes underfitting, where an overly simple model performs poorly on both training and validation data; the fix is a more flexible algorithm or added features, not more data.",
+      "source": "key-concepts/Error, Bias & Drift/🔑bias errors.md",
       "options": [
-        { "text": "A learning approach that works with unlabeled data, finding structure such as clusters purely from the features.", "isCorrect": true },
-        { "text": "A learning approach that trains on labeled examples to predict a known target variable.", "isCorrect": false },
-        { "text": "A learning approach that uses trial-and-error interaction with an environment to maximize cumulative reward.", "isCorrect": false },
-        { "text": "A learning approach that trains a smaller model to imitate the outputs of a larger pretrained model.", "isCorrect": false }
+        {
+          "text": "High bias (underfitting)",
+          "isCorrect": true
+        },
+        {
+          "text": "High variance (overfitting)",
+          "isCorrect": false
+        },
+        {
+          "text": "Model drift (accuracy decay)",
+          "isCorrect": false
+        },
+        {
+          "text": "Bias drift (fairness shift)",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Conditional Demographic Disparity (CDD)",
+      "explanation": "Conditional Demographic Disparity is a pre-training bias metric computed by SageMaker Clarify that measures whether a group experiences a disproportionate share of a negative outcome, conditioned on another attribute to control for confounding variables.",
+      "source": "key-concepts/Error, Bias & Drift/🔑 Conditional Demographic Disparity (CDD).md",
+      "options": [
+        {
+          "text": "A pre-training bias metric that measures whether a group faces a disproportionate negative outcome, conditioned on another attribute.",
+          "isCorrect": true
+        },
+        {
+          "text": "A shift in a deployed model's fairness metrics over time relative to a baseline established during training.",
+          "isCorrect": false
+        },
+        {
+          "text": "A gradual decline in a deployed model's overall predictive performance after deployment, caused by changing input data.",
+          "isCorrect": false
+        },
+        {
+          "text": "A technique that attributes a prediction to each feature by averaging its marginal contribution across every combination of features.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Before training a hiring model, a team wants to check whether a protected group is rejected more often than another group within the same job category, controlling for that confounding variable. Which pre-training bias metric should they compute?",
+      "explanation": "Conditional Demographic Disparity conditions the comparison on a confounding attribute (e.g., job category), avoiding the misleading conclusions a raw, unconditioned disparity comparison could produce.",
+      "source": "key-concepts/Error, Bias & Drift/🔑 Conditional Demographic Disparity (CDD).md",
+      "options": [
+        {
+          "text": "Conditional Demographic Disparity",
+          "isCorrect": true
+        },
+        {
+          "text": "Bias drift (a fairness shift)",
+          "isCorrect": false
+        },
+        {
+          "text": "Model drift (accuracy decay)",
+          "isCorrect": false
+        },
+        {
+          "text": "Shapley values (per-prediction)",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Model drift",
+      "explanation": "Model drift is the gradual decline of a deployed model's predictive performance over time, caused by data drift (input distribution changes) or concept drift (the input-target relationship changes). SageMaker Model Monitor detects it against a training-time baseline.",
+      "source": "key-concepts/Error, Bias & Drift/🔑 model drift.md",
+      "options": [
+        {
+          "text": "A gradual decline in a deployed model's overall predictive performance over time, caused by changes in input data or the input-target relationship.",
+          "isCorrect": true
+        },
+        {
+          "text": "A shift in a deployed model's fairness metrics over time relative to a baseline, causing it to treat groups differently than at training time.",
+          "isCorrect": false
+        },
+        {
+          "text": "A pre-training metric that measures whether a group experiences a disproportionate share of a negative outcome, conditioned on another attribute.",
+          "isCorrect": false
+        },
+        {
+          "text": "Error caused by a model's simplifying assumptions being too strong, leading it to underfit both training and validation data.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "An e-commerce recommendation model's overall prediction accuracy gradually declines after deployment as customer purchasing behavior changes, with no particular fairness metric singled out. What is this phenomenon called?",
+      "explanation": "Model drift is the gradual degradation of a deployed model's predictive performance caused by shifts in input data or the input-target relationship, detected in AWS with SageMaker Model Monitor.",
+      "source": "key-concepts/Error, Bias & Drift/🔑 model drift.md",
+      "options": [
+        {
+          "text": "Model drift",
+          "isCorrect": true
+        },
+        {
+          "text": "Bias drift",
+          "isCorrect": false
+        },
+        {
+          "text": "High variance",
+          "isCorrect": false
+        },
+        {
+          "text": "High bias",
+          "isCorrect": false
+        }
       ]
     },
     {
       "text": "Variance errors",
-      "explanation": "Variance is the difference in estimations a model produces on different training data. High-variance models like unpruned decision trees tend to overfit; linear/logistic regression have low variance. Pruning helps optimize high-variance models.",
-      "source": "key-concepts/variance errors.md",
+      "explanation": "Variance errors come from a model being overly sensitive to the specific training data, causing it to overfit and generalize poorly. Decision trees are a classic high-variance algorithm; bagging is a standard fix.",
+      "source": "key-concepts/Error, Bias & Drift/🔑variance errors.md",
       "options": [
-        { "text": "Error caused by a model's sensitivity to fluctuations in the training data, causing it to overfit.", "isCorrect": true },
-        { "text": "Error introduced by the simplifying assumptions a model makes about the data, causing it to underfit.", "isCorrect": false },
-        { "text": "Error caused by noisy or mislabeled data points in the training set.", "isCorrect": false },
-        { "text": "Error caused by evaluating a model on the same data it was trained on.", "isCorrect": false }
+        {
+          "text": "Error caused by a model being overly sensitive to the specific training data, leading it to overfit and generalize poorly to new data.",
+          "isCorrect": true
+        },
+        {
+          "text": "Error caused by a model's simplifying assumptions being too strong to capture the true relationship, leading it to underfit both training and test data.",
+          "isCorrect": false
+        },
+        {
+          "text": "A shift in a deployed model's fairness metrics over time relative to a baseline established during training.",
+          "isCorrect": false
+        },
+        {
+          "text": "A gradual decline in a deployed model's overall predictive performance after deployment, caused by changing input data.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A decision tree reaches 99% training accuracy but only 70% validation accuracy. What problem does this large gap between training and validation performance indicate?",
+      "explanation": "High variance causes overfitting, where a model fits training data very well but fails to generalize; fixes include pruning, regularization, more data, or bagging.",
+      "source": "key-concepts/Error, Bias & Drift/🔑variance errors.md",
+      "options": [
+        {
+          "text": "High variance (overfitting)",
+          "isCorrect": true
+        },
+        {
+          "text": "High bias (underfitting)",
+          "isCorrect": false
+        },
+        {
+          "text": "Model drift (accuracy decay)",
+          "isCorrect": false
+        },
+        {
+          "text": "Bias drift (fairness shift)",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Accuracy",
+      "explanation": "Accuracy is the proportion of all predictions (both true positives and true negatives) that were correct. It's misleading on imbalanced datasets, where a model that always predicts the majority class can score high while being useless.",
+      "source": "key-concepts/Evaluation Metrics/🔑 accuracy.md",
+      "options": [
+        {
+          "text": "The proportion of all predictions that were correct, combining true positives and true negatives.",
+          "isCorrect": true
+        },
+        {
+          "text": "The proportion of predictions labeled positive by the model that were actually positive cases.",
+          "isCorrect": false
+        },
+        {
+          "text": "The proportion of actual positive cases that were correctly identified as positive by the model.",
+          "isCorrect": false
+        },
+        {
+          "text": "The harmonic mean of precision and recall, combining both into a single balanced metric.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A fraud dataset is 99% legitimate transactions and 1% fraud, and a model that always predicts 'not fraud' scores very well on one common metric despite being useless. Which metric is misleading here?",
+      "explanation": "Accuracy is misleading on imbalanced datasets, since always predicting the majority class yields a high score without any real predictive value; precision, recall, or F1 are better fits.",
+      "source": "key-concepts/Evaluation Metrics/🔑 accuracy.md",
+      "options": [
+        {
+          "text": "Accuracy",
+          "isCorrect": true
+        },
+        {
+          "text": "F1 score",
+          "isCorrect": false
+        },
+        {
+          "text": "Recall",
+          "isCorrect": false
+        },
+        {
+          "text": "Precision",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "AUC (Area Under the Curve)",
+      "explanation": "AUC condenses a performance curve, most commonly the ROC curve, into a single scalar between 0 and 1 that summarizes classifier performance across every threshold. An AUC of 0.5 means no better than random guessing.",
+      "source": "key-concepts/Evaluation Metrics/🔑 AUC (Area Under the Curve).md",
+      "options": [
+        {
+          "text": "A single number between 0 and 1 representing the area under a performance curve across thresholds.",
+          "isCorrect": true
+        },
+        {
+          "text": "The harmonic mean of precision and recall, combining both into a single balanced metric at one chosen threshold.",
+          "isCorrect": false
+        },
+        {
+          "text": "The proportion of predictions labeled positive by the model that were actually positive cases.",
+          "isCorrect": false
+        },
+        {
+          "text": "The proportion of actual positive cases that were correctly identified as positive by the model.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "During a SageMaker tuning job, a team wants a single threshold-independent score to rank several candidate binary classifiers before committing to any operating threshold. Which metric should they use?",
+      "explanation": "AUC condenses classifier performance across every possible threshold into one scalar between 0 and 1, making it threshold-independent and well suited for comparing models before picking an operating point.",
+      "source": "key-concepts/Evaluation Metrics/🔑 AUC (Area Under the Curve).md",
+      "options": [
+        {
+          "text": "AUC value",
+          "isCorrect": true
+        },
+        {
+          "text": "Accuracy",
+          "isCorrect": false
+        },
+        {
+          "text": "F1 score",
+          "isCorrect": false
+        },
+        {
+          "text": "RMSE value",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "AUC-ROC",
+      "explanation": "AUC-ROC is the area under the ROC curve, which plots the true positive rate against the false positive rate across every classification threshold. It's threshold-independent, useful for comparing models before picking an operating point.",
+      "source": "key-concepts/Evaluation Metrics/🔑 AUC-ROC.md",
+      "options": [
+        {
+          "text": "The area under the curve that plots the true positive rate against the false positive rate across classification thresholds.",
+          "isCorrect": true
+        },
+        {
+          "text": "The proportion of all predictions that were correct, combining true positives and true negatives, out of every prediction made.",
+          "isCorrect": false
+        },
+        {
+          "text": "The harmonic mean of precision and recall, combining both into a single balanced metric at one chosen threshold.",
+          "isCorrect": false
+        },
+        {
+          "text": "The proportion of predictions labeled positive by the model that were actually positive cases.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team plots the true positive rate against the false positive rate at every possible classification threshold to visualize a model's ability to separate classes, where a diagonal line represents random guessing. Which curve are they using?",
+      "explanation": "The ROC curve plots true positive rate (recall) against false positive rate across all thresholds; AUC-ROC is the area under that specific curve, with 0.5 meaning random guessing.",
+      "source": "key-concepts/Evaluation Metrics/🔑 AUC-ROC.md",
+      "options": [
+        {
+          "text": "The ROC curve (TPR/FPR)",
+          "isCorrect": true
+        },
+        {
+          "text": "The precision-recall curve",
+          "isCorrect": false
+        },
+        {
+          "text": "The accuracy curve",
+          "isCorrect": false
+        },
+        {
+          "text": "The residual curve",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "F1 score",
+      "explanation": "The F1 score is the harmonic mean of precision and recall, giving one balanced number instead of two. It's the go-to metric for imbalanced datasets when there's no strong reason to favor precision or recall individually.",
+      "source": "key-concepts/Evaluation Metrics/🔑 F1 score.md",
+      "options": [
+        {
+          "text": "The harmonic mean of precision and recall, combining both into a single balanced metric at one chosen threshold.",
+          "isCorrect": true
+        },
+        {
+          "text": "The proportion of all predictions that were correct, combining true positives and true negatives, out of every prediction made.",
+          "isCorrect": false
+        },
+        {
+          "text": "The proportion of predictions labeled positive by the model that were actually positive cases.",
+          "isCorrect": false
+        },
+        {
+          "text": "The proportion of actual positive cases that were correctly identified as positive by the model.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team is comparing classifiers for an imbalanced churn dataset and wants one number that balances both false positives and false negatives, with no strong business reason to favor one over the other. Which metric should they use?",
+      "explanation": "The F1 score is the harmonic mean of precision and recall, giving a single balanced metric for imbalanced datasets when neither error type is clearly more costly.",
+      "source": "key-concepts/Evaluation Metrics/🔑 F1 score.md",
+      "options": [
+        {
+          "text": "F1 score",
+          "isCorrect": true
+        },
+        {
+          "text": "Accuracy",
+          "isCorrect": false
+        },
+        {
+          "text": "RMSE value",
+          "isCorrect": false
+        },
+        {
+          "text": "MAE value",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Mean Absolute Error (MAE)",
+      "explanation": "MAE is the average of the absolute differences between predicted and actual values, expressed in the same unit as the target. It treats every error equally, making it more robust to outliers than RMSE.",
+      "source": "key-concepts/Evaluation Metrics/🔑 Mean Absolute Error (MAE).md",
+      "options": [
+        {
+          "text": "A regression metric equal to the average of the absolute differences between predicted and actual values, treating every error equally.",
+          "isCorrect": true
+        },
+        {
+          "text": "A regression metric equal to the square root of the average of squared differences between predicted and actual values.",
+          "isCorrect": false
+        },
+        {
+          "text": "The proportion of all predictions that were correct, combining true positives and true negatives, out of every prediction made.",
+          "isCorrect": false
+        },
+        {
+          "text": "The harmonic mean of precision and recall, combining both into a single balanced metric at one chosen threshold.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A demand-forecasting team wants an error metric in the same units as sales volume that won't let a handful of extreme holiday spikes dominate the score. Which metric fits best?",
+      "explanation": "Mean Absolute Error averages the absolute differences between predicted and actual values, treating every error equally and making it more robust to outliers than RMSE.",
+      "source": "key-concepts/Evaluation Metrics/🔑 Mean Absolute Error (MAE).md",
+      "options": [
+        {
+          "text": "Mean Absolute Error",
+          "isCorrect": true
+        },
+        {
+          "text": "Root Mean Squared Error",
+          "isCorrect": false
+        },
+        {
+          "text": "F1 score metric",
+          "isCorrect": false
+        },
+        {
+          "text": "Accuracy metric",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Precision",
+      "explanation": "Precision is the proportion of predictions labeled positive that were actually positive. It matters most when false positives are costly, such as a spam filter flagging legitimate email.",
+      "source": "key-concepts/Evaluation Metrics/🔑 precision.md",
+      "options": [
+        {
+          "text": "The proportion of predictions labeled positive by the model that were actually positive cases.",
+          "isCorrect": true
+        },
+        {
+          "text": "The proportion of actual positive cases that were correctly identified as positive by the model.",
+          "isCorrect": false
+        },
+        {
+          "text": "The proportion of all predictions that were correct, combining true positives and true negatives.",
+          "isCorrect": false
+        },
+        {
+          "text": "The harmonic mean of precision and recall, combining both into a single balanced metric.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A spam filter's team wants to minimize legitimate emails being wrongly flagged as spam, even if that means some spam slips through. Which metric should they prioritize maximizing?",
+      "explanation": "Precision measures how many predicted positives are truly positive, so optimizing for it minimizes false positives — the right call when a false positive is the costlier error.",
+      "source": "key-concepts/Evaluation Metrics/🔑 precision.md",
+      "options": [
+        {
+          "text": "Precision",
+          "isCorrect": true
+        },
+        {
+          "text": "Recall rate",
+          "isCorrect": false
+        },
+        {
+          "text": "Accuracy",
+          "isCorrect": false
+        },
+        {
+          "text": "F1 score",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Recall",
+      "explanation": "Recall is the proportion of actual positive cases that were correctly identified. It matters most when false negatives are costly, such as missing a fraud case or a disease diagnosis.",
+      "source": "key-concepts/Evaluation Metrics/🔑 recall.md",
+      "options": [
+        {
+          "text": "The proportion of actual positive cases that were correctly identified as positive by the model.",
+          "isCorrect": true
+        },
+        {
+          "text": "The proportion of predictions labeled positive by the model that were actually positive cases.",
+          "isCorrect": false
+        },
+        {
+          "text": "The proportion of all predictions that were correct, combining true positives and true negatives, out of every prediction made.",
+          "isCorrect": false
+        },
+        {
+          "text": "The harmonic mean of precision and recall, combining both into a single balanced metric at one chosen threshold.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A medical screening model must avoid missing true disease cases, even if that means more healthy patients get flagged for unnecessary follow-up. Which metric should the team prioritize maximizing?",
+      "explanation": "Recall measures how many actual positives were correctly identified, so optimizing for it minimizes false negatives — critical when missing a true positive is far costlier than a false alarm.",
+      "source": "key-concepts/Evaluation Metrics/🔑 recall.md",
+      "options": [
+        {
+          "text": "Recall (TPR)",
+          "isCorrect": true
+        },
+        {
+          "text": "Precision (PPV)",
+          "isCorrect": false
+        },
+        {
+          "text": "Accuracy rate",
+          "isCorrect": false
+        },
+        {
+          "text": "F1 score",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Root mean squared error (RMSE)",
+      "explanation": "RMSE is the square root of the average of squared differences between predicted and actual values. Because errors are squared before averaging, it penalizes large errors more heavily than MAE.",
+      "source": "key-concepts/Evaluation Metrics/🔑 Root mean squared error (RMSE).md",
+      "options": [
+        {
+          "text": "A regression metric equal to the square root of the average of squared differences between predicted and actual values.",
+          "isCorrect": true
+        },
+        {
+          "text": "A regression metric equal to the average of the absolute differences between predicted and actual values, treating every error equally.",
+          "isCorrect": false
+        },
+        {
+          "text": "The proportion of all predictions that were correct, combining true positives and true negatives, out of every prediction made.",
+          "isCorrect": false
+        },
+        {
+          "text": "The harmonic mean of precision and recall, combining both into a single balanced metric at one chosen threshold.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A house-price model's stakeholders say being badly wrong on a handful of homes is far worse than being slightly off on many others, so large errors need to be penalized more heavily. Which metric fits best?",
+      "explanation": "RMSE squares errors before averaging, penalizing large errors much more heavily than MAE, making it the right choice when large deviations are especially costly.",
+      "source": "key-concepts/Evaluation Metrics/🔑 Root mean squared error (RMSE).md",
+      "options": [
+        {
+          "text": "Root Mean Squared Error",
+          "isCorrect": true
+        },
+        {
+          "text": "Mean Absolute Error (MAE)",
+          "isCorrect": false
+        },
+        {
+          "text": "F1 score (harmonic mean)",
+          "isCorrect": false
+        },
+        {
+          "text": "Precision (PPV)",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Back-to-back training",
+      "explanation": "Back-to-back training keeps compute instances warm and provisioned after a job finishes so the next training job can start immediately, skipping the usual instance spin-up delay — implemented in AWS via SageMaker Warm Pools.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 back-to-back.md",
+      "options": [
+        {
+          "text": "Running consecutive training jobs on retained, already-provisioned compute instances so each new job starts immediately, skipping spin-up delay.",
+          "isCorrect": true
+        },
+        {
+          "text": "A rule that automatically adjusts the number of compute instances up or down in response to demand, to balance performance against cost.",
+          "isCorrect": false
+        },
+        {
+          "text": "A situation where a job's speed is limited by how fast data can be read from or written to storage, rather than by compute capacity.",
+          "isCorrect": false
+        },
+        {
+          "text": "A configuration that runs a synchronous standby copy of a resource in a different Availability Zone for automatic failover.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A data science team runs dozens of short SageMaker training jobs a day during hyperparameter experimentation and wants to skip the multi-minute instance provisioning delay between each job. Which feature should they enable?",
+      "explanation": "SageMaker Warm Pools keeps training instances retained after a job completes so the next job can start back-to-back on already-provisioned instances, skipping re-provisioning delay.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 back-to-back.md",
+      "options": [
+        {
+          "text": "SageMaker Warm Pools",
+          "isCorrect": true
+        },
+        {
+          "text": "Managed Spot Training",
+          "isCorrect": false
+        },
+        {
+          "text": "Amazon FSx for Lustre",
+          "isCorrect": false
+        },
+        {
+          "text": "Multi-AZ deployment",
+          "isCorrect": false
+        }
       ]
     },
     {
       "text": "Cross-Region Replication (CRR)",
-      "explanation": "CRR replicates S3 data between different geographical Regions, so during a disaster in one Region, another Region can keep serving users.",
-      "source": "key-concepts/CRR.md",
+      "explanation": "Cross-Region Replication automatically and asynchronously copies S3 objects from a bucket in one Region to a bucket in another Region, improving disaster-recovery readiness and RPO for S3-hosted data.",
+      "source": "key-concepts/Infrastructure & Operations/🔑CRR.md",
       "options": [
-        { "text": "An S3 feature that automatically replicates objects to a bucket in a different AWS Region for disaster recovery.", "isCorrect": true },
-        { "text": "An S3 feature that replicates objects to another bucket within the same Region for redundancy.", "isCorrect": false },
-        { "text": "An EBS feature that creates point-in-time snapshots of a volume, stored in S3.", "isCorrect": false },
-        { "text": "A CloudFront feature that caches content at edge locations closer to users.", "isCorrect": false }
+        {
+          "text": "An S3 feature that asynchronously copies objects from a bucket in one Region to a bucket in another Region.",
+          "isCorrect": true
+        },
+        {
+          "text": "A configuration that runs a synchronous standby copy of a resource in a different Availability Zone within the same Region.",
+          "isCorrect": false
+        },
+        {
+          "text": "The maximum acceptable amount of data loss, measured as the time between the last backup and a failure.",
+          "isCorrect": false
+        },
+        {
+          "text": "The maximum acceptable time between a disaster occurring and the system being fully restored.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team wants its S3-hosted training datasets and model artifacts to remain available for ML workloads even if an entire AWS Region goes down. Which S3 feature should they enable?",
+      "explanation": "Cross-Region Replication asynchronously copies S3 objects to a bucket in another Region, supporting failover and continued operation if the primary Region has an outage.",
+      "source": "key-concepts/Infrastructure & Operations/🔑CRR.md",
+      "options": [
+        {
+          "text": "Cross-Region Replication",
+          "isCorrect": true
+        },
+        {
+          "text": "Multi-AZ deployment",
+          "isCorrect": false
+        },
+        {
+          "text": "Same-Region Replication",
+          "isCorrect": false
+        },
+        {
+          "text": "Provisioned IOPS EBS volumes",
+          "isCorrect": false
+        }
       ]
     },
     {
       "text": "Data warehouse",
-      "explanation": "A data warehouse centralizes large volumes of structured, historical data from multiple sources and is optimized for analytical queries and reporting rather than transactional (OLTP) workloads. (Source note was empty — filled from general AWS/data knowledge.)",
-      "source": "key-concepts/data warehouse.md (general knowledge, source note was empty)",
+      "explanation": "A data warehouse is a centralized repository of structured, historical data optimized for analytical queries and reporting, unlike a transactional OLTP database. Amazon Redshift is AWS's managed data warehouse.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 data warehouse.md",
       "options": [
-        { "text": "A centralized repository of structured, historical data optimized for analytical queries and reporting.", "isCorrect": true },
-        { "text": "A storage service optimized for cheaply storing unstructured objects of any size and format.", "isCorrect": false },
-        { "text": "A database optimized for fast, high-volume transactional reads and writes.", "isCorrect": false },
-        { "text": "A serverless service that runs SQL queries directly against files stored in object storage.", "isCorrect": false }
+        {
+          "text": "A centralized repository that stores structured, historical data, optimized for analytical queries.",
+          "isCorrect": true
+        },
+        {
+          "text": "A managed relational database service optimized for fast, transactional reads and writes of individual records.",
+          "isCorrect": false
+        },
+        {
+          "text": "Block storage volumes that attach to a single EC2 instance within one Availability Zone.",
+          "isCorrect": false
+        },
+        {
+          "text": "A family of fully managed file systems that can be mounted concurrently by multiple compute instances.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A data scientist needs to run SQL aggregations over years of curated, structured historical transaction data to build churn-prediction features, without hitting the live transactional database. Which type of store should they query?",
+      "explanation": "A data warehouse stores curated, structured historical data optimized for analytical queries, unlike an OLTP store like RDS, which is optimized for fast transactional reads and writes.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 data warehouse.md",
+      "options": [
+        {
+          "text": "A data warehouse",
+          "isCorrect": true
+        },
+        {
+          "text": "Amazon RDS (OLTP)",
+          "isCorrect": false
+        },
+        {
+          "text": "An S3 data lake",
+          "isCorrect": false
+        },
+        {
+          "text": "Amazon FSx (files)",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Defense-in-depth security",
+      "explanation": "Defense-in-depth layers multiple independent security controls — network isolation, IAM, encryption, monitoring — so that if one layer is bypassed, other layers still protect the resource.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 defense-in-depth security.md",
+      "options": [
+        {
+          "text": "A security strategy that layers multiple, independent controls across a system so no single control's failure exposes the resource.",
+          "isCorrect": true
+        },
+        {
+          "text": "S3 server-side encryption using a customer-managed key stored in AWS KMS, with support for auditing and key rotation.",
+          "isCorrect": false
+        },
+        {
+          "text": "A configuration that runs a synchronous standby copy of a resource in a different Availability Zone for automatic failover.",
+          "isCorrect": false
+        },
+        {
+          "text": "A rule that automatically adjusts the number of compute instances up or down in response to demand, to balance performance against cost.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "To secure a SageMaker training pipeline handling sensitive data, a team layers VPC isolation, least-privilege IAM roles, KMS encryption at rest, and CloudTrail logging, so a failure in any single control doesn't fully expose the data. What security strategy is this?",
+      "explanation": "Defense-in-depth layers multiple, independent security controls so that if one is bypassed, other layers still protect the resource, avoiding a single point of failure in the security posture.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 defense-in-depth security.md",
+      "options": [
+        {
+          "text": "Defense-in-depth security",
+          "isCorrect": true
+        },
+        {
+          "text": "SSE-KMS encryption alone",
+          "isCorrect": false
+        },
+        {
+          "text": "Multi-AZ deployment",
+          "isCorrect": false
+        },
+        {
+          "text": "Cross-Region Replication",
+          "isCorrect": false
+        }
       ]
     },
     {
       "text": "Amazon EBS",
-      "explanation": "Elastic Block Store creates volumes tied to a single Availability Zone; a volume can only attach to an EC2 instance in that same AZ. EBS offers SSD types (IOPS-optimized) and HDD types (throughput-optimized), such as gp2, io1, and st1.",
-      "source": "key-concepts/EBS.md",
+      "explanation": "Amazon EBS provides block storage volumes that attach to a single EC2 instance within one Availability Zone, available in SSD (IOPS-focused) and HDD (throughput-focused) types.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 EBS.md",
       "options": [
-        { "text": "Durable block-storage volumes tied to a single Availability Zone, attachable only to EC2 instances in that same AZ.", "isCorrect": true },
-        { "text": "A regionally-resilient object storage service accessible from anywhere over the internet via HTTP.", "isCorrect": false },
-        { "text": "A serverless block storage service that automatically replicates across every Availability Zone in a Region.", "isCorrect": false },
-        { "text": "A managed relational database service that provisions and scales instances across multiple Regions.", "isCorrect": false }
+        {
+          "text": "Block storage volumes that attach to a single EC2 instance within one Availability Zone, offered in SSD and HDD types.",
+          "isCorrect": true
+        },
+        {
+          "text": "A family of fully managed file systems that can be mounted concurrently by multiple compute instances.",
+          "isCorrect": false
+        },
+        {
+          "text": "A managed relational database service optimized for fast, transactional reads and writes of individual records.",
+          "isCorrect": false
+        },
+        {
+          "text": "A centralized repository that stores large volumes of structured, historical data, optimized for analytical queries.",
+          "isCorrect": false
+        }
       ]
     },
     {
-      "text": "Recovery Point Objective (RPO)",
-      "explanation": "RPO is the maximum acceptable data loss, measured as the time between the last backup and a failure. E.g., a backup taken 6 hours before a failure means a 6-hour RPO.",
-      "source": "key-concepts/Recovery Point Objective (RPO)..md",
+      "text": "A SageMaker notebook instance needs fast, consistent local disk throughput for repeatedly reading a large dataset within a single Availability Zone. Which storage option fits best?",
+      "explanation": "A Provisioned IOPS EBS volume delivers consistent, predictable disk performance for a single instance in one AZ, unlike shared multi-instance file systems such as EFS or FSx.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 EBS.md",
       "options": [
-        { "text": "The maximum acceptable amount of data loss, measured as the time between the last backup and a failure.", "isCorrect": true },
-        { "text": "The maximum acceptable time to restore a system to full operation after a disaster.", "isCorrect": false },
-        { "text": "The maximum acceptable downtime a service can experience before violating its SLA.", "isCorrect": false },
-        { "text": "The frequency at which a system's health checks run to detect failures.", "isCorrect": false }
+        {
+          "text": "A Provisioned IOPS EBS volume",
+          "isCorrect": true
+        },
+        {
+          "text": "Amazon FSx for Lustre",
+          "isCorrect": false
+        },
+        {
+          "text": "Amazon S3 standard storage",
+          "isCorrect": false
+        },
+        {
+          "text": "Amazon EFS shared file system",
+          "isCorrect": false
+        }
       ]
     },
     {
-      "text": "Recovery Time Objective (RTO)",
-      "explanation": "RTO is the maximum acceptable time between a disaster occurring and the system being fully restored. E.g., restoring service 3 hours after a failure is a 3-hour RTO; lower RTO generally costs more (spare hardware, faster restoration process).",
-      "source": "key-concepts/Time Objective (RTO).md",
+      "text": "Amazon FSx",
+      "explanation": "Amazon FSx is a family of fully managed, high-performance file systems that can be mounted concurrently by multiple compute instances, with FSx for Lustre commonly used for large-scale distributed ML training.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 FSx.md",
       "options": [
-        { "text": "The maximum acceptable time between a disaster occurring and the system being fully restored.", "isCorrect": true },
-        { "text": "The maximum acceptable amount of data loss, measured back from the moment of failure.", "isCorrect": false },
-        { "text": "The scheduled interval at which backups are taken, regardless of when a failure occurs.", "isCorrect": false },
-        { "text": "The percentage of time a system is guaranteed to be available over a billing period.", "isCorrect": false }
+        {
+          "text": "A family of fully managed, high-performance file systems that can be mounted concurrently by multiple compute instances.",
+          "isCorrect": true
+        },
+        {
+          "text": "Block storage volumes that attach to a single EC2 instance within one Availability Zone, offered in SSD and HDD types.",
+          "isCorrect": false
+        },
+        {
+          "text": "A managed relational database service optimized for fast, transactional reads and writes of individual records.",
+          "isCorrect": false
+        },
+        {
+          "text": "A situation where a job's speed is limited by how fast data can be read from or written to storage, rather than by compute capacity.",
+          "isCorrect": false
+        }
       ]
     },
     {
-      "text": "SSE-C (Server-Side Encryption, Customer-Provided Keys)",
-      "explanation": "With SSE-C, the user supplies the encryption key on every PUT/GET. S3 performs the actual encryption/decryption but discards the key immediately after use and never stores it.",
-      "source": "key-concepts/SSE-C.md",
+      "text": "A large-scale distributed deep learning job across many instances needs high-throughput, low-latency concurrent access to terabytes of training data already sitting in S3, without copying it to each instance's local disk first. Which storage service fits best?",
+      "explanation": "FSx for Lustre is a high-throughput, low-latency parallel file system that links directly to S3, presenting objects as files for large-scale, distributed training that needs fast shared access.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 FSx.md",
       "options": [
-        { "text": "The user supplies the encryption key on each request; S3 performs the encryption/decryption but discards the key after use.", "isCorrect": true },
-        { "text": "S3 generates and fully manages the encryption key end-to-end, including rotation, with no user involvement.", "isCorrect": false },
-        { "text": "AWS KMS manages a customer master key, and S3 uses it to generate a data key for each object.", "isCorrect": false },
-        { "text": "The client encrypts and decrypts the object locally, keeping the key entirely outside of S3.", "isCorrect": false }
+        {
+          "text": "Amazon FSx for Lustre",
+          "isCorrect": true
+        },
+        {
+          "text": "Amazon EBS (block storage)",
+          "isCorrect": false
+        },
+        {
+          "text": "Amazon S3 Glacier",
+          "isCorrect": false
+        },
+        {
+          "text": "Amazon RDS (OLTP)",
+          "isCorrect": false
+        }
       ]
     },
     {
-      "text": "SSE-S3 (Server-Side Encryption, S3-Managed Keys)",
-      "explanation": "With SSE-S3, AWS handles both key management and the encryption/decryption process end to end. The user just uploads the unencrypted object; S3 creates, rotates, and manages a unique master key using AES-256.",
-      "source": "key-concepts/SSE-S3.md",
+      "text": "I/O bottleneck",
+      "explanation": "An I/O bottleneck occurs when a job's speed is limited by how fast data can be read from or written to storage rather than by compute capacity, often showing up as low GPU or CPU utilization despite long training times.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 IO bottlenecks.md",
       "options": [
-        { "text": "S3 creates, rotates, and fully manages the encryption key internally using AES-256; the user just uploads the plain object.", "isCorrect": true },
-        { "text": "The user supplies their own encryption key on every request, and S3 discards it right after use.", "isCorrect": false },
-        { "text": "AWS KMS manages a customer master key used to generate a per-object data encryption key.", "isCorrect": false },
-        { "text": "The client must encrypt the object before upload and decrypt it after download.", "isCorrect": false }
+        {
+          "text": "A situation where a job's speed is limited by how fast data can be read from or written to storage, rather than by compute capacity.",
+          "isCorrect": true
+        },
+        {
+          "text": "Block storage volumes that attach to a single EC2 instance within one Availability Zone, offered in SSD and HDD types.",
+          "isCorrect": false
+        },
+        {
+          "text": "A family of fully managed, high-performance file systems that can be mounted concurrently by multiple compute instances.",
+          "isCorrect": false
+        },
+        {
+          "text": "A rule that automatically adjusts the number of compute instances up or down in response to demand, to balance performance against cost.",
+          "isCorrect": false
+        }
       ]
     },
     {
-      "text": "SSE-KMS (Server-Side Encryption, KMS-Managed Keys)",
-      "explanation": "AWS KMS manages a Customer Master Key (CMK), which is used to generate a per-object Data Encryption Key (DEK). S3 stores the encrypted DEK alongside the object. Using a customer-managed CMK adds rotation control, fine-grained permissions, and API-call logging/auditing.",
-      "source": "key-concepts/SSE-KMS.md",
+      "text": "A SageMaker training job shows very low GPU utilization and long epoch times, because it repeatedly re-downloads a large dataset from S3 in File mode before training starts. What is the underlying problem?",
+      "explanation": "An I/O bottleneck occurs when job speed is limited by how fast data can be read from storage rather than by compute, shown by low GPU/CPU utilization despite long training times.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 IO bottlenecks.md",
       "options": [
-        { "text": "AWS KMS manages a customer master key that's used to generate a per-object data encryption key, adding rotation control and auditing.", "isCorrect": true },
-        { "text": "S3 generates, rotates, and manages the encryption key entirely on its own, with no KMS involvement.", "isCorrect": false },
-        { "text": "The user must provide the encryption key on every PUT and GET request.", "isCorrect": false },
-        { "text": "The client encrypts the object locally before uploading it to S3.", "isCorrect": false }
+        {
+          "text": "An I/O bottleneck",
+          "isCorrect": true
+        },
+        {
+          "text": "A compute bottleneck",
+          "isCorrect": false
+        },
+        {
+          "text": "Model drift issue",
+          "isCorrect": false
+        },
+        {
+          "text": "High variance issue",
+          "isCorrect": false
+        }
       ]
     },
     {
-      "text": "Amazon S3",
-      "explanation": "S3 is Amazon's region-based object storage service, accessible from anywhere via the internet. Data stays in the chosen Region (replicated across its Availability Zones) until explicitly moved, and is reachable via console, CLI, API, or standard HTTP.",
-      "source": "aws-services/Amazon S3.md",
+      "text": "Multi-AZ deployment",
+      "explanation": "A multi-AZ deployment runs a synchronous standby copy of a resource, most commonly RDS, in a different Availability Zone so AWS can automatically fail over with minimal downtime if the primary AZ fails.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 multi-AZ deployment.md",
       "options": [
-        { "text": "A regionally-resilient object storage service where data stays in the chosen Region, replicated across its Availability Zones.", "isCorrect": true },
-        { "text": "A block storage service that provisions volumes tied to a single Availability Zone.", "isCorrect": false },
-        { "text": "A serverless query service that runs SQL directly against files without loading them into a database.", "isCorrect": false },
-        { "text": "A relational database service that automatically provisions compute and storage instances.", "isCorrect": false }
+        {
+          "text": "A configuration that runs a synchronous standby of a resource in a different Availability Zone, for automatic failover.",
+          "isCorrect": true
+        },
+        {
+          "text": "An S3 feature that automatically and asynchronously copies objects from a bucket in one Region to a bucket in another Region.",
+          "isCorrect": false
+        },
+        {
+          "text": "The maximum acceptable time between a disaster occurring and the system being fully restored.",
+          "isCorrect": false
+        },
+        {
+          "text": "The maximum acceptable amount of data loss, measured as the time between the last backup and a failure.",
+          "isCorrect": false
+        }
       ]
     },
     {
-      "text": "Amazon Athena",
-      "explanation": "Athena is a serverless service for querying data stored in S3 using schema-on-read: you define a table's schema in a data catalog, and Athena validates it against the raw data (CSV, JSON, Parquet, ORC, etc.) only when you query, with no need to transform the source first.",
-      "source": "aws-services/Athena.md",
+      "text": "A production RDS database backing an ML feature pipeline must stay available with minimal downtime if a single Availability Zone fails, with automatic failover and no manual intervention. Which option should the team use?",
+      "explanation": "A multi-AZ deployment runs a synchronous standby in a different AZ and automatically fails over on a primary-AZ outage, unlike asynchronous read replicas, which scale reads rather than provide DR.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 multi-AZ deployment.md",
       "options": [
-        { "text": "A serverless service that runs SQL queries directly against data in S3, validating a data-catalog schema against the raw data at query time.", "isCorrect": true },
-        { "text": "A managed data warehouse service that requires loading and transforming data before it can be queried.", "isCorrect": false },
-        { "text": "A fully managed relational database that provisions dedicated compute for storing and querying data.", "isCorrect": false },
-        { "text": "A block storage service used to persist EC2 instance data.", "isCorrect": false }
-      ]
-    },
-    {
-      "text": "Amazon SageMaker",
-      "explanation": "SageMaker speeds up ML development and deployment by automatically handling the infrastructure for training and inference, orchestrating other AWS services (EC2 instances, load balancers, auto-scaling) behind the scenes.",
-      "source": "aws-services/SageMaker..md",
-      "options": [
-        { "text": "A fully managed ML platform that automatically provisions and orchestrates infrastructure (EC2, load balancers, auto-scaling) for training and inference.", "isCorrect": true },
-        { "text": "A serverless service for running ad-hoc SQL queries against data stored in object storage.", "isCorrect": false },
-        { "text": "A pre-trained computer vision API for image and video analysis with no model training involved.", "isCorrect": false },
-        { "text": "A managed service offering access to third-party foundational language models via an API.", "isCorrect": false }
-      ]
-    },
-    {
-      "text": "Amazon Lex",
-      "explanation": "Lex builds conversational interfaces (chatbots and voice assistants) using the same natural-language-understanding technology as Alexa, handling intent recognition and speech-to-text automatically. (Source note was empty — filled from general AWS knowledge.)",
-      "source": "aws-services/AWS Lex.md (general knowledge, source note was empty)",
-      "options": [
-        { "text": "A service for building conversational chatbots and voice interfaces, handling intent recognition and speech-to-text automatically.", "isCorrect": true },
-        { "text": "A pre-trained service for detecting objects, faces, and text within images and videos.", "isCorrect": false },
-        { "text": "A managed service for building interactive dashboards and business-intelligence visualizations.", "isCorrect": false },
-        { "text": "A fully managed platform for training and deploying custom machine learning models.", "isCorrect": false }
-      ]
-    },
-    {
-      "text": "Amazon QuickSight",
-      "explanation": "QuickSight is a serverless, cloud-native business intelligence service for building interactive dashboards and visualizations from data across AWS and third-party sources. (Source note was empty — filled from general AWS knowledge.)",
-      "source": "aws-services/AWS QuickSight.md (general knowledge, source note was empty)",
-      "options": [
-        { "text": "A serverless business-intelligence service for building interactive dashboards and visualizations.", "isCorrect": true },
-        { "text": "A conversational AI service for building chatbots and voice interfaces.", "isCorrect": false },
-        { "text": "A serverless service for running SQL queries directly against files in S3.", "isCorrect": false },
-        { "text": "A fully managed platform for training and deploying custom machine learning models.", "isCorrect": false }
-      ]
-    },
-    {
-      "text": "Amazon Rekognition",
-      "explanation": "Rekognition is a pre-trained computer vision service that analyzes images and videos to detect objects, faces, text, and inappropriate content, with no model training required. (Source note was empty — filled from general AWS knowledge.)",
-      "source": "aws-services/AWS Rekognition.md (general knowledge, source note was empty)",
-      "options": [
-        { "text": "A pre-trained computer vision service that detects objects, faces, text, and inappropriate content in images and videos.", "isCorrect": true },
-        { "text": "A managed service offering access to third-party foundational language models via an API.", "isCorrect": false },
-        { "text": "A conversational AI service for building chatbots and voice interfaces.", "isCorrect": false },
-        { "text": "A fully managed platform for training and deploying custom machine learning models from scratch.", "isCorrect": false }
-      ]
-    },
-    {
-      "text": "Amazon EC2",
-      "explanation": "EC2 is a resizable virtual server service that lets you launch and manage compute instances on demand, choosing instance types, storage, and networking to match your workload. (Source note was empty — filled from general AWS knowledge.)",
-      "source": "aws-services/EC2.md (general knowledge, source note was empty)",
-      "options": [
-        { "text": "A resizable virtual server service for launching and managing on-demand compute instances.", "isCorrect": true },
-        { "text": "A block storage service that provides durable volumes attachable to virtual servers.", "isCorrect": false },
-        { "text": "A serverless compute service that runs code in response to events without provisioning servers.", "isCorrect": false },
-        { "text": "A fully managed relational database service that provisions and scales database instances.", "isCorrect": false }
-      ]
-    },
-    {
-      "text": "Amazon Redshift",
-      "explanation": "Redshift is a petabyte-scale, column-oriented data warehouse for analytics (OLAP), not real-time transactions. Redshift Spectrum can query S3 data directly without loading it into the cluster, and it integrates with QuickSight for visualization and SageMaker for feature engineering ahead of model training.",
-      "source": "aws-services/Amazon Redshift.md",
-      "options": [
-        { "text": "A petabyte-scale, column-oriented data warehouse for analytics (OLAP), not real-time transactional workloads.", "isCorrect": true },
-        { "text": "A fully managed NoSQL key/value and document database for low-latency transactional access.", "isCorrect": false },
-        { "text": "A managed relational database service for OLTP workloads across several database engines.", "isCorrect": false },
-        { "text": "A serverless service that queries data in S3 directly without provisioning a database cluster.", "isCorrect": false }
+        {
+          "text": "Multi-AZ deployment",
+          "isCorrect": true
+        },
+        {
+          "text": "A read replica",
+          "isCorrect": false
+        },
+        {
+          "text": "Cross-Region Replication",
+          "isCorrect": false
+        },
+        {
+          "text": "Amazon FSx storage",
+          "isCorrect": false
+        }
       ]
     },
     {
       "text": "Amazon RDS",
-      "explanation": "RDS provides managed relational database instances (MySQL, PostgreSQL, MariaDB, Aurora, Oracle, SQL Server) without the user managing the underlying server — AWS handles patching, OS, versions, and high availability. A database instance is accessed via its DNS endpoint.",
-      "source": "aws-services/Amazon RDS.md",
+      "explanation": "Amazon RDS is a managed relational database service that handles provisioning, patching, backups, and failover for transactional OLTP workloads, contrasted with a data warehouse used for analytical queries.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 RDS.md",
       "options": [
-        { "text": "A managed relational database service that provisions and maintains database server instances across several engines.", "isCorrect": true },
-        { "text": "A fully managed NoSQL key/value and document database with automatic scaling.", "isCorrect": false },
-        { "text": "A petabyte-scale, column-oriented data warehouse optimized for analytical queries.", "isCorrect": false },
-        { "text": "A resizable virtual server service for launching general-purpose compute instances.", "isCorrect": false }
+        {
+          "text": "A managed relational database service that handles provisioning, patching, backups, and failover for transactional workloads.",
+          "isCorrect": true
+        },
+        {
+          "text": "A centralized repository that stores large volumes of structured, historical data, optimized for analytical queries.",
+          "isCorrect": false
+        },
+        {
+          "text": "Block storage volumes that attach to a single EC2 instance within one Availability Zone, offered in SSD and HDD types.",
+          "isCorrect": false
+        },
+        {
+          "text": "A family of fully managed, high-performance file systems that can be mounted concurrently by multiple compute instances.",
+          "isCorrect": false
+        }
       ]
     },
     {
-      "text": "Amazon DynamoDB",
-      "explanation": "DynamoDB is a fully managed NoSQL key/value and document database, accessed via an endpoint, with throughput that can be scaled manually or automatically, plus built-in backup, point-in-time recovery, and encryption.",
-      "source": "aws-services/Amazon DynamoDB.md",
+      "text": "An application's live order and account records need fast, transactional reads and writes, and will later be extracted nightly for ML feature engineering. Which store should host this operational data?",
+      "explanation": "Amazon RDS is an OLTP store optimized for fast, transactional reads and writes of individual records, with data typically extracted afterward into a warehouse or S3 for analytics and ML.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 RDS.md",
       "options": [
-        { "text": "A fully managed NoSQL key/value and document database with scalable throughput, point-in-time recovery, and encryption built in.", "isCorrect": true },
-        { "text": "A managed relational database service supporting engines like MySQL, PostgreSQL, and Aurora.", "isCorrect": false },
-        { "text": "A petabyte-scale, column-oriented data warehouse for analytics.", "isCorrect": false },
-        { "text": "A durable block-storage volume attachable to a single EC2 instance in one Availability Zone.", "isCorrect": false }
+        {
+          "text": "RDS database",
+          "isCorrect": true
+        },
+        {
+          "text": "Amazon Redshift",
+          "isCorrect": false
+        },
+        {
+          "text": "S3 data lake",
+          "isCorrect": false
+        },
+        {
+          "text": "Amazon FSx",
+          "isCorrect": false
+        }
       ]
     },
     {
-      "text": "AWS Kinesis",
-      "explanation": "Kinesis Data Streams ingests real-time data from multiple producers (EC2, Lambda, IoT devices, on-prem servers, mobile apps) into shards — each supporting ~1MB/s writes and 2MB/s reads — for multiple consumers to read, retaining records 24 hours by default (up to 365 days).",
-      "source": "aws-services/AWS Kinesis.md",
+      "text": "Recovery Point Objective (RPO)",
+      "explanation": "RPO is the maximum acceptable data loss, measured as the time between the last backup and a failure. Lower RPO requires more frequent backups or continuous replication, which costs more.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 Recovery Point Objective (RPO)..md",
       "options": [
-        { "text": "A real-time streaming service that ingests data into shards for consumers to process, retaining records 24 hours by default.", "isCorrect": true },
-        { "text": "A fully managed NoSQL database for low-latency key/value and document storage.", "isCorrect": false },
-        { "text": "A serverless compute service that runs code in response to events without provisioning servers.", "isCorrect": false },
-        { "text": "A petabyte-scale data warehouse used for batch analytical queries.", "isCorrect": false }
+        {
+          "text": "The maximum acceptable data loss, measured as the time between the last backup and a failure.",
+          "isCorrect": true
+        },
+        {
+          "text": "The maximum acceptable time between a disaster occurring and the system being fully restored.",
+          "isCorrect": false
+        },
+        {
+          "text": "The maximum acceptable downtime a service can experience before violating its SLA.",
+          "isCorrect": false
+        },
+        {
+          "text": "The scheduled interval at which backups are taken, regardless of when a failure occurs.",
+          "isCorrect": false
+        }
       ]
     },
     {
-      "text": "AWS Lambda",
-      "explanation": "Lambda is a serverless compute service that runs your code in response to events (an S3 upload, a Kinesis record, an API call, etc.) without provisioning or managing servers, billing only for the compute time actually used. (Source note was empty — filled from general AWS knowledge.)",
-      "source": "aws-services/AWS Lambda.md (general knowledge, source note was empty)",
+      "text": "A business states it can tolerate losing at most 5 minutes of data if a disaster strikes its training-data pipeline. Which recovery metric are they defining?",
+      "explanation": "Recovery Point Objective is the maximum acceptable data loss, expressed as a time window, and a low RPO requires frequent or continuous replication rather than infrequent backups.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 Recovery Point Objective (RPO)..md",
       "options": [
-        { "text": "A serverless compute service that runs code in response to events, without provisioning or managing servers.", "isCorrect": true },
-        { "text": "A resizable virtual server service where you provision and manage instances yourself.", "isCorrect": false },
-        { "text": "A real-time streaming service that ingests and retains data records across shards.", "isCorrect": false },
-        { "text": "A managed service for creating and controlling encryption keys.", "isCorrect": false }
+        {
+          "text": "Recovery Point Objective",
+          "isCorrect": true
+        },
+        {
+          "text": "Recovery Time Objective",
+          "isCorrect": false
+        },
+        {
+          "text": "Multi-AZ deployment",
+          "isCorrect": false
+        },
+        {
+          "text": "Cross-Region Replication",
+          "isCorrect": false
+        }
       ]
     },
     {
-      "text": "AWS KMS",
-      "explanation": "AWS Key Management Service creates, stores, and controls the cryptographic keys (Customer Master Keys) used to encrypt data across AWS services, with key rotation, fine-grained permissions, and audit logging of key usage — the backbone of SSE-KMS. (Source note was empty — filled from general AWS knowledge.)",
-      "source": "aws-services/AWS KMS.md (general knowledge, source note was empty)",
+      "text": "Scaling policy",
+      "explanation": "A scaling policy automatically adjusts the number of compute instances up or down in response to demand, balancing performance and cost — target tracking is the simplest and most commonly recommended type.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 scaling policy.md",
       "options": [
-        { "text": "A managed service for creating, storing, and controlling cryptographic keys used to encrypt data, with rotation and audit logging.", "isCorrect": true },
-        { "text": "A service where S3 creates, rotates, and manages the encryption key entirely on its own with no user involvement.", "isCorrect": false },
-        { "text": "A service where the client supplies its own encryption key on every request.", "isCorrect": false },
-        { "text": "A serverless compute service that runs code in response to events.", "isCorrect": false }
+        {
+          "text": "A rule that automatically adjusts the number of compute instances up or down in response to demand, to balance performance against cost.",
+          "isCorrect": true
+        },
+        {
+          "text": "A configuration that runs a synchronous standby copy of a resource in a different Availability Zone for automatic failover.",
+          "isCorrect": false
+        },
+        {
+          "text": "A situation where a job's speed is limited by how fast data can be read from or written to storage, rather than by compute capacity.",
+          "isCorrect": false
+        },
+        {
+          "text": "Running consecutive training jobs on retained, already-provisioned compute instances so each new job starts immediately.",
+          "isCorrect": false
+        }
       ]
     },
     {
-      "text": "AWS Glacier",
-      "explanation": "S3 Glacier is a low-cost storage class/service for long-term data archival, trading retrieval speed for a much lower storage price than standard S3 — retrieval can take minutes to hours depending on the tier chosen (Expedited, Standard, Bulk), unlike the millisecond access of standard S3. (Source note was empty — filled from general AWS knowledge.)",
-      "source": "aws-services/AWS Glacier.md (general knowledge, source note was empty)",
+      "text": "A SageMaker real-time inference endpoint needs its instance count to automatically rise when invocations per instance climb during peak traffic, then fall back down afterward to save cost. What should the team configure?",
+      "explanation": "A target tracking scaling policy automatically adjusts capacity to keep a chosen metric, such as InvocationsPerInstance, at a target value, the most common approach for SageMaker endpoints.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 scaling policy.md",
       "options": [
-        { "text": "A low-cost storage class for long-term archival, with retrieval times ranging from minutes to hours depending on the tier.", "isCorrect": true },
-        { "text": "A regionally-resilient object storage service with millisecond retrieval, accessible from anywhere over the internet.", "isCorrect": false },
-        { "text": "A durable block-storage volume attachable only to EC2 instances in the same Availability Zone.", "isCorrect": false },
-        { "text": "A petabyte-scale, column-oriented data warehouse for analytical queries.", "isCorrect": false }
+        {
+          "text": "Target tracking scaling",
+          "isCorrect": true
+        },
+        {
+          "text": "A multi-AZ deployment",
+          "isCorrect": false
+        },
+        {
+          "text": "A batch transform job",
+          "isCorrect": false
+        },
+        {
+          "text": "Amazon S3 SSE-KMS encryption",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SSE-C",
+      "explanation": "SSE-C is S3 server-side encryption where the customer supplies the encryption key on every request and AWS never stores it — losing the key makes the object permanently unrecoverable.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 SSE-C.md",
+      "options": [
+        {
+          "text": "S3 server-side encryption where the customer supplies and fully manages the encryption key on every request, and AWS never stores it.",
+          "isCorrect": true
+        },
+        {
+          "text": "S3 server-side encryption using a customer-managed key stored in AWS KMS, with support for auditing and key rotation.",
+          "isCorrect": false
+        },
+        {
+          "text": "S3 server-side encryption using a key that AWS generates, rotates, and manages entirely on the customer's behalf.",
+          "isCorrect": false
+        },
+        {
+          "text": "A security strategy that layers multiple, independent controls across a system so no single control's failure exposes the resource.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "An organization needs full, exclusive control of its S3 encryption keys and does not want AWS to store the key at all, even temporarily. Which encryption option fits?",
+      "explanation": "SSE-C lets the customer supply the encryption key on every request; S3 uses it to encrypt or decrypt and then discards it, so AWS never stores the key, but losing it makes the object unrecoverable.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 SSE-C.md",
+      "options": [
+        {
+          "text": "SSE-C key",
+          "isCorrect": true
+        },
+        {
+          "text": "SSE-S3 key",
+          "isCorrect": false
+        },
+        {
+          "text": "SSE-KMS key",
+          "isCorrect": false
+        },
+        {
+          "text": "Multi-AZ",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SSE-KMS",
+      "explanation": "SSE-KMS is S3 server-side encryption using a customer-managed key stored in AWS KMS, giving control over key rotation and access, plus CloudTrail audit logging of key usage.",
+      "source": "key-concepts/Infrastructure & Operations/🔑SSE-KMS.md",
+      "options": [
+        {
+          "text": "S3 server-side encryption using a customer-managed key stored in AWS KMS, with support for auditing and key rotation.",
+          "isCorrect": true
+        },
+        {
+          "text": "S3 server-side encryption where the customer supplies and fully manages the encryption key on every request, and AWS never stores it.",
+          "isCorrect": false
+        },
+        {
+          "text": "S3 server-side encryption using a key that AWS generates, rotates, and manages entirely on the customer's behalf.",
+          "isCorrect": false
+        },
+        {
+          "text": "A security strategy that layers multiple, independent controls across a system so no single control's failure exposes the resource.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A regulated finance team needs every S3 encryption key use logged for audit and wants the ability to rotate and revoke the key independently of AWS defaults. Which encryption option fits best?",
+      "explanation": "SSE-KMS uses a customer-managed key in AWS KMS, giving control over rotation and permissions and integrating with CloudTrail to log every key usage for audit purposes.",
+      "source": "key-concepts/Infrastructure & Operations/🔑SSE-KMS.md",
+      "options": [
+        {
+          "text": "SSE-KMS",
+          "isCorrect": true
+        },
+        {
+          "text": "SSE-S3",
+          "isCorrect": false
+        },
+        {
+          "text": "SSE-C",
+          "isCorrect": false
+        },
+        {
+          "text": "Multi-AZ",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "SSE-S3",
+      "explanation": "SSE-S3 is S3's default server-side encryption, where AWS generates, rotates, and manages the key entirely, requiring no key-management effort from the customer.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 SSE-S3.md",
+      "options": [
+        {
+          "text": "S3 server-side encryption using a key that AWS generates, rotates, and manages entirely on the customer's behalf.",
+          "isCorrect": true
+        },
+        {
+          "text": "S3 server-side encryption where the customer supplies and fully manages the encryption key on every request, and AWS never stores it.",
+          "isCorrect": false
+        },
+        {
+          "text": "S3 server-side encryption using a customer-managed key stored in AWS KMS, with support for auditing and key rotation.",
+          "isCorrect": false
+        },
+        {
+          "text": "A security strategy that layers multiple, independent controls across a system so no single control's failure exposes the resource.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team just needs its S3 data encrypted at rest with zero key-management effort and no requirement for custom rotation policies or audit logging. Which encryption option fits best?",
+      "explanation": "SSE-S3 uses an AWS-managed key with no customer control, offering the simplest setup with no API throttling concerns, unlike SSE-KMS, which requires managing a customer key.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 SSE-S3.md",
+      "options": [
+        {
+          "text": "SSE-S3 key",
+          "isCorrect": true
+        },
+        {
+          "text": "SSE-KMS",
+          "isCorrect": false
+        },
+        {
+          "text": "SSE-C",
+          "isCorrect": false
+        },
+        {
+          "text": "Defense-in-depth",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Recovery Time Objective (RTO)",
+      "explanation": "RTO is the maximum acceptable downtime between a disaster occurring and the system being fully restored. Lower RTO requires automated failover architectures rather than manual recovery from backups.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 Time Objective (RTO).md",
+      "options": [
+        {
+          "text": "The maximum acceptable time between a disaster occurring and the system being fully restored.",
+          "isCorrect": true
+        },
+        {
+          "text": "The maximum acceptable data loss, measured as the time between the last backup and a failure.",
+          "isCorrect": false
+        },
+        {
+          "text": "A configuration that runs a synchronous standby copy of a resource in a different Availability Zone, for automatic failover.",
+          "isCorrect": false
+        },
+        {
+          "text": "An S3 feature that asynchronously copies objects from a bucket in one Region to a bucket in another Region.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A production inference endpoint needs near-instant recovery after a disaster, so the business defines the maximum downtime it can tolerate before service must be restored. Which recovery metric are they defining?",
+      "explanation": "Recovery Time Objective is the maximum acceptable downtime, and a low RTO requires automated failover such as multi-AZ rather than manual recovery from a cold backup.",
+      "source": "key-concepts/Infrastructure & Operations/🔑 Time Objective (RTO).md",
+      "options": [
+        {
+          "text": "Recovery Time Objective",
+          "isCorrect": true
+        },
+        {
+          "text": "Recovery Point Objective",
+          "isCorrect": false
+        },
+        {
+          "text": "Multi-AZ deployment",
+          "isCorrect": false
+        },
+        {
+          "text": "Cross-Region Replication",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Supervised learning",
+      "explanation": "Supervised learning trains a model on labeled data, where every observation includes a known target value to predict — classification for categorical targets, regression for numerical ones.",
+      "source": "key-concepts/ML Fundamentals/🔑 supervised learning.md",
+      "options": [
+        {
+          "text": "A machine learning approach where the model learns from labeled data, with every observation including a known target value to predict.",
+          "isCorrect": true
+        },
+        {
+          "text": "A machine learning approach where the model learns patterns purely from unlabeled features, with no target value provided.",
+          "isCorrect": false
+        },
+        {
+          "text": "The process of creating, transforming, or selecting the input variables fed to a model to improve predictive performance.",
+          "isCorrect": false
+        },
+        {
+          "text": "A technique that splits training data into folds to reliably estimate how well a model generalizes to unseen data.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team has historical transactions each labeled as fraudulent or not, and wants to train a model to predict that label on new, unseen transactions. Which learning paradigm fits?",
+      "explanation": "Supervised learning trains on labeled data, where every observation includes a known target the model learns to predict, contrasting with unsupervised learning's lack of labels.",
+      "source": "key-concepts/ML Fundamentals/🔑 supervised learning.md",
+      "options": [
+        {
+          "text": "Supervised learning",
+          "isCorrect": true
+        },
+        {
+          "text": "Unsupervised learning",
+          "isCorrect": false
+        },
+        {
+          "text": "Reinforcement learning",
+          "isCorrect": false
+        },
+        {
+          "text": "Semi-supervised learning",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Unsupervised learning",
+      "explanation": "Unsupervised learning finds patterns purely from unlabeled features, with no target variable provided. Clustering is the most common type, grouping observations by similarity.",
+      "source": "key-concepts/ML Fundamentals/🔑unsupervised learning.md",
+      "options": [
+        {
+          "text": "A machine learning approach where the model learns patterns purely from unlabeled features, with no target value provided.",
+          "isCorrect": true
+        },
+        {
+          "text": "A machine learning approach where the model learns from labeled data, with every observation including a known target value to predict.",
+          "isCorrect": false
+        },
+        {
+          "text": "The process of investigating a dataset through statistics and visualizations to understand its structure before modeling.",
+          "isCorrect": false
+        },
+        {
+          "text": "The process of creating, transforming, or selecting the input variables fed to a model to improve predictive performance.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team has purchase data with no predefined categories and wants to discover natural customer segments purely from feature similarity, with no labels available. Which learning paradigm fits?",
+      "explanation": "Unsupervised learning finds patterns, such as clusters, in unlabeled data using only the input features, with no ground-truth target to predict.",
+      "source": "key-concepts/ML Fundamentals/🔑unsupervised learning.md",
+      "options": [
+        {
+          "text": "Unsupervised learning",
+          "isCorrect": true
+        },
+        {
+          "text": "Supervised learning",
+          "isCorrect": false
+        },
+        {
+          "text": "Reinforcement learning",
+          "isCorrect": false
+        },
+        {
+          "text": "Semi-supervised learning",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Batch transform",
+      "explanation": "Batch transform runs predictions on an entire dataset stored in S3 at once and writes results back, with no persistent endpoint required — ideal when you don't need real-time responses.",
+      "source": "key-concepts/ML Workflow & MLOps/🔑 Batch transform.md",
+      "options": [
+        {
+          "text": "An offline inference option that runs predictions on an entire dataset stored in S3 at once, with no persistent endpoint required.",
+          "isCorrect": true
+        },
+        {
+          "text": "An online inference option that hosts a persistent, always-on endpoint for low-latency predictions on individual requests.",
+          "isCorrect": false
+        },
+        {
+          "text": "An inference option that queues large payloads and returns predictions asynchronously without requiring an always-on endpoint.",
+          "isCorrect": false
+        },
+        {
+          "text": "An inference option billed per request that automatically provisions and scales compute for intermittent, unpredictable traffic.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team needs to score millions of customer records once overnight for a report and doesn't need instant responses or a persistently running endpoint. Which SageMaker inference option fits best?",
+      "explanation": "Batch transform runs predictions on an entire dataset in S3 at once with no persistent endpoint, avoiding ongoing hosting cost when real-time responses aren't required.",
+      "source": "key-concepts/ML Workflow & MLOps/🔑 Batch transform.md",
+      "options": [
+        {
+          "text": "Batch transform job",
+          "isCorrect": true
+        },
+        {
+          "text": "Real-time inference",
+          "isCorrect": false
+        },
+        {
+          "text": "Asynchronous inference",
+          "isCorrect": false
+        },
+        {
+          "text": "Serverless inference",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Bring Your Own Container (BYOC)",
+      "explanation": "Bring Your Own Container lets you package a custom algorithm and its dependencies into a Docker image, pushed to ECR, for SageMaker training or hosting when a built-in algorithm or framework container isn't sufficient.",
+      "source": "key-concepts/ML Workflow & MLOps/🔑 Bring Your Own Container' (BYOC).md",
+      "options": [
+        {
+          "text": "A SageMaker option where a custom algorithm and its dependencies are packaged into a Docker container for training or inference.",
+          "isCorrect": true
+        },
+        {
+          "text": "An offline inference option that runs predictions on an entire dataset stored in S3 at once, with no persistent endpoint required.",
+          "isCorrect": false
+        },
+        {
+          "text": "A large model pretrained on massive, broad datasets that can be adapted to many downstream tasks via fine-tuning or prompting.",
+          "isCorrect": false
+        },
+        {
+          "text": "A representation of a workflow as nodes connected by directed edges, showing step dependencies with no cycles.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team's proprietary modeling code uses a niche framework with no SageMaker built-in algorithm or pre-built framework container support. How should they get it running on SageMaker?",
+      "explanation": "Bring Your Own Container lets a team package custom code and dependencies into a Docker image pushed to ECR, for cases where no built-in algorithm or pre-built container supports the framework.",
+      "source": "key-concepts/ML Workflow & MLOps/🔑 Bring Your Own Container' (BYOC).md",
+      "options": [
+        {
+          "text": "Package it as a custom container (BYOC)",
+          "isCorrect": true
+        },
+        {
+          "text": "Use a SageMaker built-in algorithm",
+          "isCorrect": false
+        },
+        {
+          "text": "Use Script Mode with a pre-built framework container",
+          "isCorrect": false
+        },
+        {
+          "text": "Use SageMaker Serverless Inference",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "DAG visualization",
+      "explanation": "A DAG visualization represents a workflow as nodes connected by directed, acyclic edges, making step dependencies and execution order explicit — SageMaker Pipelines renders each pipeline this way.",
+      "source": "key-concepts/ML Workflow & MLOps/🔑 DAG visualization.md",
+      "options": [
+        {
+          "text": "A representation of a workflow as nodes connected by directed edges, showing step dependencies with no cycles.",
+          "isCorrect": true
+        },
+        {
+          "text": "The full sequence of stages an ML project moves through, from data collection to a monitored production model.",
+          "isCorrect": false
+        },
+        {
+          "text": "An offline inference option that runs predictions on an entire dataset stored in S3 at once, with no persistent endpoint required.",
+          "isCorrect": false
+        },
+        {
+          "text": "A SageMaker option where a custom algorithm and its dependencies are packaged into a Docker container for training or inference.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "An engineer wants to visually trace which upstream processing step failed in a multi-step SageMaker Pipelines run, by inspecting the pipeline's execution graph in SageMaker Studio. What is this graph called?",
+      "explanation": "A DAG visualization represents a workflow as nodes connected by directed, acyclic edges, making dependencies and execution order explicit, and SageMaker Pipelines renders each run this way in Studio.",
+      "source": "key-concepts/ML Workflow & MLOps/🔑 DAG visualization.md",
+      "options": [
+        {
+          "text": "A DAG execution graph",
+          "isCorrect": true
+        },
+        {
+          "text": "A Partial Dependence Plot",
+          "isCorrect": false
+        },
+        {
+          "text": "An AUC-ROC curve",
+          "isCorrect": false
+        },
+        {
+          "text": "A scaling policy chart",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "End-to-end ML workflows",
+      "explanation": "An end-to-end ML workflow is the full sequence a project moves through, from data collection and EDA through feature engineering, training, tuning, deployment, and monitoring — typically orchestrated as a SageMaker Pipelines pipeline.",
+      "source": "key-concepts/ML Workflow & MLOps/🔑 end-to-end ML workflows.md",
+      "options": [
+        {
+          "text": "The full sequence of stages an ML project moves through, from data collection to a monitored, retrained production model.",
+          "isCorrect": true
+        },
+        {
+          "text": "A representation of a workflow as nodes connected by directed edges, showing step dependencies with no cycles.",
+          "isCorrect": false
+        },
+        {
+          "text": "The process of creating, transforming, or selecting the input variables fed to a model to improve predictive performance.",
+          "isCorrect": false
+        },
+        {
+          "text": "The process of investigating a dataset through statistics and visualizations to understand its structure before modeling.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team wants new labeled fraud data to automatically trigger reprocessing, retraining, evaluation, and conditional redeployment, without a data scientist manually rerunning notebooks each time. What are they automating?",
+      "explanation": "An end-to-end ML workflow covers every stage from data collection through deployment and monitoring, and automating it as a SageMaker Pipelines DAG enables reproducible, hands-off retraining.",
+      "source": "key-concepts/ML Workflow & MLOps/🔑 end-to-end ML workflows.md",
+      "options": [
+        {
+          "text": "The end-to-end ML workflow",
+          "isCorrect": true
+        },
+        {
+          "text": "Exploratory data analysis",
+          "isCorrect": false
+        },
+        {
+          "text": "Feature engineering",
+          "isCorrect": false
+        },
+        {
+          "text": "Hyperparameter optimization",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Exploratory data analysis (EDA)",
+      "explanation": "Exploratory Data Analysis investigates a dataset with summary statistics and visualizations to understand its structure and spot data quality issues before modeling, typically using SageMaker Data Wrangler.",
+      "source": "key-concepts/ML Workflow & MLOps/🔑 exploratory data analysis (EDA).md",
+      "options": [
+        {
+          "text": "The process of investigating a dataset through statistics and visualizations to understand its structure before modeling.",
+          "isCorrect": true
+        },
+        {
+          "text": "The process of creating, transforming, or selecting the input variables fed to a model to improve predictive performance.",
+          "isCorrect": false
+        },
+        {
+          "text": "The full sequence of stages an ML project moves through, from data collection to a monitored production model.",
+          "isCorrect": false
+        },
+        {
+          "text": "The process of systematically searching for the configuration values that produce the best-performing model.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Before choosing features or an algorithm, a team studies a new dataset's summary statistics and visualizations to spot missing values, outliers, and class imbalance. What step are they performing?",
+      "explanation": "Exploratory data analysis investigates a dataset's structure and quality before modeling, and findings like class imbalance often justify metric or feature engineering choices made later.",
+      "source": "key-concepts/ML Workflow & MLOps/🔑 exploratory data analysis (EDA).md",
+      "options": [
+        {
+          "text": "Exploratory data analysis",
+          "isCorrect": true
+        },
+        {
+          "text": "Feature engineering",
+          "isCorrect": false
+        },
+        {
+          "text": "Hyperparameter optimization",
+          "isCorrect": false
+        },
+        {
+          "text": "K-fold cross-validation",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Feature Engineering",
+      "explanation": "Feature engineering creates, transforms, or selects the input variables fed to a model to better represent the problem and improve predictive performance, such as encoding categoricals or scaling numerics.",
+      "source": "key-concepts/ML Workflow & MLOps/🔑 Feature Engineering.md",
+      "options": [
+        {
+          "text": "The process of creating, transforming, or selecting the input variables fed to a model to improve predictive performance.",
+          "isCorrect": true
+        },
+        {
+          "text": "The process of investigating a dataset through statistics and visualizations to understand its structure before modeling.",
+          "isCorrect": false
+        },
+        {
+          "text": "A configuration value set before training that controls how a model learns, rather than being learned from the data.",
+          "isCorrect": false
+        },
+        {
+          "text": "The process of systematically searching for the configuration values that produce the best-performing model.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team converts a raw 'signup_date' timestamp into 'days_since_signup' and 'signup_day_of_week' before training a churn model, since the raw timestamp alone carries little predictive signal. What are they doing?",
+      "explanation": "Feature engineering creates, transforms, or selects input variables to better represent the problem, such as deriving more informative features from a raw timestamp.",
+      "source": "key-concepts/ML Workflow & MLOps/🔑 Feature Engineering.md",
+      "options": [
+        {
+          "text": "Feature engineering",
+          "isCorrect": true
+        },
+        {
+          "text": "Exploratory data analysis",
+          "isCorrect": false
+        },
+        {
+          "text": "Hyperparameter tuning",
+          "isCorrect": false
+        },
+        {
+          "text": "Cross-validation",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Foundation Model (FM)",
+      "explanation": "A Foundation Model is a large model pretrained on massive, broad datasets that can be adapted to many downstream tasks via fine-tuning or prompting, rather than being trained from scratch for one task — the basis of Amazon Bedrock.",
+      "source": "key-concepts/ML Workflow & MLOps/🔑 Foundation Model (FM).md",
+      "options": [
+        {
+          "text": "A large model pretrained on massive, broad datasets that can be adapted to many downstream tasks via fine-tuning or prompting.",
+          "isCorrect": true
+        },
+        {
+          "text": "A SageMaker option where a custom algorithm and its dependencies are packaged into a Docker container for training or inference.",
+          "isCorrect": false
+        },
+        {
+          "text": "An offline inference option that runs predictions on an entire dataset stored in S3 at once, with no persistent endpoint required.",
+          "isCorrect": false
+        },
+        {
+          "text": "The full sequence of stages an ML project moves through, from data collection to a monitored production model.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team wants to build a document-summarization feature quickly by calling a large pretrained model through a managed API, without collecting labeled data or training anything from scratch. What should they use?",
+      "explanation": "A foundation model, accessed through a service like Amazon Bedrock, is pretrained on broad data and can be adapted to many tasks via prompting or fine-tuning instead of training a model per task.",
+      "source": "key-concepts/ML Workflow & MLOps/🔑 Foundation Model (FM).md",
+      "options": [
+        {
+          "text": "A foundation model via Amazon Bedrock",
+          "isCorrect": true
+        },
+        {
+          "text": "A SageMaker built-in algorithm trained from scratch",
+          "isCorrect": false
+        },
+        {
+          "text": "A bagging ensemble of decision trees",
+          "isCorrect": false
+        },
+        {
+          "text": "A custom BYOC container",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Hyperparameter",
+      "explanation": "A hyperparameter is a configuration value set before training that controls how a model learns, such as learning rate or tree depth, as opposed to a parameter learned automatically from the data.",
+      "source": "key-concepts/ML Workflow & MLOps/🔑 hyperparameter.md",
+      "options": [
+        {
+          "text": "A configuration value set before training that controls how a model learns, rather than being learned from the data.",
+          "isCorrect": true
+        },
+        {
+          "text": "The process of systematically searching for the configuration values that produce the best-performing model.",
+          "isCorrect": false
+        },
+        {
+          "text": "The process of creating, transforming, or selecting the input variables fed to a model to improve predictive performance.",
+          "isCorrect": false
+        },
+        {
+          "text": "The process of investigating a dataset through statistics and visualizations to understand its structure before modeling.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Before training begins, a team must decide the maximum depth of a decision tree and the number of trees in a Random Forest, values the algorithm itself won't learn from the data. What are these values called?",
+      "explanation": "Hyperparameters are configuration values set before training that control how a model learns, distinct from model parameters, which are learned automatically during training.",
+      "source": "key-concepts/ML Workflow & MLOps/🔑 hyperparameter.md",
+      "options": [
+        {
+          "text": "The hyperparameters",
+          "isCorrect": true
+        },
+        {
+          "text": "Model parameters",
+          "isCorrect": false
+        },
+        {
+          "text": "Engineered features",
+          "isCorrect": false
+        },
+        {
+          "text": "Evaluation metrics",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Hyperparameter optimization",
+      "explanation": "Hyperparameter optimization systematically searches for the hyperparameter values that produce the best-performing model, using strategies like grid search, random search, or Bayesian optimization — implemented in AWS as SageMaker automatic model tuning.",
+      "source": "key-concepts/ML Workflow & MLOps/🔑 hyperparameter optimization.md",
+      "options": [
+        {
+          "text": "The process of systematically searching for the configuration values that produce the best-performing model.",
+          "isCorrect": true
+        },
+        {
+          "text": "A configuration value set before training that controls how a model learns, rather than being learned from the data.",
+          "isCorrect": false
+        },
+        {
+          "text": "The process of creating, transforming, or selecting the input variables fed to a model to improve predictive performance.",
+          "isCorrect": false
+        },
+        {
+          "text": "A resampling technique that splits data into folds to reliably estimate how well a model generalizes to unseen data.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team wants to automatically find the best max_depth, learning rate, and number of rounds for an XGBoost model, instead of manually guessing, by launching many training jobs that track an objective metric. What should they use?",
+      "explanation": "Hyperparameter optimization, implemented on AWS as SageMaker automatic model tuning, systematically searches hyperparameter values using strategies like Bayesian optimization to maximize an objective metric.",
+      "source": "key-concepts/ML Workflow & MLOps/🔑 hyperparameter optimization.md",
+      "options": [
+        {
+          "text": "Automatic model tuning job",
+          "isCorrect": true
+        },
+        {
+          "text": "SageMaker batch transform",
+          "isCorrect": false
+        },
+        {
+          "text": "Plain k-fold cross-validation",
+          "isCorrect": false
+        },
+        {
+          "text": "A voting ensemble approach",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Partial Dependence Plots (PDP)",
+      "explanation": "A Partial Dependence Plot shows the marginal effect one or two features have on a model's predicted outcome, averaged across all other features — a global view, generated by SageMaker Clarify.",
+      "source": "key-concepts/Model Explainability/🔑 Partial Dependence Plots (PDP).md",
+      "options": [
+        {
+          "text": "A plot showing the marginal effect one or two features have on a model's predictions, averaged across all other features — a global view.",
+          "isCorrect": true
+        },
+        {
+          "text": "A technique that attributes a prediction to each feature by averaging its marginal contribution across every combination of features — a local view.",
+          "isCorrect": false
+        },
+        {
+          "text": "A pre-training bias metric that measures whether a group experiences a disproportionate share of a negative outcome, conditioned on another attribute.",
+          "isCorrect": false
+        },
+        {
+          "text": "A shift in a deployed model's fairness metrics over time relative to a baseline established during training.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Stakeholders want to see, on average across the dataset, how a house-price model's predictions change as square footage increases, to sanity-check that the learned relationship is sensible. Which explainability tool fits?",
+      "explanation": "A Partial Dependence Plot shows the global, average marginal effect of one feature on predictions across the dataset, unlike Shapley values, which explain a single prediction.",
+      "source": "key-concepts/Model Explainability/🔑 Partial Dependence Plots (PDP).md",
+      "options": [
+        {
+          "text": "A Partial Dependence Plot",
+          "isCorrect": true
+        },
+        {
+          "text": "Shapley values",
+          "isCorrect": false
+        },
+        {
+          "text": "Conditional Demographic Disparity",
+          "isCorrect": false
+        },
+        {
+          "text": "K-fold cross-validation",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Shapley values",
+      "explanation": "Shapley values are a model-agnostic technique from game theory that attributes a prediction to each feature by averaging its marginal contribution across every possible combination of features — a local, per-prediction explanation.",
+      "source": "key-concepts/Model Explainability/🔑 Shapley values.md",
+      "options": [
+        {
+          "text": "A technique that attributes a prediction to each feature by averaging its marginal contribution across every combination of features — a local view.",
+          "isCorrect": true
+        },
+        {
+          "text": "A plot showing the marginal effect one or two features have on a model's predictions, averaged across all other features — a global view.",
+          "isCorrect": false
+        },
+        {
+          "text": "A pre-training bias metric that measures whether a group experiences a disproportionate share of a negative outcome, conditioned on another attribute.",
+          "isCorrect": false
+        },
+        {
+          "text": "A shift in a deployed model's fairness metrics over time relative to a baseline established during training.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "An auditor needs to know exactly which features pushed one specific loan application toward rejection, and by how much, for that individual prediction. Which explainability technique fits?",
+      "explanation": "Shapley values give a local, per-instance attribution by fairly distributing a prediction's outcome across each feature's marginal contribution, unlike PDPs, which show a global average effect.",
+      "source": "key-concepts/Model Explainability/🔑 Shapley values.md",
+      "options": [
+        {
+          "text": "Shapley value analysis",
+          "isCorrect": true
+        },
+        {
+          "text": "Partial Dependence Plots",
+          "isCorrect": false
+        },
+        {
+          "text": "Conditional Demographic Disparity",
+          "isCorrect": false
+        },
+        {
+          "text": "The AUC-ROC curve",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Bootstrapping",
+      "explanation": "Bootstrapping draws random samples from a dataset with replacement, so the same observation can appear more than once in a sample — it's used to generate the resampled training sets for bagging, not for model validation.",
+      "source": "key-concepts/Model Validation & Resampling/🔑 Bootstrapping.md",
+      "options": [
+        {
+          "text": "A resampling technique that draws random samples from a dataset with replacement, so the same observation can appear more than once.",
+          "isCorrect": true
+        },
+        {
+          "text": "A resampling technique that splits data into folds without replacement, training on some folds and validating on the held-out fold.",
+          "isCorrect": false
+        },
+        {
+          "text": "An ensemble technique that trains models in parallel on different bootstrapped samples and combines outputs by voting or averaging.",
+          "isCorrect": false
+        },
+        {
+          "text": "The process of systematically searching for the configuration values that produce the best-performing model.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "A team trains each tree in a Random Forest on a different sample drawn from the training data with replacement, so the same observation can appear more than once in one sample. Which resampling technique is this?",
+      "explanation": "Bootstrapping samples with replacement, generating the diverse resampled training sets used to train the base models inside a bagging ensemble like Random Forest, unlike cross-validation's sampling without replacement.",
+      "source": "key-concepts/Model Validation & Resampling/🔑 Bootstrapping.md",
+      "options": [
+        {
+          "text": "Bootstrapping",
+          "isCorrect": true
+        },
+        {
+          "text": "Cross-validation",
+          "isCorrect": false
+        },
+        {
+          "text": "Model stacking",
+          "isCorrect": false
+        },
+        {
+          "text": "Model boosting",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "Cross-validation",
+      "explanation": "Cross-validation splits training data into folds without replacement, training on some folds and validating on the held-out fold, then averages performance across folds to reliably estimate generalization.",
+      "source": "key-concepts/Model Validation & Resampling/🔑 Cross-validation.md",
+      "options": [
+        {
+          "text": "A resampling technique that splits data into folds without replacement, training on some folds and validating on the held-out fold.",
+          "isCorrect": true
+        },
+        {
+          "text": "A resampling technique that draws random samples from a dataset with replacement, so the same observation can appear more than once.",
+          "isCorrect": false
+        },
+        {
+          "text": "An ensemble technique that trains models in parallel on different bootstrapped samples and combines outputs by voting or averaging.",
+          "isCorrect": false
+        },
+        {
+          "text": "The process of systematically searching for the configuration values that produce the best-performing model.",
+          "isCorrect": false
+        }
+      ]
+    },
+    {
+      "text": "On a small dataset, a team wants a reliable estimate of how well a model generalizes, so they repeatedly train on k-1 folds and validate on the remaining fold without replacement, averaging the results. Which technique is this?",
+      "explanation": "Cross-validation splits data into folds without replacement, training and validating k times so every observation is used for both, giving a more reliable performance estimate than a single split.",
+      "source": "key-concepts/Model Validation & Resampling/🔑 Cross-validation.md",
+      "options": [
+        {
+          "text": "Cross-validation",
+          "isCorrect": true
+        },
+        {
+          "text": "Bootstrap resampling",
+          "isCorrect": false
+        },
+        {
+          "text": "Model boosting",
+          "isCorrect": false
+        },
+        {
+          "text": "Model bagging",
+          "isCorrect": false
+        }
       ]
     }
   ]

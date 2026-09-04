@@ -11,7 +11,7 @@
     },
     "android": {
       "package": "com.m3m0.app",
-      "versionCode": 1,
+      "versionCode": 2,
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
