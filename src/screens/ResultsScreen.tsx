@@ -34,7 +34,8 @@ export default function ResultsScreen({ route, navigation }: Props) {
         {score} de {total} perguntas corretas
       </Text>
       <Text style={styles.pointsText}>
-        {points} pts (pontuação final) · {GAME_MODES[gameMode].label} · {durationMinutes} min
+        {points} pts (pontuação final) · {GAME_MODES[gameMode].label}
+        {!GAME_MODES[gameMode].untimed && ` · ${durationMinutes} min`}
       </Text>
 
       <View style={styles.streakBadge}>

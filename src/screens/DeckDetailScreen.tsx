@@ -76,8 +76,8 @@ export default function DeckDetailScreen({ route, navigation }: Props) {
         renderItem={({ item }) => (
           <View style={styles.attemptRow}>
             <Text style={styles.attemptScore}>
-              {GAME_MODES[item.gameMode].label} · {item.score}/{item.totalQuestions} · {item.points} pts ·{' '}
-              {item.durationMinutes} min
+              {GAME_MODES[item.gameMode].label} · {item.score}/{item.totalQuestions} · {item.points} pts
+              {!GAME_MODES[item.gameMode].untimed && ` · ${item.durationMinutes} min`}
             </Text>
             <Text style={styles.attemptDate}>{item.completedAt}</Text>
           </View>

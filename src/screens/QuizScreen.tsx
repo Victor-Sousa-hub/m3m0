@@ -8,6 +8,7 @@ import * as streakRepository from '../data/streakRepository';
 import { sampleQuestions } from '../quiz/sampleQuestions';
 import { shuffleArray } from '../quiz/shuffle';
 import { computeFinalScore } from '../quiz/scoring';
+import { GAME_MODES } from '../quiz/gameModes';
 import { useCurrentUser } from '../context/UserContext';
 import { useTheme } from '../theme/useTheme';
 import type { ThemeColors } from '../theme/colors';
@@ -24,6 +25,7 @@ function formatTime(totalSeconds: number): string {
 
 export default function QuizScreen({ route, navigation }: Props) {
   const { deckId, deckName, deckKind, gameMode, questionCount, durationMinutes } = route.params;
+  const isUntimed = GAME_MODES[gameMode].untimed ?? false;
   const user = useCurrentUser();
   const { colors } = useTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
@@ -66,6 +68,7 @@ export default function QuizScreen({ route, navigation }: Props) {
       const finalPoints = computeFinalScore({
         correctCount: finalScore,
         timeTakenSeconds,
+        untimed: isUntimed,
       });
       await attemptRepository.saveAttempt({
         userId: user.id,
@@ -92,11 +95,11 @@ export default function QuizScreen({ route, navigation }: Props) {
         isNewStreakDay: streak.isNewDay,
       });
     },
-    [deckId, deckName, durationMinutes, gameMode, navigation, totalQuestions, user.id]
+    [deckId, deckName, durationMinutes, gameMode, isUntimed, navigation, totalQuestions, user.id]
   );
 
   useEffect(() => {
-    if (!questions || totalQuestions === 0) return;
+    if (isUntimed || !questions || totalQuestions === 0) return;
 
     const interval = setInterval(() => {
       setSecondsLeft((prev) => {
@@ -110,7 +113,7 @@ export default function QuizScreen({ route, navigation }: Props) {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [questions, totalQuestions, finishQuiz]);
+  }, [isUntimed, questions, totalQuestions, finishQuiz]);
 
   const currentQuestion = questions?.[currentIndex] ?? null;
   const isLastQuestion = currentIndex === totalQuestions - 1;
@@ -194,9 +197,11 @@ export default function QuizScreen({ route, navigation }: Props) {
           Pergunta {currentIndex + 1} de {totalQuestions}
         </Text>
         <View style={styles.headerBadges}>
-          <Text style={[styles.timerText, secondsLeft <= 10 && styles.timerTextUrgent]}>
-            {formatTime(secondsLeft)}
-          </Text>
+          {!isUntimed && (
+            <Text style={[styles.timerText, secondsLeft <= 10 && styles.timerTextUrgent]}>
+              {formatTime(secondsLeft)}
+            </Text>
+          )}
           <View style={styles.scoreBadge}>
             <Text style={styles.scoreText}>{score} acertos</Text>
           </View>

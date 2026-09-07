@@ -1,4 +1,4 @@
-export type GameMode = 'blitz' | 'thinking' | 'simulado';
+export type GameMode = 'blitz' | 'thinking' | 'study' | 'simulado';
 
 /**
  * 'exam' decks are practice-test style (N options, multi-answer allowed) and
@@ -22,9 +22,11 @@ export interface GameModeConfig {
   maxDurationMinutes: number;
   /** false = fixed question count and duration, no customization allowed. */
   customizable: boolean;
+  /** true = no countdown, no auto-submit on time up, no speed bonus in scoring. */
+  untimed?: boolean;
 }
 
-export const GAME_MODE_ORDER: GameMode[] = ['blitz', 'thinking', 'simulado'];
+export const GAME_MODE_ORDER: GameMode[] = ['blitz', 'thinking', 'study', 'simulado'];
 
 /**
  * Attempt records can arrive from a sync backend that predates game modes
@@ -33,7 +35,9 @@ export const GAME_MODE_ORDER: GameMode[] = ['blitz', 'thinking', 'simulado'];
  * of trusting it, same rationale as validating imported question sets.
  */
 export function normalizeGameMode(value: unknown): GameMode {
-  return value === 'blitz' || value === 'thinking' || value === 'simulado' ? value : 'thinking';
+  return value === 'blitz' || value === 'thinking' || value === 'study' || value === 'simulado'
+    ? value
+    : 'thinking';
 }
 
 export const GAME_MODES: Record<GameMode, GameModeConfig> = {
@@ -56,6 +60,17 @@ export const GAME_MODES: Record<GameMode, GameModeConfig> = {
     minDurationMinutes: 1,
     maxDurationMinutes: MLA_C01_EXAM_DURATION_MINUTES,
     customizable: true,
+  },
+  study: {
+    id: 'study',
+    label: 'Study',
+    description: 'Sem cronômetro: revise no seu ritmo, sem pressa.',
+    minQuestions: 10,
+    maxQuestions: MLA_C01_EXAM_QUESTIONS,
+    minDurationMinutes: 0,
+    maxDurationMinutes: 0,
+    customizable: true,
+    untimed: true,
   },
   simulado: {
     id: 'simulado',

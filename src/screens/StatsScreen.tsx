@@ -115,8 +115,9 @@ export default function StatsScreen({}: Props) {
             <View style={styles.scoreInfo}>
               <Text style={styles.scoreDeck}>{item.deckName}</Text>
               <Text style={styles.scoreMeta}>
-                {GAME_MODES[item.gameMode].label} · {item.score}/{item.totalQuestions} ·{' '}
-                {item.durationMinutes} min · {formatDate(item.completedAt)}
+                {GAME_MODES[item.gameMode].label} · {item.score}/{item.totalQuestions}
+                {!GAME_MODES[item.gameMode].untimed && ` · ${item.durationMinutes} min`} ·{' '}
+                {formatDate(item.completedAt)}
               </Text>
             </View>
             <Text style={styles.scorePoints}>{item.points} pts</Text>

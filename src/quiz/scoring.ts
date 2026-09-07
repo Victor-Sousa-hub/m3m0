@@ -12,8 +12,12 @@ const MIN_SECONDS_PER_CORRECT_ANSWER = 2;
 export function computeFinalScore(params: {
   correctCount: number;
   timeTakenSeconds: number;
+  /** true = untimed mode (e.g. Study): no speed bonus, only correctness counts. */
+  untimed?: boolean;
 }): number {
   const basePoints = params.correctCount * POINTS_PER_CORRECT_ANSWER;
+  if (params.untimed) return basePoints;
+
   const effectiveSeconds = Math.max(
     params.timeTakenSeconds,
     params.correctCount * MIN_SECONDS_PER_CORRECT_ANSWER,

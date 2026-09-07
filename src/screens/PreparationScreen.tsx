@@ -133,21 +133,25 @@ export default function PreparationScreen({ route, navigation }: Props) {
             De {effectiveMinQuestions} até {effectiveMaxQuestions} perguntas.
           </Text>
 
-          <Text style={styles.sectionLabel}>Tempo para responder</Text>
-          <View style={styles.pillRow}>
-            {durationPresets.map((minutes) => {
-              const isSelected = minutes === durationMinutes;
-              return (
-                <Pressable
-                  key={minutes}
-                  style={[styles.pill, isSelected && styles.pillSelected]}
-                  onPress={() => setDurationMinutes(minutes)}
-                >
-                  <Text style={[styles.pillText, isSelected && styles.pillTextSelected]}>{minutes} min</Text>
-                </Pressable>
-              );
-            })}
-          </View>
+          {!mode.untimed && (
+            <>
+              <Text style={styles.sectionLabel}>Tempo para responder</Text>
+              <View style={styles.pillRow}>
+                {durationPresets.map((minutes) => {
+                  const isSelected = minutes === durationMinutes;
+                  return (
+                    <Pressable
+                      key={minutes}
+                      style={[styles.pill, isSelected && styles.pillSelected]}
+                      onPress={() => setDurationMinutes(minutes)}
+                    >
+                      <Text style={[styles.pillText, isSelected && styles.pillTextSelected]}>{minutes} min</Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
+            </>
+          )}
         </>
       ) : (
         <View style={styles.fixedInfo}>

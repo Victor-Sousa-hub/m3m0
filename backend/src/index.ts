@@ -37,7 +37,7 @@ interface AttemptInput {
 
 type AttemptRecord = AttemptInput;
 
-const VALID_GAME_MODES = new Set(['blitz', 'thinking', 'simulado']);
+const VALID_GAME_MODES = new Set(['blitz', 'thinking', 'study', 'simulado']);
 
 /**
  * A push can come from a client that predates game modes (or is mid
