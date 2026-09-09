@@ -3,7 +3,7 @@ export type GameMode = 'blitz' | 'thinking' | 'study' | 'simulado';
 /**
  * 'exam' decks are practice-test style (N options, multi-answer allowed) and
  * play in any pacing style. 'key_concepts' decks are concept-name + exactly
- * 4 alternatives, and only make sense as a fast recall drill — see
+ * 4 alternatives — fast recall (Blitz) or untimed review (Study), see
  * ALLOWED_GAME_MODES_BY_DECK_KIND.
  */
 export type DeckKind = 'exam' | 'key_concepts';
@@ -87,7 +87,7 @@ export const GAME_MODES: Record<GameMode, GameModeConfig> = {
 /** Which pacing styles a deck kind can be played in — see DeckKind. */
 export const ALLOWED_GAME_MODES_BY_DECK_KIND: Record<DeckKind, GameMode[]> = {
   exam: GAME_MODE_ORDER,
-  key_concepts: ['blitz'],
+  key_concepts: ['blitz', 'study'],
 };
 
 /** Fixed duration choices for key-concepts decks, replacing Blitz's normal 1-15 min range. */
