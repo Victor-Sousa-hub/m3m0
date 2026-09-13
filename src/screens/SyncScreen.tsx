@@ -28,6 +28,7 @@ export default function SyncScreen({ onPaired }: Props = {}) {
 
   const [state, setState] = useState<SyncState | null | undefined>(undefined);
   const [code, setCode] = useState('');
+  const [recoveryKey, setRecoveryKey] = useState('');
   const [pairingResult, setPairingResult] = useState<{ pairingCode: string; expiresAt: string } | null>(
     null
   );
@@ -68,6 +69,23 @@ export default function SyncScreen({ onPaired }: Props = {}) {
       onPaired?.();
     } catch {
       setError('Código inválido, expirado ou sem conexão.');
+    } finally {
+      setIsBusy(false);
+    }
+  };
+
+  const handleRecover = async () => {
+    const trimmed = recoveryKey.trim();
+    if (!trimmed) return;
+    setIsBusy(true);
+    setError(null);
+    try {
+      await pairing.recoverWithKey(trimmed);
+      setRecoveryKey('');
+      refresh();
+      onPaired?.();
+    } catch {
+      setError('Chave inválida ou sem conexão.');
     } finally {
       setIsBusy(false);
     }
@@ -120,6 +138,19 @@ export default function SyncScreen({ onPaired }: Props = {}) {
           <Text style={styles.codeHint}>Válido por 15 minutos.</Text>
         </View>
 
+        {state?.syncSecret && (
+          <View style={styles.statusCard}>
+            <Text style={styles.statusLabel}>Sua chave de recuperação</Text>
+            <Text style={styles.recoveryKeyValue} selectable>
+              {state.syncSecret}
+            </Text>
+            <Text style={styles.recoveryKeyHint}>
+              Guarde em local seguro — ela não expira e recupera este streak em qualquer
+              dispositivo. Você pode ver esta chave de novo depois, na tela de sincronização.
+            </Text>
+          </View>
+        )}
+
         <Pressable
           style={styles.button}
           onPress={() => {
@@ -145,6 +176,17 @@ export default function SyncScreen({ onPaired }: Props = {}) {
         <View style={styles.statusCard}>
           <Text style={styles.statusLabel}>Última sincronização</Text>
           <Text style={styles.statusValue}>{formatTimestamp(state.lastSyncedAt)}</Text>
+        </View>
+
+        <View style={styles.statusCard}>
+          <Text style={styles.statusLabel}>Sua chave de recuperação</Text>
+          <Text style={styles.recoveryKeyValue} selectable>
+            {state.syncSecret}
+          </Text>
+          <Text style={styles.recoveryKeyHint}>
+            Guarde em local seguro. Com ela você recupera seu streak e histórico em qualquer
+            dispositivo, a qualquer momento — sem expirar.
+          </Text>
         </View>
 
         {error && <Text style={styles.error}>{error}</Text>}
@@ -195,6 +237,26 @@ export default function SyncScreen({ onPaired }: Props = {}) {
           <Text style={styles.buttonText}>Entrar</Text>
         </Pressable>
       </View>
+
+      <Text style={styles.orLabel}>ou</Text>
+
+      <Text style={styles.sectionLabel}>Recuperar com minha chave</Text>
+      <TextInput
+        style={styles.recoveryInput}
+        placeholder="Cole sua chave de recuperação"
+        placeholderTextColor={colors.placeholder}
+        value={recoveryKey}
+        onChangeText={setRecoveryKey}
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
+      <Pressable
+        style={[styles.secondaryButton, isBusy && styles.buttonDisabled]}
+        onPress={handleRecover}
+        disabled={isBusy}
+      >
+        <Text style={styles.secondaryButtonText}>Recuperar streak</Text>
+      </Pressable>
     </View>
   );
 }
@@ -239,6 +301,18 @@ function createStyles(colors: ThemeColors) {
       fontWeight: '600',
       color: colors.text,
       marginTop: 2,
+    },
+    recoveryKeyValue: {
+      fontSize: 13,
+      fontWeight: '600',
+      color: colors.text,
+      marginTop: 4,
+    },
+    recoveryKeyHint: {
+      fontSize: 12,
+      color: colors.textMuted,
+      marginTop: 6,
+      lineHeight: 16,
     },
     error: {
       color: colors.danger,
@@ -313,6 +387,15 @@ function createStyles(colors: ThemeColors) {
       paddingVertical: 8,
       color: colors.text,
       letterSpacing: 2,
+    },
+    recoveryInput: {
+      borderWidth: 1,
+      borderColor: colors.border,
+      borderRadius: 8,
+      paddingHorizontal: 12,
+      paddingVertical: 8,
+      color: colors.text,
+      marginBottom: 12,
     },
     joinButton: {
       backgroundColor: colors.primary,

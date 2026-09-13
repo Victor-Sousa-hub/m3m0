@@ -4,6 +4,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { GAME_MODES } from '../quiz/gameModes';
 import { useTheme } from '../theme/useTheme';
+import StreakFlame from '../components/StreakFlame';
 import type { ThemeColors } from '../theme/colors';
 import type { RootStackParamList } from '../navigation/types';
 
@@ -20,6 +21,8 @@ export default function ResultsScreen({ route, navigation }: Props) {
     currentStreak,
     longestStreak,
     isNewStreakDay,
+    freezesAvailable,
+    isFrozenToday,
   } = route.params;
   const { colors } = useTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
@@ -39,7 +42,13 @@ export default function ResultsScreen({ route, navigation }: Props) {
       </Text>
 
       <View style={styles.streakBadge}>
-        <Text style={styles.streakText}>🔥 Sequência de {currentStreak} dia{currentStreak === 1 ? '' : 's'}</Text>
+        <View style={styles.streakRow}>
+          <StreakFlame streak={{ freezesAvailable, isFrozenToday }} size="large" />
+          <Text style={styles.streakText}>
+            Sequência de {currentStreak} dia{currentStreak === 1 ? '' : 's'}
+          </Text>
+        </View>
+        {isFrozenToday && <Text style={styles.streakFrozenText}>Streak congelada — jogue hoje para manter!</Text>}
         {isStreakRecord && <Text style={styles.streakRecordText}>Novo recorde pessoal!</Text>}
       </View>
 
@@ -88,10 +97,20 @@ function createStyles(colors: ThemeColors) {
       alignItems: 'center',
       marginBottom: 32,
     },
+    streakRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+    },
     streakText: {
       fontSize: 16,
       fontWeight: '700',
       color: colors.primary,
+    },
+    streakFrozenText: {
+      fontSize: 12,
+      color: colors.textMuted,
+      marginTop: 6,
     },
     streakRecordText: {
       fontSize: 13,

@@ -93,6 +93,8 @@ export default function QuizScreen({ route, navigation }: Props) {
         currentStreak: streak.currentStreak,
         longestStreak: streak.longestStreak,
         isNewStreakDay: streak.isNewDay,
+        freezesAvailable: streak.freezesAvailable,
+        isFrozenToday: streak.isFrozenToday,
       });
     },
     [deckId, deckName, durationMinutes, gameMode, isUntimed, navigation, totalQuestions, user.id]

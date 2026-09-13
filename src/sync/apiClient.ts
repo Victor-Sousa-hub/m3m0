@@ -35,6 +35,10 @@ export interface PairInviteResponse {
   expiresAt: string;
 }
 
+export interface WhoamiResponse {
+  accountId: string;
+}
+
 function getApiBaseUrl(): string {
   const url = Constants.expoConfig?.extra?.syncApiUrl;
   if (typeof url !== 'string' || !url) {
@@ -74,6 +78,10 @@ export function pairJoin(code: string): Promise<PairJoinResponse> {
 
 export function pairInvite(secret: string): Promise<PairInviteResponse> {
   return request('/pair/invite', { method: 'POST', secret });
+}
+
+export function whoami(secret: string): Promise<WhoamiResponse> {
+  return request('/whoami', { secret });
 }
 
 export function syncPush(

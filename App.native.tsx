@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import { getDatabase } from './src/db/database';
 import { importSeedQuestionSets } from './src/db/importSeedData';
 import { getCurrentUser } from './src/db/users';
+import { syncNow } from './src/sync/syncClient';
 import { UserProvider } from './src/context/UserContext';
 import { useTheme } from './src/theme/useTheme';
 import RootNavigator from './src/navigation/RootNavigator';
@@ -26,6 +27,7 @@ export default function App() {
       .then((existingUser) => {
         setUser(existingUser);
         setIsDbReady(true);
+        syncNow(); // fire-and-forget — pulls in any streak/freeze progress from other devices
       });
   }, []);
 

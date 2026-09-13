@@ -174,6 +174,17 @@ async function handleSyncPush(request: Request, env: Env, accountId: string): Pr
   return json({ ok: true });
 }
 
+/**
+ * Resolves the caller's own long-lived sync secret back to an accountId.
+ * Lets a device "log in" with nothing but that secret — the secret itself
+ * is already a permanent, never-expiring credential (unlike a pairing
+ * code), so this is the whole mechanism behind the user-facing "recovery
+ * key": paste it into `SyncScreen` on any device, any time.
+ */
+async function handleWhoami(accountId: string): Promise<Response> {
+  return json({ accountId });
+}
+
 async function handleSyncPull(env: Env, accountId: string): Promise<Response> {
   const [activeDaysResult, attemptsResult] = await env.DB.batch([
     env.DB.prepare('SELECT date FROM active_days WHERE account_id = ?').bind(accountId),
@@ -207,7 +218,12 @@ export default {
       return handlePairJoin(request, env);
     }
 
-    if (url.pathname === '/sync/push' || url.pathname === '/sync/pull' || url.pathname === '/pair/invite') {
+    if (
+      url.pathname === '/sync/push' ||
+      url.pathname === '/sync/pull' ||
+      url.pathname === '/pair/invite' ||
+      url.pathname === '/whoami'
+    ) {
       const accountId = await authenticate(request, env);
       if (!accountId) return error('Não autenticado', 401);
 
@@ -219,6 +235,9 @@ export default {
       }
       if (request.method === 'POST' && url.pathname === '/pair/invite') {
         return handlePairInvite(env, accountId);
+      }
+      if (request.method === 'GET' && url.pathname === '/whoami') {
+        return handleWhoami(accountId);
       }
     }
 

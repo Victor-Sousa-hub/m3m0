@@ -1,5 +1,5 @@
 import { getSyncState, savePairing } from '../db/syncState';
-import { pairInvite, pairJoin, pairStart } from './apiClient';
+import { pairInvite, pairJoin, pairStart, whoami } from './apiClient';
 import { syncNow } from './syncClient';
 
 export async function pairAsNewAccount(): Promise<{ pairingCode: string; expiresAt: string }> {
@@ -19,4 +19,16 @@ export async function inviteNewDevice(): Promise<{ pairingCode: string; expiresA
   const state = await getSyncState();
   if (!state) throw new Error('Dispositivo não pareado.');
   return pairInvite(state.syncSecret);
+}
+
+/**
+ * Pairs this device using an existing account's recovery key (its
+ * `syncSecret`, shown in `SyncScreen`) instead of a short-lived pairing
+ * code — the key never expires and can be reused any number of times, so
+ * this is what "recover my streak on a new device" actually calls.
+ */
+export async function recoverWithKey(key: string): Promise<void> {
+  const { accountId } = await whoami(key);
+  await savePairing(accountId, key);
+  await syncNow();
 }

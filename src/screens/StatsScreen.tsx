@@ -8,6 +8,7 @@ import * as streakRepository from '../data/streakRepository';
 import { GAME_MODE_ORDER, GAME_MODES, type GameMode } from '../quiz/gameModes';
 import { useCurrentUser } from '../context/UserContext';
 import { useTheme } from '../theme/useTheme';
+import StreakFlame from '../components/StreakFlame';
 import type { ThemeColors } from '../theme/colors';
 import type { RootStackParamList } from '../navigation/types';
 import type { AttemptRecord } from '../data/attemptRecord';
@@ -74,7 +75,12 @@ export default function StatsScreen({}: Props) {
           <Text style={styles.summaryLabel}>Partidas</Text>
         </View>
         <View style={styles.summaryCard}>
-          <Text style={styles.summaryValue}>🔥 {streak?.currentStreak ?? 0}</Text>
+          <View style={styles.streakValueRow}>
+            <StreakFlame
+              streak={{ freezesAvailable: streak?.freezesAvailable ?? 0, isFrozenToday: streak?.isFrozenToday ?? false }}
+            />
+            <Text style={styles.summaryValue}>{streak?.currentStreak ?? 0}</Text>
+          </View>
           <Text style={styles.summaryLabel}>Sequência atual</Text>
         </View>
         <View style={styles.summaryCard}>
@@ -153,6 +159,11 @@ function createStyles(colors: ThemeColors) {
       fontSize: 20,
       fontWeight: '800',
       color: colors.primary,
+    },
+    streakValueRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 6,
     },
     summaryLabel: {
       fontSize: 12,

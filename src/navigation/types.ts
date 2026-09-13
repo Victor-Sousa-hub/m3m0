@@ -25,5 +25,7 @@ export type RootStackParamList = {
     currentStreak: number;
     longestStreak: number;
     isNewStreakDay: boolean;
+    freezesAvailable: number;
+    isFrozenToday: boolean;
   };
 };

@@ -1,5 +1,5 @@
 import { getDatabase } from './database';
-import { computeStreakFromDates, getLocalDateString, type StreakInfo } from '../sync/streakMath';
+import { computeStreakWithFreezes, getLocalDateString, type StreakInfo } from '../sync/streakMath';
 
 export type { StreakInfo };
 
@@ -27,12 +27,14 @@ async function getLongestStreakFloor(userId: number): Promise<number> {
 export async function getUserStreak(userId: number): Promise<StreakInfo> {
   const dates = await getActiveDays();
   const today = getLocalDateString();
-  const computed = computeStreakFromDates(dates, today);
+  const computed = computeStreakWithFreezes(dates, today);
   const floor = await getLongestStreakFloor(userId);
 
   return {
     currentStreak: computed.currentStreak,
     longestStreak: Math.max(computed.longestStreak, floor),
+    freezesAvailable: computed.freezesAvailable,
+    isFrozenToday: computed.isFrozenToday,
     lastActiveDate: dates.length > 0 ? [...dates].sort().at(-1)! : null,
   };
 }
@@ -54,7 +56,7 @@ export async function recordDailyActivity(
   }
 
   const dates = await getActiveDays();
-  const computed = computeStreakFromDates(dates, today);
+  const computed = computeStreakWithFreezes(dates, today);
   const floor = await getLongestStreakFloor(userId);
   const longestStreak = Math.max(computed.longestStreak, floor);
   if (longestStreak > floor) {
@@ -64,6 +66,8 @@ export async function recordDailyActivity(
   return {
     currentStreak: computed.currentStreak,
     longestStreak,
+    freezesAvailable: computed.freezesAvailable,
+    isFrozenToday: computed.isFrozenToday,
     lastActiveDate: today,
     isNewDay,
   };
