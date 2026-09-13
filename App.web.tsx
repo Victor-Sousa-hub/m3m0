@@ -2,12 +2,19 @@ import { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
+import {
+  useFonts,
+  FiraCode_400Regular,
+  FiraCode_500Medium,
+  FiraCode_700Bold,
+} from '@expo-google-fonts/fira-code';
 
 import { getSyncState } from './src/db/syncState';
 import { UserProvider } from './src/context/UserContext';
 import { useTheme } from './src/theme/useTheme';
 import RootNavigator from './src/navigation/RootNavigator';
 import SyncScreen from './src/screens/SyncScreen';
+import GnuEasterEgg from './src/components/GnuEasterEgg';
 import type { User } from './src/types/models';
 
 /**
@@ -28,7 +35,12 @@ const WEB_USER: User = {
 
 export default function App() {
   const [isPaired, setIsPaired] = useState<boolean | null>(null);
-  const { colors, isDark } = useTheme();
+  const { colors } = useTheme();
+  const [fontsLoaded] = useFonts({
+    'FiraCode-Regular': FiraCode_400Regular,
+    'FiraCode-Medium': FiraCode_500Medium,
+    'FiraCode-Bold': FiraCode_700Bold,
+  });
 
   const checkPairing = useCallback(() => {
     getSyncState().then((state) => setIsPaired(!!state));
@@ -38,10 +50,19 @@ export default function App() {
     checkPairing();
   }, [checkPairing]);
 
-  if (isPaired === null) {
+  useEffect(() => {
+    // RN Views on web only paint their own box — when a screen's content is
+    // taller than the viewport, the overflow shows the browser's default
+    // (white) canvas instead of the app background. Match html/body to it.
+    document.documentElement.style.backgroundColor = colors.background;
+    document.body.style.backgroundColor = colors.background;
+  }, [colors.background]);
+
+  if (isPaired === null || !fontsLoaded) {
     return (
       <View style={[styles.loading, { backgroundColor: colors.background }]}>
-        <ActivityIndicator size="large" color={colors.primary} />
+        <ActivityIndicator size="large" color={colors.accent} />
+        <GnuEasterEgg />
       </View>
     );
   }
@@ -50,7 +71,7 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <SyncScreen onPaired={checkPairing} />
-        <StatusBar style={isDark ? 'light' : 'dark'} />
+        <StatusBar style="light" />
       </SafeAreaProvider>
     );
   }
@@ -60,7 +81,7 @@ export default function App() {
       <UserProvider value={WEB_USER}>
         <RootNavigator />
       </UserProvider>
-      <StatusBar style={isDark ? 'light' : 'dark'} />
+      <StatusBar style="light" />
     </SafeAreaProvider>
   );
 }
@@ -70,5 +91,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    gap: 18,
   },
 });

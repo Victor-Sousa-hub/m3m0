@@ -11,7 +11,7 @@ import { computeFinalScore } from '../quiz/scoring';
 import { GAME_MODES } from '../quiz/gameModes';
 import { useCurrentUser } from '../context/UserContext';
 import { useTheme } from '../theme/useTheme';
-import type { ThemeColors } from '../theme/colors';
+import type { Theme } from '../theme/tokens';
 import type { RootStackParamList } from '../navigation/types';
 import type { Question } from '../types/models';
 
@@ -27,8 +27,9 @@ export default function QuizScreen({ route, navigation }: Props) {
   const { deckId, deckName, deckKind, gameMode, questionCount, durationMinutes } = route.params;
   const isUntimed = GAME_MODES[gameMode].untimed ?? false;
   const user = useCurrentUser();
-  const { colors } = useTheme();
-  const styles = useMemo(() => createStyles(colors), [colors]);
+  const theme = useTheme();
+  const { colors } = theme;
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   const [questions, setQuestions] = useState<Question[] | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -142,7 +143,7 @@ export default function QuizScreen({ route, navigation }: Props) {
   if (!questions) {
     return (
       <View style={styles.loading}>
-        <ActivityIndicator size="large" color={colors.primary} />
+        <ActivityIndicator size="large" color={colors.accent} />
       </View>
     );
   }
@@ -272,131 +273,136 @@ export default function QuizScreen({ route, navigation }: Props) {
   );
 }
 
-function createStyles(colors: ThemeColors) {
+function createStyles({ colors, spacing, radius, typography }: Theme) {
   return StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: colors.background,
     },
     content: {
-      padding: 16,
+      padding: spacing.lg,
     },
     loading: {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      padding: 24,
+      padding: spacing.xl,
       backgroundColor: colors.background,
     },
     emptyText: {
-      color: colors.textMuted,
+      color: colors.textSecondary,
       textAlign: 'center',
+      fontFamily: typography.fontFamily.regular,
     },
     header: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginBottom: 16,
+      marginBottom: spacing.lg,
     },
     progress: {
-      color: colors.textMuted,
-      fontSize: 14,
+      color: colors.textSecondary,
+      fontSize: typography.size.sm,
+      fontFamily: typography.fontFamily.regular,
     },
     headerBadges: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 10,
+      gap: spacing.sm,
     },
     timerText: {
-      color: colors.text,
+      color: colors.textPrimary,
       fontVariant: ['tabular-nums'],
-      fontWeight: '600',
-      fontSize: 14,
+      fontFamily: typography.fontFamily.medium,
+      fontSize: typography.size.sm,
     },
     timerTextUrgent: {
-      color: colors.danger,
+      color: colors.incorrect,
     },
     scoreBadge: {
-      backgroundColor: colors.primary,
-      borderRadius: 999,
-      paddingHorizontal: 12,
-      paddingVertical: 4,
+      backgroundColor: colors.accent,
+      borderRadius: radius.sm,
+      paddingHorizontal: spacing.md,
+      paddingVertical: spacing.unit,
     },
     scoreText: {
-      color: colors.primaryText,
-      fontWeight: '600',
-      fontSize: 13,
+      color: colors.textOnAccent,
+      fontFamily: typography.fontFamily.medium,
+      fontSize: typography.size.xs,
     },
     questionText: {
-      fontSize: 18,
-      fontWeight: '600',
-      color: colors.text,
-      marginBottom: 4,
+      fontSize: typography.size.md,
+      fontFamily: typography.fontFamily.medium,
+      color: colors.textPrimary,
+      marginBottom: spacing.unit,
     },
     hint: {
-      color: colors.textMuted,
-      fontSize: 13,
-      marginBottom: 12,
+      color: colors.textSecondary,
+      fontSize: typography.size.xs,
+      marginBottom: spacing.md,
+      fontFamily: typography.fontFamily.regular,
     },
     options: {
-      marginTop: 16,
-      gap: 10,
+      marginTop: spacing.lg,
+      gap: spacing.sm,
     },
     option: {
       borderWidth: 1,
       borderColor: colors.border,
-      borderRadius: 8,
-      paddingHorizontal: 14,
-      paddingVertical: 12,
+      borderRadius: radius.sm,
+      paddingHorizontal: spacing.md,
+      paddingVertical: spacing.md,
     },
     optionSelected: {
-      borderColor: colors.primary,
-      backgroundColor: colors.primarySoft,
+      borderColor: colors.accent,
+      backgroundColor: colors.accentMuted,
     },
     optionCorrect: {
-      borderColor: colors.success,
-      backgroundColor: colors.successSoft,
+      borderColor: colors.correct,
+      backgroundColor: colors.correctMuted,
     },
     optionIncorrect: {
-      borderColor: colors.danger,
-      backgroundColor: colors.dangerSoft,
+      borderColor: colors.incorrect,
+      backgroundColor: colors.incorrectMuted,
     },
     optionText: {
-      fontSize: 15,
-      color: colors.text,
+      fontSize: typography.size.sm,
+      color: colors.textPrimary,
+      fontFamily: typography.fontFamily.regular,
     },
     feedback: {
-      marginTop: 16,
+      marginTop: spacing.lg,
     },
     feedbackCorrect: {
-      color: colors.success,
-      fontWeight: '700',
-      fontSize: 15,
+      color: colors.correct,
+      fontFamily: typography.fontFamily.bold,
+      fontSize: typography.size.sm,
     },
     feedbackIncorrect: {
-      color: colors.danger,
-      fontWeight: '700',
-      fontSize: 15,
+      color: colors.incorrect,
+      fontFamily: typography.fontFamily.bold,
+      fontSize: typography.size.sm,
     },
     explanation: {
-      marginTop: 6,
-      color: colors.textMuted,
-      fontSize: 14,
+      marginTop: spacing.xs,
+      color: colors.textSecondary,
+      fontSize: typography.size.sm,
+      fontFamily: typography.fontFamily.regular,
     },
     button: {
-      backgroundColor: colors.primary,
-      borderRadius: 8,
-      paddingVertical: 12,
+      backgroundColor: colors.accent,
+      borderRadius: radius.sm,
+      paddingVertical: spacing.md,
       alignItems: 'center',
-      marginTop: 24,
+      marginTop: spacing.xl,
     },
     buttonDisabled: {
       opacity: 0.5,
     },
     buttonText: {
-      color: colors.primaryText,
-      fontWeight: '600',
-      fontSize: 16,
+      color: colors.textOnAccent,
+      fontFamily: typography.fontFamily.medium,
+      fontSize: typography.size.md,
     },
   });
 }

@@ -5,7 +5,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { GAME_MODES } from '../quiz/gameModes';
 import { useTheme } from '../theme/useTheme';
 import StreakFlame from '../components/StreakFlame';
-import type { ThemeColors } from '../theme/colors';
+import type { Theme } from '../theme/tokens';
 import type { RootStackParamList } from '../navigation/types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Results'>;
@@ -24,8 +24,8 @@ export default function ResultsScreen({ route, navigation }: Props) {
     freezesAvailable,
     isFrozenToday,
   } = route.params;
-  const { colors } = useTheme();
-  const styles = useMemo(() => createStyles(colors), [colors]);
+  const theme = useTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const percentage = total > 0 ? Math.round((score / total) * 100) : 0;
   const isStreakRecord = isNewStreakDay && currentStreak > 1 && currentStreak === longestStreak;
 
@@ -59,75 +59,82 @@ export default function ResultsScreen({ route, navigation }: Props) {
   );
 }
 
-function createStyles(colors: ThemeColors) {
+function createStyles({ colors, spacing, radius, typography }: Theme) {
   return StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: colors.background,
       alignItems: 'center',
       justifyContent: 'center',
-      padding: 24,
+      padding: spacing.xl,
     },
     deckName: {
-      fontSize: 16,
-      color: colors.textMuted,
-      marginBottom: 8,
+      fontSize: typography.size.md,
+      color: colors.textSecondary,
+      marginBottom: spacing.sm,
+      fontFamily: typography.fontFamily.regular,
     },
     percentage: {
-      fontSize: 56,
-      fontWeight: '800',
-      color: colors.primary,
+      // The one intentional display-size outlier — no token step covers a
+      // hero result number, so it's derived from the scale rather than a
+      // raw literal.
+      fontSize: typography.size.xl * 2,
+      fontFamily: typography.fontFamily.bold,
+      color: colors.accent,
     },
     scoreText: {
-      fontSize: 16,
-      color: colors.text,
-      marginTop: 8,
+      fontSize: typography.size.md,
+      color: colors.textPrimary,
+      marginTop: spacing.sm,
+      fontFamily: typography.fontFamily.regular,
     },
     pointsText: {
-      fontSize: 14,
-      color: colors.textMuted,
-      marginTop: 4,
-      marginBottom: 24,
+      fontSize: typography.size.sm,
+      color: colors.textSecondary,
+      marginTop: spacing.unit,
+      marginBottom: spacing.xl,
+      fontFamily: typography.fontFamily.regular,
     },
     streakBadge: {
-      backgroundColor: colors.primarySoft,
-      borderRadius: 12,
-      paddingHorizontal: 20,
-      paddingVertical: 14,
+      backgroundColor: colors.accentMuted,
+      borderRadius: radius.md,
+      paddingHorizontal: spacing.lg,
+      paddingVertical: spacing.md,
       alignItems: 'center',
-      marginBottom: 32,
+      marginBottom: spacing.xxl,
     },
     streakRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 10,
+      gap: spacing.sm,
     },
     streakText: {
-      fontSize: 16,
-      fontWeight: '700',
-      color: colors.primary,
+      fontSize: typography.size.md,
+      fontFamily: typography.fontFamily.bold,
+      color: colors.accent,
     },
     streakFrozenText: {
-      fontSize: 12,
-      color: colors.textMuted,
-      marginTop: 6,
+      fontSize: typography.size.xs,
+      color: colors.textSecondary,
+      marginTop: spacing.xs,
+      fontFamily: typography.fontFamily.regular,
     },
     streakRecordText: {
-      fontSize: 13,
-      color: colors.success,
-      fontWeight: '600',
-      marginTop: 4,
+      fontSize: typography.size.xs,
+      color: colors.correct,
+      fontFamily: typography.fontFamily.medium,
+      marginTop: spacing.unit,
     },
     button: {
-      backgroundColor: colors.primary,
-      borderRadius: 8,
-      paddingHorizontal: 24,
-      paddingVertical: 12,
+      backgroundColor: colors.accent,
+      borderRadius: radius.sm,
+      paddingHorizontal: spacing.xl,
+      paddingVertical: spacing.md,
     },
     buttonText: {
-      color: colors.primaryText,
-      fontWeight: '600',
-      fontSize: 16,
+      color: colors.textOnAccent,
+      fontFamily: typography.fontFamily.medium,
+      fontSize: typography.size.md,
     },
   });
 }

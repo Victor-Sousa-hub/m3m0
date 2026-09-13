@@ -2,6 +2,12 @@ import { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
+import {
+  useFonts,
+  FiraCode_400Regular,
+  FiraCode_500Medium,
+  FiraCode_700Bold,
+} from '@expo-google-fonts/fira-code';
 
 import { getDatabase } from './src/db/database';
 import { importSeedQuestionSets } from './src/db/importSeedData';
@@ -11,12 +17,18 @@ import { UserProvider } from './src/context/UserContext';
 import { useTheme } from './src/theme/useTheme';
 import RootNavigator from './src/navigation/RootNavigator';
 import CreateProfileScreen from './src/screens/CreateProfileScreen';
+import GnuEasterEgg from './src/components/GnuEasterEgg';
 import type { User } from './src/types/models';
 
 export default function App() {
   const [isDbReady, setIsDbReady] = useState(false);
   const [user, setUser] = useState<User | null>(null);
-  const { colors, isDark } = useTheme();
+  const { colors } = useTheme();
+  const [fontsLoaded] = useFonts({
+    'FiraCode-Regular': FiraCode_400Regular,
+    'FiraCode-Medium': FiraCode_500Medium,
+    'FiraCode-Bold': FiraCode_700Bold,
+  });
 
   useEffect(() => {
     getDatabase()
@@ -35,10 +47,11 @@ export default function App() {
     setUser(createdUser);
   }, []);
 
-  if (!isDbReady) {
+  if (!isDbReady || !fontsLoaded) {
     return (
       <View style={[styles.loading, { backgroundColor: colors.background }]}>
-        <ActivityIndicator size="large" color={colors.primary} />
+        <ActivityIndicator size="large" color={colors.accent} />
+        <GnuEasterEgg />
       </View>
     );
   }
@@ -47,7 +60,7 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <CreateProfileScreen onProfileCreated={handleProfileCreated} />
-        <StatusBar style={isDark ? 'light' : 'dark'} />
+        <StatusBar style="light" />
       </SafeAreaProvider>
     );
   }
@@ -57,7 +70,7 @@ export default function App() {
       <UserProvider value={user}>
         <RootNavigator />
       </UserProvider>
-      <StatusBar style={isDark ? 'light' : 'dark'} />
+      <StatusBar style="light" />
     </SafeAreaProvider>
   );
 }
@@ -67,5 +80,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    gap: 18,
   },
 });

@@ -11,15 +11,15 @@ import {
   type GameMode,
 } from '../quiz/gameModes';
 import { useTheme } from '../theme/useTheme';
-import type { ThemeColors } from '../theme/colors';
+import type { Theme } from '../theme/tokens';
 import type { RootStackParamList } from '../navigation/types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Preparation'>;
 
 export default function PreparationScreen({ route, navigation }: Props) {
   const { deckId, deckName, deckKind } = route.params;
-  const { colors } = useTheme();
-  const styles = useMemo(() => createStyles(colors), [colors]);
+  const theme = useTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   const allowedModes = ALLOWED_GAME_MODES_BY_DECK_KIND[deckKind];
   const isKeyConcepts = deckKind === 'key_concepts';
@@ -181,137 +181,140 @@ export default function PreparationScreen({ route, navigation }: Props) {
   );
 }
 
-function createStyles(colors: ThemeColors) {
+function createStyles({ colors, spacing, radius, typography }: Theme) {
   return StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: colors.background,
-      padding: 16,
+      padding: spacing.lg,
     },
     title: {
-      fontSize: 22,
-      fontWeight: '700',
-      color: colors.text,
-      marginBottom: 4,
+      fontSize: typography.size.lg,
+      fontFamily: typography.fontFamily.bold,
+      color: colors.textPrimary,
+      marginBottom: spacing.unit,
     },
     description: {
-      color: colors.textMuted,
-      marginBottom: 24,
+      color: colors.textSecondary,
+      marginBottom: spacing.xl,
+      fontFamily: typography.fontFamily.regular,
     },
     sectionLabel: {
-      fontSize: 15,
-      fontWeight: '600',
-      color: colors.text,
-      marginBottom: 10,
+      fontSize: typography.size.sm,
+      fontFamily: typography.fontFamily.medium,
+      color: colors.textPrimary,
+      marginBottom: spacing.sm,
     },
     modeRow: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      gap: 10,
-      marginBottom: 24,
+      gap: spacing.sm,
+      marginBottom: spacing.xl,
     },
     modeCard: {
       flexGrow: 1,
       flexBasis: '30%',
       borderWidth: 1,
       borderColor: colors.border,
-      borderRadius: 10,
-      paddingHorizontal: 14,
-      paddingVertical: 12,
+      borderRadius: radius.md,
+      paddingHorizontal: spacing.md,
+      paddingVertical: spacing.md,
     },
     modeCardSelected: {
-      borderColor: colors.primary,
-      backgroundColor: colors.primarySoft,
+      borderColor: colors.accent,
+      backgroundColor: colors.accentMuted,
     },
     modeLabel: {
-      fontSize: 15,
-      fontWeight: '700',
-      color: colors.text,
+      fontSize: typography.size.sm,
+      fontFamily: typography.fontFamily.bold,
+      color: colors.textPrimary,
     },
     modeLabelSelected: {
-      color: colors.primary,
+      color: colors.accent,
     },
     modeDescription: {
-      fontSize: 12,
-      color: colors.textMuted,
-      marginTop: 4,
+      fontSize: typography.size.xs,
+      color: colors.textSecondary,
+      marginTop: spacing.unit,
+      fontFamily: typography.fontFamily.regular,
     },
     stepperRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 8,
-      marginBottom: 6,
+      gap: spacing.sm,
+      marginBottom: spacing.xs,
     },
     stepperButton: {
       borderWidth: 1,
       borderColor: colors.border,
-      borderRadius: 8,
-      paddingHorizontal: 14,
-      paddingVertical: 10,
+      borderRadius: radius.sm,
+      paddingHorizontal: spacing.md,
+      paddingVertical: spacing.sm,
     },
     stepperButtonDisabled: {
       opacity: 0.4,
     },
     stepperButtonText: {
-      color: colors.text,
-      fontWeight: '700',
+      color: colors.textPrimary,
+      fontFamily: typography.fontFamily.bold,
     },
     stepperValueBox: {
       flex: 1,
       alignItems: 'center',
     },
     stepperValue: {
-      fontSize: 22,
-      fontWeight: '800',
-      color: colors.primary,
+      fontSize: typography.size.lg,
+      fontFamily: typography.fontFamily.bold,
+      color: colors.accent,
     },
     rangeHint: {
-      fontSize: 12,
-      color: colors.textMuted,
-      marginBottom: 24,
+      fontSize: typography.size.xs,
+      color: colors.textSecondary,
+      marginBottom: spacing.xl,
+      fontFamily: typography.fontFamily.regular,
     },
     pillRow: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      gap: 10,
-      marginBottom: 24,
+      gap: spacing.sm,
+      marginBottom: spacing.xl,
     },
     pill: {
       borderWidth: 1,
       borderColor: colors.border,
-      borderRadius: 999,
-      paddingHorizontal: 18,
-      paddingVertical: 10,
+      borderRadius: radius.sm,
+      paddingHorizontal: spacing.lg,
+      paddingVertical: spacing.sm,
     },
     pillSelected: {
-      borderColor: colors.primary,
-      backgroundColor: colors.primarySoft,
+      borderColor: colors.accent,
+      backgroundColor: colors.accentMuted,
     },
     pillText: {
-      color: colors.text,
-      fontWeight: '600',
+      color: colors.textPrimary,
+      fontFamily: typography.fontFamily.medium,
     },
     pillTextSelected: {
-      color: colors.primary,
+      color: colors.accent,
     },
     fixedInfo: {
       borderWidth: 1,
       borderColor: colors.border,
-      borderRadius: 10,
-      paddingHorizontal: 16,
-      paddingVertical: 14,
-      marginBottom: 24,
+      borderRadius: radius.md,
+      paddingHorizontal: spacing.lg,
+      paddingVertical: spacing.md,
+      marginBottom: spacing.xl,
       alignItems: 'center',
     },
     fixedInfoText: {
-      color: colors.text,
-      fontWeight: '600',
-      fontSize: 15,
+      color: colors.textPrimary,
+      fontFamily: typography.fontFamily.medium,
+      fontSize: typography.size.sm,
     },
     startButton: {
-      backgroundColor: colors.primary,
-      borderRadius: 8,
-      paddingVertical: 14,
+      backgroundColor: colors.accent,
+      borderRadius: radius.sm,
+      paddingVertical: spacing.md,
       alignItems: 'center',
       marginTop: 'auto',
     },
@@ -319,9 +322,9 @@ function createStyles(colors: ThemeColors) {
       opacity: 0.5,
     },
     startButtonText: {
-      color: colors.primaryText,
-      fontWeight: '600',
-      fontSize: 16,
+      color: colors.textOnAccent,
+      fontFamily: typography.fontFamily.medium,
+      fontSize: typography.size.md,
     },
   });
 }

@@ -7,7 +7,8 @@ import * as deckRepository from '../data/deckRepository';
 import * as streakRepository from '../data/streakRepository';
 import { useCurrentUser } from '../context/UserContext';
 import { useTheme } from '../theme/useTheme';
-import type { ThemeColors } from '../theme/colors';
+import GnuEasterEgg from '../components/GnuEasterEgg';
+import type { Theme } from '../theme/tokens';
 import type { Deck } from '../types/models';
 import type { RootStackParamList } from '../navigation/types';
 
@@ -15,8 +16,9 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Decks'>;
 
 export default function DecksScreen({ navigation }: Props) {
   const user = useCurrentUser();
-  const { colors } = useTheme();
-  const styles = useMemo(() => createStyles(colors), [colors]);
+  const theme = useTheme();
+  const { colors } = theme;
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   const [decks, setDecks] = useState<Deck[]>([]);
   const [newDeckName, setNewDeckName] = useState('');
@@ -65,7 +67,7 @@ export default function DecksScreen({ navigation }: Props) {
           <TextInput
             style={styles.input}
             placeholder="Nome do baralho"
-            placeholderTextColor={colors.placeholder}
+            placeholderTextColor={colors.textSecondary}
             value={newDeckName}
             onChangeText={setNewDeckName}
             onSubmitEditing={addDeck}
@@ -81,7 +83,12 @@ export default function DecksScreen({ navigation }: Props) {
         data={decks}
         keyExtractor={(item) => String(item.id)}
         contentContainerStyle={decks.length === 0 && styles.emptyContainer}
-        ListEmptyComponent={<Text style={styles.emptyText}>Nenhum baralho ainda.</Text>}
+        ListEmptyComponent={
+          <View style={styles.emptyState}>
+            <GnuEasterEgg />
+            <Text style={styles.emptyText}>Nenhum baralho ainda.</Text>
+          </View>
+        }
         renderItem={({ item }) => (
           <Pressable
             style={styles.deckItem}
@@ -101,84 +108,91 @@ export default function DecksScreen({ navigation }: Props) {
   );
 }
 
-function createStyles(colors: ThemeColors) {
+function createStyles({ colors, spacing, radius, typography }: Theme) {
   return StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: colors.background,
-      padding: 16,
+      padding: spacing.lg,
     },
     navRow: {
       flexDirection: 'row',
-      gap: 8,
-      marginBottom: 12,
+      gap: spacing.sm,
+      marginBottom: spacing.md,
     },
     navButton: {
       borderWidth: 1,
       borderColor: colors.border,
-      borderRadius: 999,
-      paddingHorizontal: 14,
-      paddingVertical: 8,
+      borderRadius: radius.sm,
+      paddingHorizontal: spacing.md,
+      paddingVertical: spacing.sm,
     },
     navButtonText: {
-      color: colors.text,
-      fontSize: 13,
-      fontWeight: '600',
+      color: colors.textPrimary,
+      fontSize: typography.size.sm,
+      fontFamily: typography.fontFamily.medium,
     },
     streakRow: {
       alignSelf: 'flex-start',
-      backgroundColor: colors.primarySoft,
-      borderRadius: 999,
-      paddingHorizontal: 14,
-      paddingVertical: 6,
-      marginBottom: 16,
+      backgroundColor: colors.accentMuted,
+      borderRadius: radius.sm,
+      paddingHorizontal: spacing.md,
+      paddingVertical: spacing.xs,
+      marginBottom: spacing.lg,
     },
     streakText: {
-      color: colors.primary,
-      fontWeight: '700',
-      fontSize: 13,
+      color: colors.accent,
+      fontFamily: typography.fontFamily.bold,
+      fontSize: typography.size.sm,
     },
     addRow: {
       flexDirection: 'row',
-      gap: 8,
-      marginBottom: 16,
+      gap: spacing.sm,
+      marginBottom: spacing.lg,
     },
     input: {
       flex: 1,
       borderWidth: 1,
       borderColor: colors.border,
-      borderRadius: 8,
-      paddingHorizontal: 12,
-      paddingVertical: 8,
-      color: colors.text,
+      borderRadius: radius.sm,
+      paddingHorizontal: spacing.md,
+      paddingVertical: spacing.sm,
+      color: colors.textPrimary,
+      fontFamily: typography.fontFamily.regular,
     },
     addButton: {
-      backgroundColor: colors.primary,
-      borderRadius: 8,
-      paddingHorizontal: 16,
+      backgroundColor: colors.accent,
+      borderRadius: radius.sm,
+      paddingHorizontal: spacing.lg,
       justifyContent: 'center',
     },
     addButtonText: {
-      color: colors.primaryText,
-      fontWeight: '600',
+      color: colors.textOnAccent,
+      fontFamily: typography.fontFamily.medium,
     },
     deckItem: {
-      paddingVertical: 14,
-      paddingHorizontal: 12,
+      paddingVertical: spacing.md,
+      paddingHorizontal: spacing.md,
       borderBottomWidth: 1,
       borderBottomColor: colors.border,
     },
     deckName: {
-      fontSize: 16,
-      color: colors.text,
+      fontSize: typography.size.md,
+      color: colors.textPrimary,
+      fontFamily: typography.fontFamily.regular,
     },
     emptyContainer: {
       flexGrow: 1,
       justifyContent: 'center',
       alignItems: 'center',
     },
+    emptyState: {
+      alignItems: 'center',
+      gap: spacing.md,
+    },
     emptyText: {
-      color: colors.textMuted,
+      color: colors.textSecondary,
+      fontFamily: typography.fontFamily.regular,
     },
   });
 }

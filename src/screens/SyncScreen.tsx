@@ -5,7 +5,7 @@ import * as pairing from '../sync/pairing';
 import * as syncStateStore from '../db/syncState';
 import { syncNow } from '../sync/manualSync';
 import { useTheme } from '../theme/useTheme';
-import type { ThemeColors } from '../theme/colors';
+import type { Theme } from '../theme/tokens';
 import type { SyncState } from '../db/syncState';
 
 function formatTimestamp(iso: string | null): string {
@@ -28,8 +28,9 @@ type Props = {
 };
 
 export default function SyncScreen({ onPaired }: Props = {}) {
-  const { colors } = useTheme();
-  const styles = useMemo(() => createStyles(colors), [colors]);
+  const theme = useTheme();
+  const { colors } = theme;
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   const [state, setState] = useState<SyncState | null | undefined>(undefined);
   const [code, setCode] = useState('');
@@ -138,7 +139,7 @@ export default function SyncScreen({ onPaired }: Props = {}) {
   if (state === undefined) {
     return (
       <View style={styles.loading}>
-        <ActivityIndicator size="large" color={colors.primary} />
+        <ActivityIndicator size="large" color={colors.accent} />
       </View>
     );
   }
@@ -260,7 +261,7 @@ export default function SyncScreen({ onPaired }: Props = {}) {
         <TextInput
           style={styles.input}
           placeholder="Código"
-          placeholderTextColor={colors.placeholder}
+          placeholderTextColor={colors.textSecondary}
           value={code}
           onChangeText={(text) => setCode(text.toUpperCase())}
           autoCapitalize="characters"
@@ -277,7 +278,7 @@ export default function SyncScreen({ onPaired }: Props = {}) {
       <TextInput
         style={styles.recoveryInput}
         placeholder="0000 0000 0000 0000"
-        placeholderTextColor={colors.placeholder}
+        placeholderTextColor={colors.textSecondary}
         value={recoveryKey}
         onChangeText={(text) => setRecoveryKey(text.replace(/\D/g, '').slice(0, 16))}
         keyboardType="number-pad"
@@ -294,12 +295,12 @@ export default function SyncScreen({ onPaired }: Props = {}) {
   );
 }
 
-function createStyles(colors: ThemeColors) {
+function createStyles({ colors, spacing, radius, typography }: Theme) {
   return StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: colors.background,
-      padding: 16,
+      padding: spacing.lg,
     },
     loading: {
       flex: 1,
@@ -308,63 +309,67 @@ function createStyles(colors: ThemeColors) {
       backgroundColor: colors.background,
     },
     title: {
-      fontSize: 22,
-      fontWeight: '700',
-      color: colors.text,
-      marginBottom: 8,
+      fontSize: typography.size.lg,
+      fontFamily: typography.fontFamily.bold,
+      color: colors.textPrimary,
+      marginBottom: spacing.sm,
     },
     subtitle: {
-      color: colors.textMuted,
-      marginBottom: 20,
+      color: colors.textSecondary,
+      marginBottom: spacing.xl,
       lineHeight: 20,
+      fontFamily: typography.fontFamily.regular,
     },
     statusCard: {
       borderWidth: 1,
       borderColor: colors.border,
-      borderRadius: 10,
-      padding: 14,
-      marginBottom: 20,
+      borderRadius: radius.md,
+      padding: spacing.md,
+      marginBottom: spacing.xl,
     },
     statusLabel: {
-      fontSize: 12,
-      color: colors.textMuted,
+      fontSize: typography.size.xs,
+      color: colors.textSecondary,
+      fontFamily: typography.fontFamily.regular,
     },
     statusValue: {
-      fontSize: 15,
-      fontWeight: '600',
-      color: colors.text,
-      marginTop: 2,
+      fontSize: typography.size.sm,
+      fontFamily: typography.fontFamily.medium,
+      color: colors.textPrimary,
+      marginTop: spacing.unit,
     },
     recoveryKeyValue: {
-      fontSize: 18,
-      fontWeight: '700',
-      color: colors.text,
+      fontSize: typography.size.md,
+      fontFamily: typography.fontFamily.bold,
+      color: colors.textPrimary,
       letterSpacing: 1,
-      marginTop: 4,
+      marginTop: spacing.xs,
     },
     recoveryKeyHint: {
-      fontSize: 12,
-      color: colors.textMuted,
-      marginTop: 6,
+      fontSize: typography.size.xs,
+      color: colors.textSecondary,
+      marginTop: spacing.xs,
       lineHeight: 16,
+      fontFamily: typography.fontFamily.regular,
     },
     linkButton: {
-      marginTop: 10,
+      marginTop: spacing.sm,
       alignSelf: 'flex-start',
     },
     linkButtonText: {
-      fontSize: 13,
-      fontWeight: '600',
-      color: colors.primary,
+      fontSize: typography.size.sm,
+      fontFamily: typography.fontFamily.medium,
+      color: colors.accent,
     },
     error: {
-      color: colors.danger,
-      marginBottom: 12,
+      color: colors.incorrect,
+      marginBottom: spacing.md,
+      fontFamily: typography.fontFamily.regular,
     },
     button: {
-      backgroundColor: colors.primary,
-      borderRadius: 8,
-      paddingVertical: 14,
+      backgroundColor: colors.accent,
+      borderRadius: radius.sm,
+      paddingVertical: spacing.md,
       alignItems: 'center',
     },
     buttonDisabled: {
@@ -373,77 +378,81 @@ function createStyles(colors: ThemeColors) {
     secondaryButton: {
       borderWidth: 1,
       borderColor: colors.border,
-      borderRadius: 8,
-      paddingVertical: 14,
+      borderRadius: radius.sm,
+      paddingVertical: spacing.md,
       alignItems: 'center',
-      marginTop: 12,
+      marginTop: spacing.md,
     },
     secondaryButtonText: {
-      color: colors.text,
-      fontWeight: '600',
-      fontSize: 16,
+      color: colors.textPrimary,
+      fontFamily: typography.fontFamily.medium,
+      fontSize: typography.size.md,
     },
     buttonText: {
-      color: colors.primaryText,
-      fontWeight: '600',
-      fontSize: 16,
+      color: colors.textOnAccent,
+      fontFamily: typography.fontFamily.medium,
+      fontSize: typography.size.md,
     },
     codeCard: {
-      backgroundColor: colors.primarySoft,
-      borderRadius: 10,
-      padding: 18,
+      backgroundColor: colors.accentMuted,
+      borderRadius: radius.md,
+      padding: spacing.lg,
       alignItems: 'center',
-      marginBottom: 20,
+      marginBottom: spacing.xl,
     },
     codeValue: {
-      fontSize: 32,
-      fontWeight: '800',
-      color: colors.primary,
+      fontSize: typography.size.xl,
+      fontFamily: typography.fontFamily.bold,
+      color: colors.accent,
       letterSpacing: 4,
     },
     codeHint: {
-      color: colors.textMuted,
-      fontSize: 12,
-      marginTop: 6,
+      color: colors.textSecondary,
+      fontSize: typography.size.xs,
+      marginTop: spacing.xs,
+      fontFamily: typography.fontFamily.regular,
     },
     orLabel: {
       textAlign: 'center',
-      color: colors.textMuted,
-      marginVertical: 20,
+      color: colors.textSecondary,
+      marginVertical: spacing.xl,
+      fontFamily: typography.fontFamily.regular,
     },
     sectionLabel: {
-      fontSize: 15,
-      fontWeight: '600',
-      color: colors.text,
-      marginBottom: 10,
+      fontSize: typography.size.sm,
+      fontFamily: typography.fontFamily.medium,
+      color: colors.textPrimary,
+      marginBottom: spacing.sm,
     },
     joinRow: {
       flexDirection: 'row',
-      gap: 8,
+      gap: spacing.sm,
     },
     input: {
       flex: 1,
       borderWidth: 1,
       borderColor: colors.border,
-      borderRadius: 8,
-      paddingHorizontal: 12,
-      paddingVertical: 8,
-      color: colors.text,
+      borderRadius: radius.sm,
+      paddingHorizontal: spacing.md,
+      paddingVertical: spacing.sm,
+      color: colors.textPrimary,
       letterSpacing: 2,
+      fontFamily: typography.fontFamily.regular,
     },
     recoveryInput: {
       borderWidth: 1,
       borderColor: colors.border,
-      borderRadius: 8,
-      paddingHorizontal: 12,
-      paddingVertical: 8,
-      color: colors.text,
-      marginBottom: 12,
+      borderRadius: radius.sm,
+      paddingHorizontal: spacing.md,
+      paddingVertical: spacing.sm,
+      color: colors.textPrimary,
+      marginBottom: spacing.md,
+      fontFamily: typography.fontFamily.regular,
     },
     joinButton: {
-      backgroundColor: colors.primary,
-      borderRadius: 8,
-      paddingHorizontal: 20,
+      backgroundColor: colors.accent,
+      borderRadius: radius.sm,
+      paddingHorizontal: spacing.lg,
       justifyContent: 'center',
     },
   });

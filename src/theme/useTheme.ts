@@ -1,8 +1,5 @@
-import { useColorScheme } from 'react-native';
-import { darkColors, lightColors, type ThemeColors } from './colors';
+import { theme } from './tokens';
 
-export function useTheme(): { colors: ThemeColors; isDark: boolean } {
-  const scheme = useColorScheme();
-  const isDark = scheme === 'dark';
-  return { colors: isDark ? darkColors : lightColors, isDark };
+export function useTheme() {
+  return theme;
 }

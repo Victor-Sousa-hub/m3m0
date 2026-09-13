@@ -9,7 +9,7 @@ import { GAME_MODE_ORDER, GAME_MODES, type GameMode } from '../quiz/gameModes';
 import { useCurrentUser } from '../context/UserContext';
 import { useTheme } from '../theme/useTheme';
 import StreakFlame from '../components/StreakFlame';
-import type { ThemeColors } from '../theme/colors';
+import type { Theme } from '../theme/tokens';
 import type { RootStackParamList } from '../navigation/types';
 import type { AttemptRecord } from '../data/attemptRecord';
 import type { StreakInfo } from '../sync/streakMath';
@@ -31,8 +31,8 @@ function formatDate(isoDate: string): string {
 
 export default function StatsScreen({}: Props) {
   const user = useCurrentUser();
-  const { colors } = useTheme();
-  const styles = useMemo(() => createStyles(colors), [colors]);
+  const theme = useTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   const [attempts, setAttempts] = useState<AttemptRecord[]>([]);
   const [streak, setStreak] = useState<StreakInfo | null>(null);
@@ -136,108 +136,111 @@ export default function StatsScreen({}: Props) {
   );
 }
 
-function createStyles(colors: ThemeColors) {
+function createStyles({ colors, spacing, radius, typography }: Theme) {
   return StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: colors.background,
-      padding: 16,
+      padding: spacing.lg,
     },
     summaryRow: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      gap: 10,
-      marginBottom: 20,
+      gap: spacing.sm,
+      marginBottom: spacing.lg,
     },
     summaryCard: {
       flexBasis: '47%',
       borderWidth: 1,
       borderColor: colors.border,
-      borderRadius: 10,
-      paddingVertical: 12,
-      paddingHorizontal: 14,
+      borderRadius: radius.md,
+      paddingVertical: spacing.md,
+      paddingHorizontal: spacing.md,
     },
     summaryValue: {
-      fontSize: 20,
-      fontWeight: '800',
-      color: colors.primary,
+      fontSize: typography.size.lg,
+      fontFamily: typography.fontFamily.bold,
+      color: colors.accent,
     },
     streakValueRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 6,
+      gap: spacing.xs,
     },
     summaryLabel: {
-      fontSize: 12,
-      color: colors.textMuted,
-      marginTop: 2,
+      fontSize: typography.size.xs,
+      color: colors.textSecondary,
+      marginTop: spacing.unit,
+      fontFamily: typography.fontFamily.regular,
     },
     filterRow: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      gap: 8,
-      marginBottom: 12,
+      gap: spacing.sm,
+      marginBottom: spacing.md,
     },
     filterChip: {
       borderWidth: 1,
       borderColor: colors.border,
-      borderRadius: 999,
-      paddingHorizontal: 14,
-      paddingVertical: 6,
+      borderRadius: radius.sm,
+      paddingHorizontal: spacing.md,
+      paddingVertical: spacing.xs,
     },
     filterChipSelected: {
-      borderColor: colors.primary,
-      backgroundColor: colors.primarySoft,
+      borderColor: colors.accent,
+      backgroundColor: colors.accentMuted,
     },
     filterChipText: {
-      fontSize: 13,
-      fontWeight: '600',
-      color: colors.text,
+      fontSize: typography.size.sm,
+      fontFamily: typography.fontFamily.medium,
+      color: colors.textPrimary,
     },
     filterChipTextSelected: {
-      color: colors.primary,
+      color: colors.accent,
     },
     sectionTitle: {
-      fontSize: 16,
-      fontWeight: '600',
-      color: colors.text,
-      marginBottom: 8,
-      marginTop: 4,
+      fontSize: typography.size.md,
+      fontFamily: typography.fontFamily.medium,
+      color: colors.textPrimary,
+      marginBottom: spacing.sm,
+      marginTop: spacing.unit,
     },
     emptyText: {
-      color: colors.textMuted,
-      marginBottom: 16,
+      color: colors.textSecondary,
+      marginBottom: spacing.lg,
+      fontFamily: typography.fontFamily.regular,
     },
     scoreRow: {
       flexDirection: 'row',
       alignItems: 'center',
-      paddingVertical: 10,
+      paddingVertical: spacing.sm,
       borderBottomWidth: 1,
       borderBottomColor: colors.border,
-      gap: 10,
+      gap: spacing.sm,
     },
     scoreRank: {
       width: 28,
-      fontWeight: '700',
-      color: colors.textMuted,
+      fontFamily: typography.fontFamily.bold,
+      color: colors.textSecondary,
     },
     scoreInfo: {
       flex: 1,
     },
     scoreDeck: {
-      fontSize: 15,
-      fontWeight: '600',
-      color: colors.text,
+      fontSize: typography.size.sm,
+      fontFamily: typography.fontFamily.medium,
+      color: colors.textPrimary,
     },
     scoreMeta: {
-      fontSize: 12,
-      color: colors.textMuted,
-      marginTop: 2,
+      fontSize: typography.size.xs,
+      color: colors.textSecondary,
+      marginTop: spacing.unit,
+      fontFamily: typography.fontFamily.regular,
     },
     scorePoints: {
-      fontSize: 15,
-      fontWeight: '800',
-      color: colors.primary,
+      fontSize: typography.size.sm,
+      fontFamily: typography.fontFamily.bold,
+      color: colors.accent,
     },
   });
 }

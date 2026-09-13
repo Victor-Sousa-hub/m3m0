@@ -1,4 +1,4 @@
-import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import { DarkTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import DecksScreen from '../screens/DecksScreen';
@@ -14,17 +14,23 @@ import type { RootStackParamList } from './types';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function RootNavigator() {
-  const { colors, isDark } = useTheme();
+  const { colors, typography } = useTheme();
 
   const navigationTheme = {
-    ...(isDark ? DarkTheme : DefaultTheme),
+    ...DarkTheme,
     colors: {
-      ...(isDark ? DarkTheme.colors : DefaultTheme.colors),
-      primary: colors.primary,
+      ...DarkTheme.colors,
+      primary: colors.accent,
       background: colors.background,
       card: colors.background,
-      text: colors.text,
+      text: colors.textPrimary,
       border: colors.border,
+    },
+    fonts: {
+      regular: { fontFamily: typography.fontFamily.regular, fontWeight: '400' as const },
+      medium: { fontFamily: typography.fontFamily.medium, fontWeight: '500' as const },
+      bold: { fontFamily: typography.fontFamily.bold, fontWeight: '700' as const },
+      heavy: { fontFamily: typography.fontFamily.bold, fontWeight: '700' as const },
     },
   };
 

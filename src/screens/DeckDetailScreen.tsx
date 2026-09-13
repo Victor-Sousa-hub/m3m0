@@ -9,7 +9,7 @@ import { bestAttemptPerMode } from '../data/attemptRecord';
 import { GAME_MODES } from '../quiz/gameModes';
 import { useCurrentUser } from '../context/UserContext';
 import { useTheme } from '../theme/useTheme';
-import type { ThemeColors } from '../theme/colors';
+import type { Theme } from '../theme/tokens';
 import type { RootStackParamList } from '../navigation/types';
 import type { AttemptRecord } from '../data/attemptRecord';
 
@@ -18,8 +18,8 @@ type Props = NativeStackScreenProps<RootStackParamList, 'DeckDetail'>;
 export default function DeckDetailScreen({ route, navigation }: Props) {
   const { deckId, deckName, deckKind } = route.params;
   const user = useCurrentUser();
-  const { colors } = useTheme();
-  const styles = useMemo(() => createStyles(colors), [colors]);
+  const theme = useTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   const [questionCount, setQuestionCount] = useState<number | null>(null);
   const [attempts, setAttempts] = useState<AttemptRecord[]>([]);
@@ -87,93 +87,97 @@ export default function DeckDetailScreen({ route, navigation }: Props) {
   );
 }
 
-function createStyles(colors: ThemeColors) {
+function createStyles({ colors, spacing, radius, typography }: Theme) {
   return StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: colors.background,
-      padding: 16,
+      padding: spacing.lg,
     },
     title: {
-      fontSize: 22,
-      fontWeight: '700',
-      color: colors.text,
-      marginBottom: 4,
+      fontSize: typography.size.lg,
+      fontFamily: typography.fontFamily.bold,
+      color: colors.textPrimary,
+      marginBottom: spacing.unit,
     },
     subtitle: {
-      color: colors.textMuted,
-      marginBottom: 16,
+      color: colors.textSecondary,
+      marginBottom: spacing.lg,
+      fontFamily: typography.fontFamily.regular,
     },
     startButton: {
-      backgroundColor: colors.primary,
-      borderRadius: 8,
-      paddingVertical: 14,
+      backgroundColor: colors.accent,
+      borderRadius: radius.sm,
+      paddingVertical: spacing.md,
       alignItems: 'center',
-      marginBottom: 24,
+      marginBottom: spacing.xl,
     },
     startButtonDisabled: {
       opacity: 0.5,
     },
     startButtonText: {
-      color: colors.primaryText,
-      fontWeight: '600',
-      fontSize: 16,
+      color: colors.textOnAccent,
+      fontFamily: typography.fontFamily.medium,
+      fontSize: typography.size.md,
     },
     historyTitle: {
-      fontSize: 16,
-      fontWeight: '600',
-      color: colors.text,
-      marginBottom: 8,
+      fontSize: typography.size.md,
+      fontFamily: typography.fontFamily.medium,
+      color: colors.textPrimary,
+      marginBottom: spacing.sm,
     },
     recordsRow: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      gap: 10,
-      marginBottom: 24,
+      gap: spacing.sm,
+      marginBottom: spacing.xl,
     },
     recordCard: {
       borderWidth: 1,
       borderColor: colors.border,
-      borderRadius: 10,
-      paddingHorizontal: 14,
-      paddingVertical: 10,
+      borderRadius: radius.md,
+      paddingHorizontal: spacing.md,
+      paddingVertical: spacing.sm,
       alignItems: 'center',
       minWidth: 84,
     },
     recordDuration: {
-      fontSize: 12,
-      color: colors.textMuted,
-      fontWeight: '600',
+      fontSize: typography.size.xs,
+      color: colors.textSecondary,
+      fontFamily: typography.fontFamily.medium,
     },
     recordPoints: {
-      fontSize: 17,
-      color: colors.primary,
-      fontWeight: '800',
-      marginTop: 2,
+      fontSize: typography.size.sm,
+      color: colors.accent,
+      fontFamily: typography.fontFamily.bold,
+      marginTop: spacing.unit,
     },
     recordScore: {
-      fontSize: 12,
-      color: colors.textMuted,
-      marginTop: 2,
+      fontSize: typography.size.xs,
+      color: colors.textSecondary,
+      marginTop: spacing.unit,
+      fontFamily: typography.fontFamily.regular,
     },
     emptyText: {
-      color: colors.textMuted,
+      color: colors.textSecondary,
+      fontFamily: typography.fontFamily.regular,
     },
     attemptRow: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      paddingVertical: 10,
+      paddingVertical: spacing.sm,
       borderBottomWidth: 1,
       borderBottomColor: colors.border,
     },
     attemptScore: {
-      fontSize: 15,
-      fontWeight: '600',
-      color: colors.text,
+      fontSize: typography.size.sm,
+      fontFamily: typography.fontFamily.medium,
+      color: colors.textPrimary,
     },
     attemptDate: {
-      fontSize: 13,
-      color: colors.textMuted,
+      fontSize: typography.size.xs,
+      color: colors.textSecondary,
+      fontFamily: typography.fontFamily.regular,
     },
   });
 }

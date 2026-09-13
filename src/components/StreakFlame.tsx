@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 
 import { useTheme } from '../theme/useTheme';
-import type { ThemeColors } from '../theme/colors';
+import type { Theme } from '../theme/tokens';
 import type { StreakInfo } from '../sync/streakMath';
 import { MAX_BANKED_FREEZES } from '../sync/streakMath';
 
@@ -33,8 +33,8 @@ const ICE_SIZE: Record<Size, number> = { compact: 11, large: 14 };
  * freezes; a frozen (auto-covered) streak swaps the flame for an ice cube.
  */
 export default function StreakFlame({ streak, size = 'compact' }: Props) {
-  const { colors } = useTheme();
-  const styles = createStyles(colors);
+  const theme = useTheme();
+  const styles = createStyles(theme);
   const tier = Math.min(streak.freezesAvailable, MAX_BANKED_FREEZES) as 0 | 1 | 2 | 3;
   const flameSize = FLAME_SIZES[size][tier];
   const glowSize = GLOW_SIZES[size][tier];
@@ -77,12 +77,12 @@ export default function StreakFlame({ streak, size = 'compact' }: Props) {
   );
 }
 
-function createStyles(colors: ThemeColors) {
+function createStyles({ colors, spacing, elevation }: Theme) {
   return StyleSheet.create({
     row: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: 4,
+      gap: spacing.unit,
     },
     weakFlame: {
       opacity: 0.45,
@@ -92,10 +92,11 @@ function createStyles(colors: ThemeColors) {
       justifyContent: 'center',
     },
     fireGlow: {
-      backgroundColor: colors.dangerSoft,
+      backgroundColor: colors.accentMuted,
     },
     frozenGlow: {
-      backgroundColor: colors.primarySoft,
+      backgroundColor: colors.backgroundElevated,
+      ...elevation.card,
     },
     iceRow: {
       flexDirection: 'row',

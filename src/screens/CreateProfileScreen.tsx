@@ -3,7 +3,7 @@ import { KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TextInput,
 
 import { createUser } from '../db/users';
 import { useTheme } from '../theme/useTheme';
-import type { ThemeColors } from '../theme/colors';
+import type { Theme } from '../theme/tokens';
 import type { User } from '../types/models';
 
 type Props = {
@@ -11,8 +11,9 @@ type Props = {
 };
 
 export default function CreateProfileScreen({ onProfileCreated }: Props) {
-  const { colors } = useTheme();
-  const styles = useMemo(() => createStyles(colors), [colors]);
+  const theme = useTheme();
+  const { colors } = theme;
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   const [name, setName] = useState('');
   const [isSaving, setIsSaving] = useState(false);
@@ -50,7 +51,7 @@ export default function CreateProfileScreen({ onProfileCreated }: Props) {
         <TextInput
           style={styles.input}
           placeholder="Seu nome"
-          placeholderTextColor={colors.placeholder}
+          placeholderTextColor={colors.textSecondary}
           value={name}
           onChangeText={setName}
           onSubmitEditing={handleSubmit}
@@ -72,7 +73,7 @@ export default function CreateProfileScreen({ onProfileCreated }: Props) {
   );
 }
 
-function createStyles(colors: ThemeColors) {
+function createStyles({ colors, spacing, radius, typography }: Theme) {
   return StyleSheet.create({
     container: {
       flex: 1,
@@ -80,49 +81,52 @@ function createStyles(colors: ThemeColors) {
       justifyContent: 'center',
     },
     content: {
-      padding: 24,
+      padding: spacing.xl,
     },
     title: {
-      fontSize: 24,
-      fontWeight: '700',
-      color: colors.text,
-      marginBottom: 8,
+      fontSize: typography.size.xl,
+      fontFamily: typography.fontFamily.bold,
+      color: colors.textPrimary,
+      marginBottom: spacing.sm,
       textAlign: 'center',
     },
     subtitle: {
-      fontSize: 15,
-      color: colors.textMuted,
-      marginBottom: 24,
+      fontSize: typography.size.sm,
+      color: colors.textSecondary,
+      marginBottom: spacing.xl,
       textAlign: 'center',
+      fontFamily: typography.fontFamily.regular,
     },
     input: {
       borderWidth: 1,
       borderColor: colors.border,
-      borderRadius: 8,
-      paddingHorizontal: 12,
-      paddingVertical: 10,
-      fontSize: 16,
-      color: colors.text,
-      marginBottom: 8,
+      borderRadius: radius.sm,
+      paddingHorizontal: spacing.md,
+      paddingVertical: spacing.sm,
+      fontSize: typography.size.md,
+      color: colors.textPrimary,
+      marginBottom: spacing.sm,
+      fontFamily: typography.fontFamily.regular,
     },
     error: {
-      color: colors.danger,
-      marginBottom: 8,
+      color: colors.incorrect,
+      marginBottom: spacing.sm,
+      fontFamily: typography.fontFamily.regular,
     },
     button: {
-      backgroundColor: colors.primary,
-      borderRadius: 8,
-      paddingVertical: 12,
+      backgroundColor: colors.accent,
+      borderRadius: radius.sm,
+      paddingVertical: spacing.md,
       alignItems: 'center',
-      marginTop: 8,
+      marginTop: spacing.sm,
     },
     buttonDisabled: {
       opacity: 0.6,
     },
     buttonText: {
-      color: colors.primaryText,
-      fontWeight: '600',
-      fontSize: 16,
+      color: colors.textOnAccent,
+      fontFamily: typography.fontFamily.medium,
+      fontSize: typography.size.md,
     },
   });
 }
