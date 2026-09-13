@@ -81,7 +81,9 @@ export default function StatsScreen({}: Props) {
             />
             <Text style={styles.summaryValue}>{streak?.currentStreak ?? 0}</Text>
           </View>
-          <Text style={styles.summaryLabel}>Sequência atual</Text>
+          <Text style={styles.summaryLabel}>
+            Sequência atual{streak?.isFrozenToday ? ' (congelada)' : ''}
+          </Text>
         </View>
         <View style={styles.summaryCard}>
           <Text style={styles.summaryValue}>🏆 {streak?.longestStreak ?? 0}</Text>

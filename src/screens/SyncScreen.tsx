@@ -15,6 +15,11 @@ function formatTimestamp(iso: string | null): string {
   return date.toLocaleString('pt-BR');
 }
 
+/** Groups the 16-digit recovery key as "1234 5678 9012 3456" — display only. */
+function formatRecoveryKey(key: string): string {
+  return key.match(/.{1,4}/g)?.join(' ') ?? key;
+}
+
 type Props = {
   /** Fires once right after this device successfully pairs — lets a caller
    * rendering this screen outside the navigator (the web pairing gate)
@@ -75,7 +80,7 @@ export default function SyncScreen({ onPaired }: Props = {}) {
   };
 
   const handleRecover = async () => {
-    const trimmed = recoveryKey.trim();
+    const trimmed = recoveryKey.replace(/\D/g, '');
     if (!trimmed) return;
     setIsBusy(true);
     setError(null);
@@ -142,7 +147,7 @@ export default function SyncScreen({ onPaired }: Props = {}) {
           <View style={styles.statusCard}>
             <Text style={styles.statusLabel}>Sua chave de recuperação</Text>
             <Text style={styles.recoveryKeyValue} selectable>
-              {state.syncSecret}
+              {formatRecoveryKey(state.syncSecret)}
             </Text>
             <Text style={styles.recoveryKeyHint}>
               Guarde em local seguro — ela não expira e recupera este streak em qualquer
@@ -181,7 +186,7 @@ export default function SyncScreen({ onPaired }: Props = {}) {
         <View style={styles.statusCard}>
           <Text style={styles.statusLabel}>Sua chave de recuperação</Text>
           <Text style={styles.recoveryKeyValue} selectable>
-            {state.syncSecret}
+            {formatRecoveryKey(state.syncSecret)}
           </Text>
           <Text style={styles.recoveryKeyHint}>
             Guarde em local seguro. Com ela você recupera seu streak e histórico em qualquer
@@ -243,12 +248,12 @@ export default function SyncScreen({ onPaired }: Props = {}) {
       <Text style={styles.sectionLabel}>Recuperar com minha chave</Text>
       <TextInput
         style={styles.recoveryInput}
-        placeholder="Cole sua chave de recuperação"
+        placeholder="0000 0000 0000 0000"
         placeholderTextColor={colors.placeholder}
         value={recoveryKey}
-        onChangeText={setRecoveryKey}
-        autoCapitalize="none"
-        autoCorrect={false}
+        onChangeText={(text) => setRecoveryKey(text.replace(/\D/g, '').slice(0, 16))}
+        keyboardType="number-pad"
+        maxLength={19}
       />
       <Pressable
         style={[styles.secondaryButton, isBusy && styles.buttonDisabled]}
@@ -303,9 +308,10 @@ function createStyles(colors: ThemeColors) {
       marginTop: 2,
     },
     recoveryKeyValue: {
-      fontSize: 13,
-      fontWeight: '600',
+      fontSize: 18,
+      fontWeight: '700',
       color: colors.text,
+      letterSpacing: 1,
       marginTop: 4,
     },
     recoveryKeyHint: {
