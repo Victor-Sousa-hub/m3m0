@@ -1,5 +1,5 @@
 import { getSyncState, savePairing } from '../db/syncState';
-import { pairInvite, pairJoin, pairStart, whoami } from './apiClient';
+import { pairInvite, pairJoin, pairStart, regenerateKey, whoami } from './apiClient';
 import { syncNow } from './syncClient';
 
 export async function pairAsNewAccount(): Promise<{ pairingCode: string; expiresAt: string }> {
@@ -31,4 +31,17 @@ export async function recoverWithKey(key: string): Promise<void> {
   const { accountId } = await whoami(key);
   await savePairing(accountId, key);
   await syncNow();
+}
+
+/**
+ * Mints a fresh, current-format recovery key for this device's own account
+ * and adopts it locally — for devices paired before secrets were 16-digit
+ * codes, so they can pick up the new, memorable format in place.
+ */
+export async function regenerateMyKey(): Promise<string> {
+  const state = await getSyncState();
+  if (!state) throw new Error('Dispositivo não pareado.');
+  const { syncSecret } = await regenerateKey(state.syncSecret);
+  await savePairing(state.accountId, syncSecret);
+  return syncSecret;
 }

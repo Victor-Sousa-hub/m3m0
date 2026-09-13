@@ -122,6 +122,19 @@ export default function SyncScreen({ onPaired }: Props = {}) {
     }
   };
 
+  const handleRegenerateKey = async () => {
+    setIsBusy(true);
+    setError(null);
+    try {
+      await pairing.regenerateMyKey();
+      refresh();
+    } catch {
+      setError('Não foi possível gerar uma nova chave agora.');
+    } finally {
+      setIsBusy(false);
+    }
+  };
+
   if (state === undefined) {
     return (
       <View style={styles.loading}>
@@ -192,6 +205,21 @@ export default function SyncScreen({ onPaired }: Props = {}) {
             Guarde em local seguro. Com ela você recupera seu streak e histórico em qualquer
             dispositivo, a qualquer momento — sem expirar.
           </Text>
+          {state.syncSecret.length !== 16 && (
+            <>
+              <Text style={styles.recoveryKeyHint}>
+                Essa chave é de um formato antigo, mais difícil de guardar. Você pode gerar uma
+                nova de 16 dígitos sem perder nada.
+              </Text>
+              <Pressable
+                style={[styles.linkButton, isBusy && styles.buttonDisabled]}
+                onPress={handleRegenerateKey}
+                disabled={isBusy}
+              >
+                <Text style={styles.linkButtonText}>Gerar nova chave (16 dígitos)</Text>
+              </Pressable>
+            </>
+          )}
         </View>
 
         {error && <Text style={styles.error}>{error}</Text>}
@@ -319,6 +347,15 @@ function createStyles(colors: ThemeColors) {
       color: colors.textMuted,
       marginTop: 6,
       lineHeight: 16,
+    },
+    linkButton: {
+      marginTop: 10,
+      alignSelf: 'flex-start',
+    },
+    linkButtonText: {
+      fontSize: 13,
+      fontWeight: '600',
+      color: colors.primary,
     },
     error: {
       color: colors.danger,

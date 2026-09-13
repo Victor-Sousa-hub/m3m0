@@ -39,6 +39,10 @@ export interface WhoamiResponse {
   accountId: string;
 }
 
+export interface KeyRegenerateResponse {
+  syncSecret: string;
+}
+
 function getApiBaseUrl(): string {
   const url = Constants.expoConfig?.extra?.syncApiUrl;
   if (typeof url !== 'string' || !url) {
@@ -82,6 +86,10 @@ export function pairInvite(secret: string): Promise<PairInviteResponse> {
 
 export function whoami(secret: string): Promise<WhoamiResponse> {
   return request('/whoami', { secret });
+}
+
+export function regenerateKey(secret: string): Promise<KeyRegenerateResponse> {
+  return request('/key/regenerate', { method: 'POST', secret });
 }
 
 export function syncPush(

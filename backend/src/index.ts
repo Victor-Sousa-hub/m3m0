@@ -185,6 +185,18 @@ async function handleWhoami(accountId: string): Promise<Response> {
   return json({ accountId });
 }
 
+/**
+ * Mints a fresh secret for the caller's own account without any pairing
+ * dance — lets a device that paired before secrets became 16-digit
+ * recovery keys pick up the new format in place. Old secrets (any format)
+ * stay valid; there's no revocation, same as every other multi-secret path
+ * here.
+ */
+async function handleKeyRegenerate(env: Env, accountId: string): Promise<Response> {
+  const syncSecret = await issueSecretFor(env, accountId);
+  return json({ syncSecret });
+}
+
 async function handleSyncPull(env: Env, accountId: string): Promise<Response> {
   const [activeDaysResult, attemptsResult] = await env.DB.batch([
     env.DB.prepare('SELECT date FROM active_days WHERE account_id = ?').bind(accountId),
@@ -222,7 +234,8 @@ export default {
       url.pathname === '/sync/push' ||
       url.pathname === '/sync/pull' ||
       url.pathname === '/pair/invite' ||
-      url.pathname === '/whoami'
+      url.pathname === '/whoami' ||
+      url.pathname === '/key/regenerate'
     ) {
       const accountId = await authenticate(request, env);
       if (!accountId) return error('Não autenticado', 401);
@@ -238,6 +251,9 @@ export default {
       }
       if (request.method === 'GET' && url.pathname === '/whoami') {
         return handleWhoami(accountId);
+      }
+      if (request.method === 'POST' && url.pathname === '/key/regenerate') {
+        return handleKeyRegenerate(env, accountId);
       }
     }
 
