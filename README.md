@@ -1,25 +1,25 @@
 # m3m0 web — deploy branch
 
-This branch (`release`) has no application source code. It only holds
-what's needed to build and run the already-exported m3m0 web build behind
-Caddy (static file server + automatic HTTPS):
+This branch (`release`) has no application source code and no Dockerfile.
+It only holds what's needed to *run* the already-published m3m0 web image
+behind Caddy (static file server + automatic HTTPS):
 
-- `Dockerfile` — multi-stage build: clones the app source from git,
-  runs `npx expo export --platform web`, then ships only the static
-  `dist/` output in a `caddy:2-alpine` image.
-- `Caddyfile` — serves the static bundle and terminates TLS via Let's
-  Encrypt (baked into the image, overridable at runtime — see
-  `docker-compose.yml`).
-- `docker-compose.yml` — runs the already-published image from Docker
-  Hub. It does not build anything.
+- `docker-compose.yml` — runs the image already published on Docker Hub
+  (built from the `Dockerfile` on the `main` branch). It never builds
+  anything itself.
+- `Caddyfile` — reference copy of the config baked into the image at
+  build time. Serves the static bundle and terminates TLS via Let's
+  Encrypt. Not used unless you uncomment the volume mount in
+  `docker-compose.yml`, which lets you tweak it (headers, domain block,
+  etc.) without rebuilding/republishing the image.
 - `.env.example` — copy to `.env` and fill in `DOMAIN` / `ACME_EMAIL` /
   `DOCKERHUB_IMAGE` before starting.
 
 ## Manual publish flow (never automated)
 
 ```bash
-# 1. Build the image (source is fetched from git inside the Dockerfile;
-#    defaults to the `main` branch of the m3m0 repo)
+# 1. On the main branch checkout (where the Dockerfile + source live),
+#    build the image
 docker build -t <dockerhub-user>/m3m0-web:latest .
 
 # 2. Push it to Docker Hub
