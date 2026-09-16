@@ -1,0 +1,20 @@
+services:
+  web:
+    image: ${DOCKERHUB_IMAGE:-<dockerhub-user>/m3m0-web}:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN:?set DOMAIN in .env (see .env.example)}
+      ACME_EMAIL: ${ACME_EMAIL:?set ACME_EMAIL in .env (see .env.example)}
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+      # Uncomment to tweak the Caddyfile without rebuilding/republishing
+      # the image (e.g. adding headers, changing the domain block):
+      # - ./Caddyfile:/etc/caddy/Caddyfile:ro
+
+volumes:
+  caddy_data:
+  caddy_config:
