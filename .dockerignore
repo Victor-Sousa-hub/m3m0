@@ -1,0 +1,13 @@
+.git
+node_modules
+dist
+.expo
+android
+ios
+backend
+backups
+docs
+.wrangler
+.claude
+*.md
+!README.md

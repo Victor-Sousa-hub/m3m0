@@ -1,0 +1,25 @@
+# m3m0 web — static file server + automatic HTTPS (Let's Encrypt)
+#
+# DOMAIN and ACME_EMAIL come from the environment (see docker-compose.yml /
+# .env.example). For local testing without a public domain, set
+# DOMAIN=localhost — Caddy then issues a locally-trusted certificate
+# instead of requesting one from Let's Encrypt.
+#
+# This app is a client-side SPA (React Navigation, no server-side routing
+# and no expo-router), and the web build talks to the m3m0-sync API
+# directly from the browser — it has no local SQLite/OPFS dependency, so
+# no special COOP/COEP headers are required here.
+{
+	email {$ACME_EMAIL}
+}
+
+{$DOMAIN} {
+	root * /srv
+	encode gzip zstd
+
+	# SPA fallback: unknown paths resolve to index.html instead of 404,
+	# in case client-side routing/deep links are added later.
+	try_files {path} /index.html
+
+	file_server
+}
