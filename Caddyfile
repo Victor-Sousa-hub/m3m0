@@ -1,19 +1,16 @@
-# m3m0 web — static file server + automatic HTTPS (Let's Encrypt)
+# m3m0 web — static file server, plain HTTP only
 #
-# DOMAIN and ACME_EMAIL come from the environment (see docker-compose.yml /
-# .env.example). For local testing without a public domain, set
-# DOMAIN=localhost — Caddy then issues a locally-trusted certificate
-# instead of requesting one from Let's Encrypt.
+# TLS and domain routing live at the VPS edge proxy now (see /PROXY at the
+# repo root, sibling to m3m0/ and ramadam/ — reverse_proxy's here by
+# container name over an internal docker network). This Caddy only serves
+# the static build on :80; it never terminates TLS or sees a public port
+# directly, so there is no ACME_EMAIL/DOMAIN here anymore.
 #
 # This app is a client-side SPA (React Navigation, no server-side routing
 # and no expo-router), and the web build talks to the m3m0-sync API
 # directly from the browser — it has no local SQLite/OPFS dependency, so
 # no special COOP/COEP headers are required here.
-{
-	email {$ACME_EMAIL}
-}
-
-{$DOMAIN} {
+:80 {
 	root * /srv
 	encode gzip zstd
 

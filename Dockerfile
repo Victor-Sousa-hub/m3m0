@@ -4,8 +4,9 @@
 #
 # Multi-stage build: stage 1 runs the same `expo export --platform web`
 # used for the Cloudflare deploy; stage 2 ships only the resulting static
-# bundle in a `caddy:2-alpine` image (Caddy also terminates TLS at
-# runtime — see Caddyfile).
+# bundle in a `caddy:2-alpine` image. This Caddy only serves plain HTTP on
+# :80 — TLS is terminated by the VPS edge proxy in front of it (see
+# /PROXY at the repo root, and this image's Caddyfile).
 #
 # node:22-bookworm-slim (glibc), not alpine, on purpose: `expo export`
 # pulls in `sharp` for asset processing, and its prebuilt musl binaries
@@ -30,4 +31,4 @@ RUN npx expo export --platform web
 FROM caddy:2-alpine
 COPY Caddyfile /etc/caddy/Caddyfile
 COPY --from=build /app/dist /srv
-EXPOSE 80 443
+EXPOSE 80
