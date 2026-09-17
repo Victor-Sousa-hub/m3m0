@@ -1,20 +1,21 @@
 services:
   web:
     image: ${DOCKERHUB_IMAGE:-<dockerhub-user>/m3m0-web}:${IMAGE_TAG:-latest}
+    container_name: m3m0_web
     restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-    environment:
-      DOMAIN: ${DOMAIN:?set DOMAIN in .env (see .env.example)}
-      ACME_EMAIL: ${ACME_EMAIL:?set ACME_EMAIL in .env (see .env.example)}
-    volumes:
-      - caddy_data:/data
-      - caddy_config:/config
-      # Uncomment to tweak the Caddyfile without rebuilding/republishing
-      # the image (e.g. adding headers, changing the domain block):
-      # - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    # No published ports and no TLS config here on purpose: this container
+    # is only reachable from the VPS edge proxy over `edge_net` (see
+    # /PROXY at the repo root). The edge Caddy terminates HTTPS for the
+    # public domain and reverse_proxy's to `m3m0_web:80` — never expose
+    # 80/443 on the host here again, or it collides with the edge proxy
+    # (and with any other project's Caddy) fighting for the same ports.
+    networks:
+      - edge_net
+    # Uncomment to tweak the Caddyfile without rebuilding/republishing the
+    # image (e.g. adding headers):
+    # volumes:
+    #   - ./Caddyfile:/etc/caddy/Caddyfile:ro
 
-volumes:
-  caddy_data:
-  caddy_config:
+networks:
+  edge_net:
+    external: true
